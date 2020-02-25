@@ -10,7 +10,7 @@ from allennlp.data.fields import Field, TextField, SequenceLabelField, MetadataF
 from allennlp.data.instance import Instance
 from allennlp.data.token_indexers import SingleIdTokenIndexer, TokenIndexer
 from allennlp.data.tokenizers import Token, Tokenizer
-from .transition_sdp_reader import get_oracle_actions
+from .enhanced_universal_dependencies_oracle import get_oracle_actions
 
 logger = logging.getLogger(__name__)
 
@@ -63,23 +63,32 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 # dependencies for the original sentence.
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
-                annotation = [x for x in annotation if isinstance(x["id"], int)]
+                word_annotation = [x for x in annotation if isinstance(x["id"], int)]
+                #annotation = [x for x in annotation]
 
-                heads = [x["head"] for x in annotation]
-                tags = [x["deprel"] for x in annotation]
-                words = [x["form"] for x in annotation]
-                eud = [x["deps"] for x in annotation]
+                heads = [x["head"] for x in word_annotation]
+                tags = [x["deprel"] for x in word_annotation]
+                words = [x["form"] for x in word_annotation]
+                #eud = [x["deps"] for x in annotation]
                 enhanced_arc_indices = []
+                enhanced_arc_tags = []
                 #TODO: Inserted nodes! Right now we ignore but should not I think
-                for ind1, head in enumerate(eud):
-                    for _,ind2 in head:
-                        if isinstance(ind2,tuple):
-                            continue
-                        enhanced_arc_indices.append((ind1,ind2))
 
-                enhanced_arc_tags = [tag for head in eud for (tag,_) in head]
+                null_node_ids = []
+                node_ids = ['0']
+                token_node_ids = []
+                for x in annotation:
+                    node_ids.append(str(x['id']))
+                    if not isinstance(x['id'],int):
+                        null_node_ids.append(str(x['id']))
+                    else:
+                        token_node_ids.append(str(x['id']))
+                    for tag,ind2 in x['deps']:
+                        enhanced_arc_indices.append((str(x['id']),str(ind2)))
+                        enhanced_arc_tags.append(tag)
 
-                gold_actions = get_oracle_actions(words, enhanced_arc_indices, enhanced_arc_tags)
+                #TODO: update the oracle to include null nodes
+                gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
                 if gold_actions[-1] == '-E-':
                     print('-E-')
@@ -97,7 +106,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         words: List[str],
         upos_tags: List[str],
         dependencies: List[Tuple[str, int]] = None,
-        enhanced_arc_indices: List[Tuple[int, int]] = None,
+        enhanced_arc_indices: List[Tuple[str, str]] = None,
         enhanced_arc_tags: List[str] = None,
         gold_actions: List[str] = None,
     ) -> Instance:
@@ -124,7 +133,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         text_field = TextField([Token(t) for t in words], self._token_indexers)
         meta_dict = {"words": words, "pos":upos_tags}
         fields["words"] = text_field
-        fields["pos_tag"] = SequenceLabelField(upos_tags, text_field, label_namespace="tags")
+        #fields["pos_tag"] = SequenceLabelField(upos_tags, text_field, label_namespace="tags")
         if dependencies is not None:
             # We don't want to expand the label namespace with an additional dummy token, so we'll
             # always give the 'ROOT_HEAD' token a label of 'root'.

@@ -42,7 +42,7 @@ class EUDPParserPredictor(Predictor):
     def predict_instance(self, instance: Instance) -> JsonDict:
         outputs = self._model.forward_on_instance(instance)
 
-        ret_dict = sdp_trans_outputs_into_mrp(outputs)
+        ret_dict = eud_trans_outputs_into_conllu(outputs)
 
         return sanitize(ret_dict)
 
@@ -53,7 +53,7 @@ class EUDPParserPredictor(Predictor):
         ret_dict_batch = [[] for i in range(len(outputs_batch))]
         for outputs_idx in range(len(outputs_batch)):
             try:
-                ret_dict_batch[outputs_idx] = sdp_trans_outputs_into_mrp(outputs_batch[outputs_idx])
+                ret_dict_batch[outputs_idx] = eud_trans_outputs_into_conllu(outputs_batch[outputs_idx])
             except:
                 print('graph_id:' + json.loads(outputs_batch[outputs_idx]["meta_info"])['id'])
 
@@ -76,19 +76,33 @@ def eud_trans_outputs_into_conllu(outputs):
         multiword_forms = outputs["multiword_forms"]
         multiword_map = {start: (id_, form) for (id_, start, end), form in zip(multiword_ids, multiword_forms)}
 
+    null_node_prefix = len(lines)
+    #we might need to reverse this???
+    token_index_to_id = {i: str(i) for i in range(len(lines))}
+    null_node_id = {}
+    if outputs["null_nodes"]:
+        for i, node in enumerate(null_nodes,start=1):
+            token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
+
     output_lines = []
-    for i, line in enumerate(lines):
+    for i, line in enumerate(lines, start=1):
         line = [str(l) for l in line]
 
         # Handle multiword tokens
-        if multiword_map and i+1 in multiword_map:
-            id_, form = multiword_map[i+1]
+        if multiword_map and i in multiword_map:
+            id_, form = multiword_map[i]
             row = f"{id_}\t{form}" + "".join(["\t_"] * 8)
             output_lines.append(row)
-        deps = "|".join([str(edge[1]) + ':' + edge[2] for edge in edge_list if edge[0] == i+1])
+        deps = "|".join([token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0] == i])
 
         row = "\t".join(line) + '\t' + deps +\
                 "".join(["\t_"])
+        output_lines.append(row)
+
+    if outputs["null_nodes"]:
+        for i, node in enumerate(null_nodes,start=1):
+            deps = "|".join([token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0]-null_node_prefix == i])
+            row = "\t".join([null_node_id[i]] + ['_']*7) + '\t' + deps+ '\t_'
         output_lines.append(row)
 
     return "\n".join(output_lines) + "\n\n"

@@ -9,7 +9,7 @@
               "type": "bert-pretrained",
               "pretrained_model": std.extVar('BERT_PATH'),
               "do_lowercase": std.extVar('LOWER_CASE')=='TRUE'
-          },
+          }
       },
   "action_indexers": {
       "actions": {
@@ -39,14 +39,6 @@
             "tokens": ["tokens", "tokens-offsets", "tokens-type-ids"]
         },
         "allow_unmatched_keys": true
-        }, 
-    "pos_tagger_encoder": {
-      "type": "alternating_lstm",
-      "input_size": std.parseInt(std.extVar('WORD_DIM')),
-      "hidden_size": 300,
-      "num_layers": 2,
-      "recurrent_dropout_probability": 0.33,
-      "use_highway": true
     },
     "action_embedding": {
       "embedding_dim": 50,
@@ -55,6 +47,7 @@
     "word_dim": std.parseInt(std.extVar('WORD_DIM')),
     "hidden_dim": 200,
     "action_dim": 50,
+    "ratio_dim" : 1,
     "num_layers": 2,
     "recurrent_dropout_probability": 0.2,
     "layer_dropout_probability": 0.2,
