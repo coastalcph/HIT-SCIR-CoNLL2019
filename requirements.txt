@@ -11,7 +11,7 @@ certifi==2019.11.28
 chardet==3.0.4
 Click==7.0
 conda==4.3.16
-conllu==2.2.2
+-e git://github.com/mdelhoneux/conllu.git@e71d7b7c737e5ae1a55e2b9cd14e09e415fd6e2e#egg=conllu
 cycler==0.10.0
 cymem==2.0.3
 decorator==4.4.1
