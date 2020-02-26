@@ -145,7 +145,7 @@ class TransitionParser(Model):
                 action_: [self.vocab.get_token_index(a, namespace='actions') for a in
                     self.vocab.get_token_to_index_vocabulary('actions').keys() if a.startswith(action_)]
                 for action_ in
-                ["SHIFT", "REDUCE", "NODE", "LEFT-EDGE", "RIGHT-EDGE", "SWAP", "FINISH"]
+                ["SHIFT", "REDUCE", "NODE", "LEFT-EDGE", "RIGHT-EDGE", "SWAP", "FINISH", "-E-"]
                 }
 
         # compute probability of each of the actions and choose an action
@@ -169,7 +169,8 @@ class TransitionParser(Model):
                 # if self.buffer.get_len(sent_idx) != 0:
                 if action_tag_for_terminate[sent_idx] == False:
                     trans_not_fin = True
-                    valid_actions = []
+                    #not sure it is right but fixes the key error l230
+                    valid_actions = action_id['-E-']
                     # given the buffer and stack, conclude the valid action list
                     if self.buffer.get_len(sent_idx) == 0:
                         valid_actions += action_id['FINISH']
@@ -226,7 +227,6 @@ class TransitionParser(Model):
                     action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
 
                     if log_probs is not None:
-                        # append the action-specific loss
                         losses[sent_idx].append(log_probs[valid_action_tbl[action]])
 
                     # generate concept node, recursive way
@@ -347,7 +347,7 @@ class TransitionParser(Model):
 
         # extract null node list in batchmode
         for sent_idx in range(batch_size):
-            ret_null_node[sent_idx] = null_node[sent_idx]
+            ret_node[sent_idx] = null_node[sent_idx]
 
         ret["total_node_num"] = total_node_num
 
@@ -355,7 +355,7 @@ class TransitionParser(Model):
             ret['edge_list'] = edge_list
         ret['action_sequence'] = action_list
         ret['node'] = ret_node
-        ret["null_node"] = ret_null_node
+        ret["null_node"] = ret_node
 
         return ret
     # Returns an expression of the loss for the sequence of actions.
