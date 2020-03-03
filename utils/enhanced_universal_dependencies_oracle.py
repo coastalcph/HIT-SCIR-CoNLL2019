@@ -62,7 +62,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
             return False
         head_num = 0
         for h in sub_graph[w]:
-            if h:
+            if sub_graph[w][h]:
                 head_num += 1
         if head_num < len(graph[w]):
             return True
@@ -101,6 +101,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
 
         s0 = stack[-1] if len(stack) > 0 else -1
         s1 = stack[-2] if len(stack) > 1 else -1
+        #print(f'S1: {s1} S0: {s0}')
 
         # RIGHT_EDGE
         if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
@@ -162,6 +163,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
     while not (check_graph_finish() and len(buffer) == 0):
         get_oracle_actions_onestep(sub_graph, stack, buffer, actions)
         assert len(actions) <10000
+        #print(actions[-1])
         if actions[-1] == '-E-':
             break
 
