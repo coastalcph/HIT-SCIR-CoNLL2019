@@ -62,10 +62,8 @@ class EUDPParserPredictor(Predictor):
 
 def eud_trans_outputs_into_conllu(outputs):
     edge_list = outputs["edge_list"]
-    tokens = outputs["words"]
-    pos_tag = outputs["pos_tag"]
 
-    word_count = len([word for word in outputs["words"]])
+    word_count = len(outputs["words"])
     lines = zip(*[outputs[k] if k in outputs else ["_"] * word_count
         for k in ["ids", "words", "lemmas", "upos", "xpos", "feats",
             "heads", "dependencies"]])

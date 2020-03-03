@@ -1,4 +1,4 @@
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Any
 import logging
 
 from overrides import overrides
@@ -64,10 +64,10 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
+                #if len(word_annotation)>150:
+                #    continue
                 #annotation = [x for x in annotation]
 
-                heads = [x["head"] for x in word_annotation]
-                tags = [x["deprel"] for x in word_annotation]
                 words = [x["form"] for x in word_annotation]
                 #eud = [x["deps"] for x in annotation]
                 enhanced_arc_indices = []
@@ -87,25 +87,19 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                         enhanced_arc_indices.append((str(x['id']),str(ind2)))
                         enhanced_arc_tags.append(tag)
 
-                #TODO: update the oracle to include null nodes
                 gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
-                if gold_actions[-1] == '-E-':
-                    print('-E-')
+                if gold_actions[-2] == '-E-':
+                    print(gold_actions)
                     continue
 
-                if self.use_language_specific_pos:
-                    pos_tags = [x["xpostag"] for x in annotation]
-                else:
-                    pos_tags = [x["upostag"] for x in annotation]
-                yield self.text_to_instance(words, pos_tags, list(zip(tags, heads)), enhanced_arc_indices, enhanced_arc_tags, gold_actions)
+                yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions)
 
     @overrides
     def text_to_instance(
         self,  # type: ignore
         words: List[str],
-        upos_tags: List[str],
-        dependencies: List[Tuple[str, int]] = None,
+        annotation: List[Dict[str,Any]],
         enhanced_arc_indices: List[Tuple[str, str]] = None,
         enhanced_arc_tags: List[str] = None,
         gold_actions: List[str] = None,
@@ -131,18 +125,8 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         fields: Dict[str, Field] = {}
 
         text_field = TextField([Token(t) for t in words], self._token_indexers)
-        meta_dict = {"words": words, "pos":upos_tags}
+        meta_dict = {"words": words, "annotation":annotation}
         fields["words"] = text_field
-        #fields["pos_tag"] = SequenceLabelField(upos_tags, text_field, label_namespace="tags")
-        if dependencies is not None:
-            # We don't want to expand the label namespace with an additional dummy token, so we'll
-            # always give the 'ROOT_HEAD' token a label of 'root'.
-            fields["head_tags"] = SequenceLabelField(
-                [x[0] for x in dependencies], text_field, label_namespace="head_tags"
-            )
-            fields["head_indices"] = SequenceLabelField(
-                [x[1] for x in dependencies], text_field, label_namespace="head_index_tags"
-            )
 
         if enhanced_arc_tags is not None:
             #enhanced_arc_tags, enhanced_arc_indices = enhanced_dependencies
