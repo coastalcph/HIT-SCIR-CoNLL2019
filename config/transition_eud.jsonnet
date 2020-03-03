@@ -8,7 +8,8 @@
           "tokens": {
               "type": "bert-pretrained",
               "pretrained_model": std.extVar('BERT_PATH'),
-              "do_lowercase": std.extVar('LOWER_CASE')=='TRUE'
+              "do_lowercase": std.extVar('LOWER_CASE')=='TRUE',
+              "truncate_long_sequences": false
           }
       },
   "action_indexers": {
