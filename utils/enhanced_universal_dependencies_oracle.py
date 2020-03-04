@@ -50,6 +50,14 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
                 return True
         return False
 
+    def has_parent_or_child_in(w,node_list):
+        for node in node_list:
+            if whole_graph[w][node] and not sub_graph[w][node]:
+                return True
+            if whole_graph[node][w] and not sub_graph[node][w]:
+                return True
+        return False
+
     def has_unfound_child(w):
         for child in top_down_graph[w]:
             if not sub_graph[child][w]:
@@ -74,18 +82,14 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
             if h[0] == w1:
                 return h[1]
 
-    def get_node_id(w0):
-        """
-        return True only if find the new head+concept node of w0
-        """
+    def get_dependent_null_node_id(w0):
         if w0 ==-1:
             return -1
-        for head_node_info_of_w0 in graph[w0]:
-            head_node_id = head_node_info_of_w0[0]
-            if sub_graph[w0][head_node_id] == False and head_node_id ==-1:
-                if null_node_ids[head_node_id] == True:
+        for dependent in top_down_graph[w0]:
+            if sub_graph[dependent][w0] == False and dependent in null_node_ids:
+                if null_node_ids[dependent] == True:
                     return -1
-                return head_node_id
+                return dependent
         return -1
 
     def check_graph_finish():
@@ -118,28 +122,32 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
             return
 
         # NODE
-        elif s0 != root_id and get_node_id(s0) != -1 and has_head(s0, get_node_id(
-            s0)) and not has_find_head(s0):
-            null_node_id = get_node_id(s0)
+        elif s0 != root_id and get_dependent_null_node_id(s0) != -1:
+            null_node_id = get_dependent_null_node_id(s0)
             buffer.append(null_node_id)
 
-            actions.append("NODE:" + get_arc_label(s0, null_node_id))
+            actions.append("NODE:" + get_arc_label(null_node_id,s0))
 
             null_node_ids[null_node_id] = True
-            sub_graph[s0][null_node_id] = True
-            sub_graph_arc_list.append((s0, null_node_id))
+            sub_graph[null_node_id][s0] = True
+            sub_graph_arc_list.append((null_node_id, s0))
 
             return
 
             # REDUCE
         elif s0 != -1 and not has_unfound_child(s0) and not lack_head(s0):
-            actions.append("REDUCE")
+            actions.append("REDUCE-0")
             stack.pop()
+            return
+
+        elif s1 != -1 and not has_unfound_child(s1) and not lack_head(s1):
+            actions.append("REDUCE-1")
+            stack.pop(-2)
             return
 
             # SWAP
         elif len(stack) > 2 and generated_order[s0] > generated_order[s1] and (
-                has_unfound_child(stack[-3]) or lack_head(stack[-3])):
+                has_parent_or_child_in(s0,stack[-3::-1])):
             buffer.append(stack.pop(-2))
             actions.append("SWAP")
             return

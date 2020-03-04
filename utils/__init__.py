@@ -1,4 +1,4 @@
 from .transition_eds_predictor import eds_trans_outputs_into_mrp
 from .transition_sdp_predictor import sdp_trans_outputs_into_mrp
 from .transition_ucca_predictor import ucca_trans_outputs_into_mrp
-from .transition_eud_predictor import eud_trans_outputs_into_conllu
+from .transition_eud_predictor import eud_trans_outputs_into_conllu, annotation_to_conllu

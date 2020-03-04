@@ -7,11 +7,11 @@ from allennlp.models import SimpleTagger
 from allennlp.models.model import Model
 from allennlp.modules import Seq2SeqEncoder, TextFieldEmbedder, Embedding
 from allennlp.nn import InitializerApplicator, RegularizerApplicator
-from allennlp.training.metrics import F1Measure
 from torch.nn.modules import Dropout
+from metrics.xud_score import XUDScore
 
 from modules import StackRnn, SimpleTagger
-from utils import eud_trans_outputs_into_conllu
+from utils import eud_trans_outputs_into_conllu, annotation_to_conllu
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -51,7 +51,7 @@ class TransitionParser(Model):
         self.text_field_embedder = text_field_embedder
         self.pos_tag_embedding = pos_tag_embedding
         #this is most probably incorrect
-        self._f1 = F1Measure(positive_label=1)
+        self._xud_score = XUDScore()
 
 
         self.word_dim = word_dim
@@ -74,7 +74,7 @@ class TransitionParser(Model):
         # hidden to action
         self.p_act = torch.nn.Linear(self.hidden_dim + self.ratio_dim, self.num_actions)
 
-        self.update_concept_node = torch.nn.Linear(self.hidden_dim + self.ratio_dim, self.word_dim)
+        self.update_null_node = torch.nn.Linear(self.hidden_dim + self.ratio_dim, self.word_dim)
 
         self.pempty_buffer_emb = torch.nn.Parameter(torch.randn(self.hidden_dim))
         self.proot_stack_emb = torch.nn.Parameter(torch.randn(self.word_dim))
@@ -129,10 +129,14 @@ class TransitionParser(Model):
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
+                #import pdb;pdb.set_trace()
                 if sent_len[sent_idx] > token_idx:
-                    self.buffer.push(sent_idx,
-                            input=embedded_text_input[sent_idx][sent_len[sent_idx] - 1 - token_idx],
-                            extra={'token': sent_len[sent_idx] - token_idx - 1})
+                    try:
+                        self.buffer.push(sent_idx,
+                                input=embedded_text_input[sent_idx][sent_len[sent_idx] - 1 - token_idx],
+                                extra={'token': sent_len[sent_idx] - token_idx - 1})
+                    except IndexError:
+                        raise IndexError(f"{sent_idx} {batch_size} {token_idx} {sent_len[sent_idx]} {embedded_text_input[sent_idx].dim()}")
 
                     # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
@@ -145,7 +149,7 @@ class TransitionParser(Model):
                 action_: [self.vocab.get_token_index(a, namespace='actions') for a in
                     self.vocab.get_token_to_index_vocabulary('actions').keys() if a.startswith(action_)]
                 for action_ in
-                ["SHIFT", "REDUCE", "NODE", "LEFT-EDGE", "RIGHT-EDGE", "SWAP", "FINISH", "-E-"]
+                ["SHIFT", "REDUCE-0", "REDUCE-1", "NODE", "LEFT-EDGE", "RIGHT-EDGE", "SWAP", "FINISH"]
                 }
 
         # compute probability of each of the actions and choose an action
@@ -162,15 +166,14 @@ class TransitionParser(Model):
         while trans_not_fin:
             trans_not_fin = False
             for sent_idx in range(batch_size):
-                if (len(null_node[sent_idx]) > 50 * sent_len[sent_idx] or action_sequence_length[sent_idx] > 50 *
+                if (action_sequence_length[sent_idx] > 1000 *
                         sent_len[sent_idx]) and oracle_actions is None:
                     raise RuntimeError(f"Too many actions for a sentence {sent_idx}")
                 total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
                 # if self.buffer.get_len(sent_idx) != 0:
                 if action_tag_for_terminate[sent_idx] == False:
                     trans_not_fin = True
-                    #not sure it is right but fixes the key error l230
-                    valid_actions = action_id['-E-']
+                    valid_actions = []
                     # given the buffer and stack, conclude the valid action list
                     if self.buffer.get_len(sent_idx) == 0:
                         valid_actions += action_id['FINISH']
@@ -180,14 +183,28 @@ class TransitionParser(Model):
 
                     try:
                         if self.stack.get_len(sent_idx) > 0:
-                            valid_actions += action_id['REDUCE']
-                            valid_actions += action_id['NODE']
+                            valid_actions += action_id['REDUCE-0']
+                            if len(null_node[sent_idx]) < sent_len[sent_idx]:
+                                valid_actions += action_id['NODE']
                     except:
                         pass
                     if self.stack.get_len(sent_idx) > 1:
+                        valid_actions += action_id['REDUCE-1']
                         valid_actions += action_id['SWAP']
-                        valid_actions += action_id['LEFT-EDGE']
-                        valid_actions += action_id['RIGHT-EDGE']
+
+                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
+                        s1 = self.stack.get_stack(sent_idx)[-2]['token']
+                        left_edge_exists = False
+                        right_edge_exists = False
+                        for mod_tok, head_tok, _ in edge_list[sent_idx]:
+                            if (mod_tok,head_tok) == (s1,s0):
+                                left_edge_exists=True
+                            if (mod_tok,head_tok) == (s0,s1):
+                                right_edge_exists=True
+                        if not left_edge_exists:
+                            valid_actions += action_id['LEFT-EDGE']
+                        if not right_edge_exists:
+                            valid_actions += action_id['RIGHT-EDGE']
 
                     log_probs = None
                     action = valid_actions[0]
@@ -225,9 +242,16 @@ class TransitionParser(Model):
                             extra={
                                 'token': self.vocab.get_token_from_index(action, namespace='actions')})
                     action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
+                    print(action_list[sent_idx][-1])
 
-                    if log_probs is not None:
-                        losses[sent_idx].append(log_probs[valid_action_tbl[action]])
+                    #log_probs should be none when validating so we should not get here
+                    try:
+                        if log_probs is not None:
+                            losses[sent_idx].append(log_probs[valid_action_tbl[action]])
+                    except KeyError:
+                        #print(action)
+                        d = self.vocab.get_token_to_index_vocabulary('actions')
+                        print(d[action])
 
                     # generate concept node, recursive way
                     if action in action_id["NODE"] :
@@ -251,8 +275,8 @@ class TransitionParser(Model):
                             + action_id["RIGHT-EDGE"] :
 
                         if action in action_id["NODE"] :
-                            head = self.buffer.get_stack(sent_idx)[-1]
-                            modifier = self.stack.get_stack(sent_idx)[-1]
+                            modifier = self.buffer.get_stack(sent_idx)[-1]
+                            head = self.stack.get_stack(sent_idx)[-1]
 
                         elif action in action_id["LEFT-EDGE"] :
                             head = self.stack.get_stack(sent_idx)[-1]
@@ -312,8 +336,16 @@ class TransitionParser(Model):
                                     extra={'token': mod_tok})
 
                     # Execute the action to update the parser state
-                    if action in action_id["REDUCE"]:
+                    if action in action_id["REDUCE-0"]:
                         self.stack.pop(sent_idx)
+
+                    if action in action_id["REDUCE-1"]:
+                        stack_0 = self.stack.pop(sent_idx)
+                        self.stack.pop(sent_idx)
+                        self.stack.push(sent_idx,
+                                input=stack_0['stack_rnn_input'],
+                                extra={'token': stack_0['token']})
+
 
                     elif action in action_id["SHIFT"]:
                         buffer = self.buffer.pop(sent_idx)
@@ -364,9 +396,6 @@ class TransitionParser(Model):
                 words: Dict[str, torch.LongTensor],
                 metadata: List[Dict[str, Any]],
                 gold_actions: Dict[str, torch.LongTensor] = None,
-                #pos_tag: torch.LongTensor = None,
-                head_tags: torch.LongTensor = None,
-                head_indices: torch.LongTensor = None,
                 enhanced_arc_tags: torch.LongTensor=None,
                 ) -> Dict[str, torch.LongTensor]:
 
@@ -380,12 +409,16 @@ class TransitionParser(Model):
 
         embedded_text_input = self.text_field_embedder(words)
         embedded_text_input = self._input_dropout(embedded_text_input)
+        #import pdb;pdb.set_trace()
 
         if self.training:
-            ret_train = self._greedy_decode(batch_size=batch_size,
-                                            sent_len=sent_len,
-                                            embedded_text_input=embedded_text_input,
-                                            oracle_actions=oracle_actions)
+            try:
+                ret_train = self._greedy_decode(batch_size=batch_size,
+                                                sent_len=sent_len,
+                                                embedded_text_input=embedded_text_input,
+                                                oracle_actions=oracle_actions)
+            except IndexError:
+                raise IndexError(f"{[d['words'] for d in metadata]}")
 
             _loss = ret_train['loss']
             output_dict = {'loss': _loss}
@@ -407,12 +440,21 @@ class TransitionParser(Model):
 
         # prediction-mode
         output_dict = {
-            'words': [d['words'] for d in metadata],
             'edge_list': edge_list,
             'null_node': null_node,
-            'ids': [list(range(1,len(d['words'])+1)) for d in metadata],
             'loss': _loss
         }
+
+        for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+                "deprel", "misc"]:
+            #import pdb;pdb.set_trace()
+            try:
+                output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
+                #let's just ignore these guys for now
+                output_dict["multiword_ids"] = [None] * batch_size
+            except KeyError:
+                import pdb;pdb.set_trace()
+                #print('still not - sorry')
 
         # prediction-mode
         if gold_actions is not None:
@@ -421,20 +463,21 @@ class TransitionParser(Model):
 
             for sent_idx in range(batch_size):
                     predicted_graphs.append(eud_trans_outputs_into_conllu({
-                        'words': output_dict['words'][sent_idx],
-                        'edge_list': output_dict['edge_list'][sent_idx],
-                        'meta_info': output_dict['meta_info'][sent_idx],
-                        'pos_tag': output_dict['pos_tag'][sent_idx],
-                        'ids': output_dict['ids'][sent_idx],
+                        k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+                            "deprel", "misc", "edge_list", "null_node", "multiword_ids"]
                     }))
 
-            self._f1(edge_list,
-                    gold_graphs)
+            predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
+            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation']) for sentence_metadata in metadata]
+            gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
+
+            self._xud_score(predicted_graphs_conllu,
+                    gold_graphs_conllu)
 
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
         all_metrics: Dict[str, float] = {}
-        if self._f1 is not None and not self.training:
-            all_metrics.update(self._f1.get_metric(reset=reset))
+        if self._xud_score is not None and not self.training:
+            all_metrics.update(self._xud_score.get_metric(reset=reset))
         return all_metrics

@@ -2,7 +2,7 @@ from typing import Dict, Tuple, List, Any
 import logging
 
 from overrides import overrides
-from conllu import parse_incr
+from conllu import parse_incr, string_to_file
 
 from allennlp.common.file_utils import cached_path
 from allennlp.data.dataset_readers.dataset_reader import DatasetReader
@@ -55,9 +55,11 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         file_path = cached_path(file_path)
 
         with open(file_path, "r") as conllu_file:
+
+            conllu_string= conllu_file.read()
             logger.info("Reading UD instances from conllu dataset at: %s", file_path)
 
-            for annotation in parse_incr(conllu_file):
+            for annotation in parse_incr(string_to_file(conllu_string)):
                 # CoNLLU annotations sometimes add back in words that have been elided
                 # in the original sentence; we remove these, as we're just predicting
                 # dependencies for the original sentence.
@@ -69,18 +71,17 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 #annotation = [x for x in annotation]
 
                 words = [x["form"] for x in word_annotation]
-                #eud = [x["deps"] for x in annotation]
                 enhanced_arc_indices = []
                 enhanced_arc_tags = []
-                #TODO: Inserted nodes! Right now we ignore but should not I think
 
                 null_node_ids = []
                 node_ids = ['0']
                 token_node_ids = []
                 for x in annotation:
                     node_ids.append(str(x['id']))
-                    if not isinstance(x['id'],int):
-                        null_node_ids.append(str(x['id']))
+                    if isinstance(x['id'],tuple):
+                        if x['id'][1] == '.':
+                            null_node_ids.append(str(x['id']))
                     else:
                         token_node_ids.append(str(x['id']))
                     for tag,ind2 in x['deps']:
