@@ -113,7 +113,7 @@ def eud_trans_outputs_to_annotation(outputs):
             token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
 
     output_annotation = []
-    for i, line in enumerate(annotation, start=1):
+    for i, line in enumerate(annotation):
 
         # Handle multiword tokens
         if multiword_map and i in multiword_map:

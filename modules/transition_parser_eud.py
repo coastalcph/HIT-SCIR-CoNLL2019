@@ -182,21 +182,24 @@ class TransitionParser(Model):
                     if self.buffer.get_len(sent_idx) > 0:
                         valid_actions += action_id['SHIFT']
 
-                    try:
-                        if self.stack.get_len(sent_idx) > 0:
+                    if self.stack.get_len(sent_idx) > 0:
+                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
+                        #the oracle knows what to do but we need to add condition at prediction time
+                        if oracle_actions or s0 in [edge[0] for edge in edge_list[sent_idx]]:
                             valid_actions += action_id['REDUCE-0']
-                            if len(null_node[sent_idx]) < sent_len[sent_idx]:
-                                valid_actions += action_id['NODE']
-                    except:
-                        pass
+                        if len(null_node[sent_idx]) < sent_len[sent_idx]:
+                            valid_actions += action_id['NODE']
+
                     if self.stack.get_len(sent_idx) > 1:
 
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         s1 = self.stack.get_stack(sent_idx)[-2]['token']
 
                         if s1 != root_id[sent_idx]:
-                            valid_actions += action_id['REDUCE-1']
                             valid_actions += action_id['SWAP']
+                            #the oracle knows what to do but we need to add condition at prediction time
+                            if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
+                                valid_actions += action_id['REDUCE-1']
 
                         left_edge_exists = False
                         right_edge_exists = False
@@ -208,9 +211,9 @@ class TransitionParser(Model):
                         if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
                         if not right_edge_exists:
-                            if s1 != root_id[sent_idx] or (self.stack.get_len(sent_idx) == 2
-                                    and self.buffer.get_len(sent_idx) == 0):
-                                valid_actions += action_id['RIGHT-EDGE']
+                            #if s1 != root_id[sent_idx] or (self.stack.get_len(sent_idx) == 2
+                            #        and self.buffer.get_len(sent_idx) == 0):
+                            valid_actions += action_id['RIGHT-EDGE']
 
                     log_probs = None
                     action = valid_actions[0]
@@ -248,7 +251,7 @@ class TransitionParser(Model):
                             extra={
                                 'token': self.vocab.get_token_from_index(action, namespace='actions')})
                     action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
-                    #print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
+                    print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
 
                     #log_probs should be none when validating so we should not get here
                     try:
@@ -299,6 +302,7 @@ class TransitionParser(Model):
                                 self.vocab.get_token_from_index(action, namespace='actions')
                                 .split(':', maxsplit=1)[1]))
 
+                            #print(f'edge list updated for sentence {sent_idx}: {edge_list[sent_idx]}')
                             # # compute composed representation
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \

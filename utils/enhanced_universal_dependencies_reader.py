@@ -91,7 +91,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
                 if gold_actions[-2] == '-E-':
-                    #print(gold_actions)
+                    print(gold_actions)
                     continue
 
                 yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions)
