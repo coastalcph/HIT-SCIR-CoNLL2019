@@ -27,22 +27,20 @@ class XUDScore(Metric):
 
         #hack to avoid double new lines when joining
         predictions = [pred if pred != '\n' else '' for pred in predictions]
+        golds = [gold if gold != '\n' else '' for gold in golds]
         try:
-            pred_graphs = load_conllu_default(string_to_file('\n'.join(predictions)))
+            pred_graphs = load_conllu_default(string_to_file('\n'.join(predictions)+'\n'))
         except Exception:
             raise Exception('\n'.join(string_to_file('\n'.join(predictions)).readlines()))
-        gold_graphs = load_conllu_default(string_to_file('\n'.join(golds)))
+        gold_graphs = load_conllu_default(string_to_file('\n'.join(golds)+'\n'))
         self.results.append(evaluate(gold_graphs, pred_graphs))
 
     def get_metric(self, reset: bool = False) -> Dict[str,float]:
-        results = {}
+        results = {'ELAS':0}
         for result in self.results:
-            for key,value in result.items():
-                if key not in results:
-                    results[key] = 0
-                results[key] += value
-        for key, value in list(results.items()):
-            results[key]/=len(self.results)
+            results['ELAS'] += result['ELAS'].f1
+
+        results['ELAS']/=len(self.results)
         if reset:
             self.results = []
         return results

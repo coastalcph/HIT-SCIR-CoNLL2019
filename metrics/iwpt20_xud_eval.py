@@ -341,7 +341,6 @@ def load_conllu(file,treebank_type):
 
             # Check there is a single root node
             if len([word for word in ud.words[sentence_start:] if word.parent is None]) != 1:
-                import pdb;pdb.set_trace()
                 raise UDError("There are multiple roots in a sentence")
 
             # End the sentence
@@ -643,7 +642,7 @@ def load_conllu_default(path):
     treebank_type['no_control'] = 0
     treebank_type['no_external_arguments_of_relative_clauses'] = 0
     treebank_type['no_case_info'] = 0
-    load_conllu(path, treebank_type)
+    return load_conllu(path, treebank_type)
 
 def load_conllu_file(path,treebank_type):
     _file = open(path, mode="r", **({"encoding": "utf-8"} if sys.version_info >= (3, 0) else {}))

@@ -74,7 +74,7 @@
     "grad_clipping": 5.0,
     "patience": 50,
     "cuda_device": -1,
-    "validation_metric": "+all-f",
+    "validation_metric": "+ELAS",
     "optimizer": {
       "type": "adam",
      "parameter_groups": [
