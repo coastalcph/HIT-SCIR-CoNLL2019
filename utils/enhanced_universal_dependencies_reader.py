@@ -91,7 +91,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
                 if gold_actions[-2] == '-E-':
-                    print(gold_actions)
+                    #print(gold_actions)
                     continue
 
                 yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions)
@@ -130,7 +130,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         fields["words"] = text_field
 
         if enhanced_arc_tags is not None:
-            #enhanced_arc_tags, enhanced_arc_indices = enhanced_dependencies
             fields["enhanced_arc_tags"] = TextField([Token(a) for a in enhanced_arc_tags], self._arc_tag_indexers)
             meta_dict["enhanced_arc_tags"] = enhanced_arc_tags
         if enhanced_arc_indices is not None:

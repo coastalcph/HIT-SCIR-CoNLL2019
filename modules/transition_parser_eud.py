@@ -126,6 +126,7 @@ class TransitionParser(Model):
         total_node_num = [0 for _ in range(batch_size)]
         action_list = [[] for _ in range(batch_size)]
         ret_node = [[] for _ in range(batch_size)]
+        root_id = [[] for _ in range(batch_size)]
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
@@ -140,10 +141,10 @@ class TransitionParser(Model):
 
                     # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
+            root_id[sent_idx] = sent_len[sent_idx]
             self.stack.push(sent_idx,
                     input=self.proot_stack_emb,
-                    extra={'token': sent_len[sent_idx]})
-            ret_node[sent_idx] = [sent_len[sent_idx]]
+                    extra={'token': root_id[sent_idx]})
 
         action_id = {
                 action_: [self.vocab.get_token_index(a, namespace='actions') for a in
@@ -161,7 +162,7 @@ class TransitionParser(Model):
 
         null_node = {}
         for sent_idx in range(batch_size):
-            null_node[sent_idx] = [sent_len[sent_idx]]
+            null_node[sent_idx] = []
 
         while trans_not_fin:
             trans_not_fin = False
@@ -189,11 +190,14 @@ class TransitionParser(Model):
                     except:
                         pass
                     if self.stack.get_len(sent_idx) > 1:
-                        valid_actions += action_id['REDUCE-1']
-                        valid_actions += action_id['SWAP']
 
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         s1 = self.stack.get_stack(sent_idx)[-2]['token']
+
+                        if s1 != root_id[sent_idx]:
+                            valid_actions += action_id['REDUCE-1']
+                            valid_actions += action_id['SWAP']
+
                         left_edge_exists = False
                         right_edge_exists = False
                         for mod_tok, head_tok, _ in edge_list[sent_idx]:
@@ -201,10 +205,12 @@ class TransitionParser(Model):
                                 left_edge_exists=True
                             if (mod_tok,head_tok) == (s0,s1):
                                 right_edge_exists=True
-                        if not left_edge_exists:
+                        if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
                         if not right_edge_exists:
-                            valid_actions += action_id['RIGHT-EDGE']
+                            if s1 != root_id[sent_idx] or (self.stack.get_len(sent_idx) == 2
+                                    and self.buffer.get_len(sent_idx) == 0):
+                                valid_actions += action_id['RIGHT-EDGE']
 
                     log_probs = None
                     action = valid_actions[0]
@@ -242,7 +248,7 @@ class TransitionParser(Model):
                             extra={
                                 'token': self.vocab.get_token_from_index(action, namespace='actions')})
                     action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
-                    print(action_list[sent_idx][-1])
+                    #print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
 
                     #log_probs should be none when validating so we should not get here
                     try:
@@ -250,12 +256,11 @@ class TransitionParser(Model):
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
                         #print(action)
-                        d = self.vocab.get_token_to_index_vocabulary('actions')
-                        print(d[action])
+                        raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
                     # generate concept node, recursive way
                     if action in action_id["NODE"] :
-                        null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx]
+                        null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
                         null_node[sent_idx].append(null_node_token)
 
                         stack_emb = self.stack.get_output(sent_idx)
@@ -386,7 +391,6 @@ class TransitionParser(Model):
         if oracle_actions is None:
             ret['edge_list'] = edge_list
         ret['action_sequence'] = action_list
-        ret['node'] = ret_node
         ret["null_node"] = ret_node
 
         return ret
@@ -402,14 +406,13 @@ class TransitionParser(Model):
         batch_size = len(metadata)
         sent_len = [len(d['words']) for d in metadata]
 
-        oracle_actions = None
+        #oracle_actions = None
         if gold_actions is not None:
             oracle_actions = [d['gold_actions'] for d in metadata]
             oracle_actions = [[self.vocab.get_token_index(s, namespace='actions') for s in l] for l in oracle_actions]
 
         embedded_text_input = self.text_field_embedder(words)
         embedded_text_input = self._input_dropout(embedded_text_input)
-        #import pdb;pdb.set_trace()
 
         if self.training:
             try:
@@ -447,14 +450,12 @@ class TransitionParser(Model):
 
         for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                 "deprel", "misc"]:
-            #import pdb;pdb.set_trace()
             try:
                 output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
                 #let's just ignore these guys for now
                 output_dict["multiword_ids"] = [None] * batch_size
             except KeyError:
-                import pdb;pdb.set_trace()
-                #print('still not - sorry')
+                raise KeyError
 
         # prediction-mode
         if gold_actions is not None:

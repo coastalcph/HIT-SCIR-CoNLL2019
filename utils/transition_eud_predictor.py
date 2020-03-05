@@ -63,11 +63,23 @@ class EUDPParserPredictor(Predictor):
 def eud_trans_outputs_into_conllu(outputs):
     return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs))
 
+def serialize_field(field,key):
+    if isinstance(field, (str,int)):
+        return str(field)
+    elif field is None:
+        return '_'
+    elif key in ['feats', 'misc']:
+        return '|'.join(f'{k}={v}' for k,v in field.items())
+    elif key == 'deps':
+        return "|".join(f"{v}:{k}" for k,v in field)
+    else:
+        raise ValueError(f"Type not known for {key}, value: {field}")
+
 def annotation_to_conllu(annotation):
     output_lines = []
 
     for i, line in enumerate(annotation, start=1):
-        line = [str(line.get(k,'_')) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+        line = [serialize_field(line.get(k), k) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
             "deprel", "deps", "misc"]]
 
         row = "\t".join(line)
@@ -93,8 +105,8 @@ def eud_trans_outputs_to_annotation(outputs):
         multiword_forms = outputs["multiword_forms"]
         multiword_map = {start: (id_, form) for (id_, start, end), form in zip(multiword_ids, multiword_forms)}
 
-    null_node_prefix = len(annotation)
-    token_index_to_id = {i: str(i) for i in range(len(annotation))}
+    null_node_prefix = len(annotation)+1
+    token_index_to_id = {i: str(i) for i in range(len(annotation)+1)}
     null_node_id = {}
     if null_nodes:
         for i, node in enumerate(null_nodes,start=1):
@@ -117,10 +129,12 @@ def eud_trans_outputs_to_annotation(outputs):
         for i, node in enumerate(null_nodes,start=1):
             deps_list = [token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0]-null_node_prefix == i]
             if not deps_list:
+                import pdb;pdb.set_trace()
                 raise ValueError(f"deps empty")
             deps = "|".join(deps_list)
             row = {"id":null_node_id[i], "deps":deps}
             output_annotation.append(row)
 
+    #import pdb;pdb.set_trace()
     return output_annotation
 

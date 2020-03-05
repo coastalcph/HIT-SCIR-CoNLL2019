@@ -108,7 +108,8 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         #print(f'S1: {s1} S0: {s0}')
 
         # RIGHT_EDGE
-        if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
+        if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1) and (s1 != root_id
+                or len(stack) == 2 and not buffer):
             actions.append("RIGHT-EDGE:" + get_arc_label(s0, s1))
             sub_graph[s0][s1] = True
             sub_graph_arc_list.append((s0, s1))
