@@ -176,7 +176,7 @@ class TransitionParser(Model):
                     trans_not_fin = True
                     valid_actions = []
                     # given the buffer and stack, conclude the valid action list
-                    if self.buffer.get_len(sent_idx) == 0:
+                    if self.buffer.get_len(sent_idx) == 0 and self.stack.get_len(sent_idx) ==1:
                         valid_actions += action_id['FINISH']
 
                     if self.buffer.get_len(sent_idx) > 0:
@@ -251,13 +251,14 @@ class TransitionParser(Model):
                             extra={
                                 'token': self.vocab.get_token_from_index(action, namespace='actions')})
                     action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
-                    print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
+                    #print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
 
                     #log_probs should be none when validating so we should not get here
                     try:
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
+                        import pdb;pdb.set_trace()
                         #print(action)
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 

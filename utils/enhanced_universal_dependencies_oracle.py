@@ -166,11 +166,11 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
 
         else:
             remain_unfound_edge = set(arc_indices) - set(sub_graph_arc_list)
-            print(f'unfound edge: {remain_unfound_edge}')
+            #print(f'unfound edge: {remain_unfound_edge}')
             actions.append('-E-')
             return
 
-    while not (check_graph_finish() and len(buffer) == 0):
+    while not (check_graph_finish() and len(buffer) == 0 and len(stack) == 1):
         get_oracle_actions_onestep(sub_graph, stack, buffer, actions)
         assert len(actions) <10000
         #print(actions[-1])
