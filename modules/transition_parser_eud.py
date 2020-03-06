@@ -298,12 +298,13 @@ class TransitionParser(Model):
                         (mod_rep, mod_tok) = (modifier['stack_rnn_output'], modifier['token'])
 
                         if oracle_actions is None:
+                            #import pdb;pdb.set_trace()
                             edge_list[sent_idx].append((mod_tok,
                                 head_tok,
                                 self.vocab.get_token_from_index(action, namespace='actions')
                                 .split(':', maxsplit=1)[1]))
 
-                            #print(f'edge list updated for sentence {sent_idx}: {edge_list[sent_idx]}')
+                            #print(f'new edge for sentence {sent_idx}: {mod_tok}, {head_tok}')
                             # # compute composed representation
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \

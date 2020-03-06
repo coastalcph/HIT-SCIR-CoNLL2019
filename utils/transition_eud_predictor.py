@@ -103,28 +103,33 @@ def eud_trans_outputs_to_annotation(outputs):
         multiword_map = {start: (id_, form) for (id_, start, end), form in zip(multiword_ids, multiword_forms)}
 
     null_node_prefix = len(annotation)+1
-    token_index_to_id = {i: str(i) for i in range(len(annotation)+1)}
+    token_index_to_id = {len(annotation):0}
+    for i in range(len(annotation)):
+        token_index_to_id[i]= i+1
     null_node_id = {}
     if null_nodes:
         for i, node in enumerate(null_nodes,start=1):
             token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
 
     output_annotation = []
-    for i, line in enumerate(annotation):
+    for i, line in enumerate(annotation,start=1):
 
         # Handle multiword tokens
         if multiword_map and i in multiword_map:
             id_, form = multiword_map[i]
             row = {"id":id_, "form":form}
             output_annotation.append(row)
-        deps = "|".join([token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0] == i])
+        deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
+        #print(deps)
+        if not deps:
+            raise ValueError(f"No edge found for {annotation[i-1]}")
 
         line['deps'] = deps
         output_annotation.append(line)
 
     if null_nodes:
         for i, node in enumerate(null_nodes,start=1):
-            deps_list = [token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0]-null_node_prefix == i]
+            deps_list = [token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]]-null_node_prefix == i]
             if not deps_list:
                 raise ValueError(f"deps empty")
             deps = "|".join(deps_list)
