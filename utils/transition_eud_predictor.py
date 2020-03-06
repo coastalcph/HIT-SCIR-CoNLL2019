@@ -39,25 +39,22 @@ class EUDPParserPredictor(Predictor):
         return self._dataset_reader.text_to_instance(tokens=tokens, meta_info=[meta_info], tokens_range=tokens_range)
 
     @overrides
-    def predict_instance(self, instance: Instance) -> JsonDict:
-        outputs = self._model.forward_on_instance(instance)
-
-        ret_dict = eud_trans_outputs_into_conllu(outputs)
-
-        return sanitize(ret_dict)
+    def predict_batch_instance(self, instances: List[Instance]) -> List[JsonDict]:
+        outputs = self._model.forward_on_instances(instances)
+        return outputs
 
     @overrides
-    def predict_batch_instance(self, instances: List[Instance]) -> List[JsonDict]:
-        outputs_batch = self._model.forward_on_instances(instances)
+    def predict_instance(self, instance: Instance) -> JsonDict:
+        outputs = self._model.forward_on_instance(instance)
+        return outputs
 
-        ret_dict_batch = [[] for i in range(len(outputs_batch))]
-        for outputs_idx in range(len(outputs_batch)):
-            try:
-                ret_dict_batch[outputs_idx] = eud_trans_outputs_into_conllu(outputs_batch[outputs_idx])
-            except:
-                print('graph_id:' + json.loads(outputs_batch[outputs_idx]["meta_info"])['id'])
-
-        return sanitize(ret_dict_batch)
+    @overrides
+    def dump_line(self, outputs: JsonDict) -> str:
+        #TODO: add sentence ID?
+        predictions= eud_trans_outputs_into_conllu(outputs)
+        #avoids printing two new lines
+        predictions = [pred if pred != '\n' else '' for pred in predictions]
+        return '\n'.join(predictions)+'\n'
 
 
 def eud_trans_outputs_into_conllu(outputs):
@@ -129,12 +126,10 @@ def eud_trans_outputs_to_annotation(outputs):
         for i, node in enumerate(null_nodes,start=1):
             deps_list = [token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if edge[0]-null_node_prefix == i]
             if not deps_list:
-                import pdb;pdb.set_trace()
                 raise ValueError(f"deps empty")
             deps = "|".join(deps_list)
             row = {"id":null_node_id[i], "deps":deps}
             output_annotation.append(row)
 
-    #import pdb;pdb.set_trace()
     return output_annotation
 
