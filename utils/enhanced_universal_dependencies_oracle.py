@@ -78,9 +78,11 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
 
     # return the relation between child: w0, head: w1
     def get_arc_label(w0, w1):
+        labels = []
         for h in graph[w0]:
             if h[0] == w1:
-                return h[1]
+                labels.append(h[1])
+        return labels
 
     def get_dependent_null_node_id(w0):
         if w0 ==-1:
@@ -105,29 +107,33 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
 
         s0 = stack[-1] if len(stack) > 0 else -1
         s1 = stack[-2] if len(stack) > 1 else -1
-        #print(f'S1: {s1} S0: {s0}')
 
         # RIGHT_EDGE
         if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
-        #and (s1 != root_id or len(stack) == 2 and not buffer):
-            actions.append("RIGHT-EDGE:" + get_arc_label(s0, s1))
+            #TODO: temporary hack to solve bigger problems
+            labels = get_arc_label(s0,s1)[0]
+            for label in labels:
+                actions.append("RIGHT-EDGE:" + label)
+                sub_graph_arc_list.append((s0, s1))
             sub_graph[s0][s1] = True
-            sub_graph_arc_list.append((s0, s1))
             return
 
-            # LEFT_EDGE
+        # LEFT_EDGE
         elif s1 != root_id and has_head(s1, s0) and check_sub_graph(s1, s0):
-            actions.append("LEFT-EDGE:" + get_arc_label(s1, s0))
+            #TODO: temporary hack to solve bigger problems
+            labels = get_arc_label(s1,s0)[0]
+            for label in labels:
+                actions.append("LEFT-EDGE:" + label)
+                sub_graph_arc_list.append((s1, s0))
             sub_graph[s1][s0] = True
-            sub_graph_arc_list.append((s1, s0))
             return
 
         # NODE
-        elif s0 != root_id and get_dependent_null_node_id(s0) != -1:
+        elif s0 != root_id and null_node_ids and get_dependent_null_node_id(s0) != -1:
             null_node_id = get_dependent_null_node_id(s0)
             buffer.append(null_node_id)
 
-            actions.append("NODE:" + get_arc_label(null_node_id,s0))
+            actions.append("NODE:" + get_arc_label(null_node_id,s0)[0])
 
             null_node_ids[null_node_id] = True
             sub_graph[null_node_id][s0] = True
@@ -135,8 +141,8 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
 
             return
 
-            # REDUCE
-        elif s0 != -1 and not has_unfound_child(s0) and not lack_head(s0):
+        # REDUCE
+        elif s0 != -1 and s0 != root_id and not has_unfound_child(s0) and not lack_head(s0):
             actions.append("REDUCE-0")
             stack.pop()
             return
@@ -175,6 +181,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         assert len(actions) <10000
         #print(actions[-1])
         if actions[-1] == '-E-':
+            #import pdb;pdb.set_trace()
             break
 
     actions.append('FINISH')
