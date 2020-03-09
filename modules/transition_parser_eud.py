@@ -127,10 +127,11 @@ class TransitionParser(Model):
         action_list = [[] for _ in range(batch_size)]
         ret_node = [[] for _ in range(batch_size)]
         root_id = [[] for _ in range(batch_size)]
+        num_of_generated_node= [[] for _ in range(batch_size)]
+        generated_order = [{} for _ in range(batch_size)]
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
-                #import pdb;pdb.set_trace()
                 if sent_len[sent_idx] > token_idx:
                     try:
                         self.buffer.push(sent_idx,
@@ -142,6 +143,7 @@ class TransitionParser(Model):
                     # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
             root_id[sent_idx] = sent_len[sent_idx]
+            generated_order[sent_idx][root_id[sent_idx]] = 0
             self.stack.push(sent_idx,
                     input=self.proot_stack_emb,
                     extra={'token': root_id[sent_idx]})
@@ -169,7 +171,7 @@ class TransitionParser(Model):
             for sent_idx in range(batch_size):
                 if (action_sequence_length[sent_idx] > 1000 *
                         sent_len[sent_idx]) and oracle_actions is None:
-                    raise RuntimeError(f"Too many actions for a sentence {sent_idx}")
+                    raise RuntimeError(f"Too many actions for a sentence {sent_idx}. actions: {action_list}")
                 total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
                 # if self.buffer.get_len(sent_idx) != 0:
                 if action_tag_for_terminate[sent_idx] == False:
@@ -185,17 +187,17 @@ class TransitionParser(Model):
                     if self.stack.get_len(sent_idx) > 0:
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         #the oracle knows what to do but we need to add condition at prediction time
-                        if oracle_actions or s0 in [edge[0] for edge in edge_list[sent_idx]]:
+                        if (oracle_actions or s0 in [edge[0] for edge in edge_list[sent_idx]]) and\
+                                s0 != root_id[sent_idx]:
                             valid_actions += action_id['REDUCE-0']
                         if len(null_node[sent_idx]) < sent_len[sent_idx]:
                             valid_actions += action_id['NODE']
 
                     if self.stack.get_len(sent_idx) > 1:
 
-                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         s1 = self.stack.get_stack(sent_idx)[-2]['token']
 
-                        if s1 != root_id[sent_idx]:
+                        if s1 != root_id[sent_idx] and generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
                             valid_actions += action_id['SWAP']
                             #the oracle knows what to do but we need to add condition at prediction time
                             if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
@@ -211,8 +213,6 @@ class TransitionParser(Model):
                         if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
                         if not right_edge_exists:
-                            #if s1 != root_id[sent_idx] or (self.stack.get_len(sent_idx) == 2
-                            #        and self.buffer.get_len(sent_idx) == 0):
                             valid_actions += action_id['RIGHT-EDGE']
 
                     log_probs = None
@@ -258,8 +258,6 @@ class TransitionParser(Model):
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
-                        import pdb;pdb.set_trace()
-                        #print(action)
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
                     # generate concept node, recursive way
@@ -298,7 +296,6 @@ class TransitionParser(Model):
                         (mod_rep, mod_tok) = (modifier['stack_rnn_output'], modifier['token'])
 
                         if oracle_actions is None:
-                            #import pdb;pdb.set_trace()
                             edge_list[sent_idx].append((mod_tok,
                                 head_tok,
                                 self.vocab.get_token_from_index(action, namespace='actions')
@@ -363,6 +360,10 @@ class TransitionParser(Model):
                         self.stack.push(sent_idx,
                                 input=buffer['stack_rnn_input'],
                                 extra={'token': buffer['token']})
+                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
+                        if s0 not in generated_order[sent_idx]:
+                            num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
+                            generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
 
                     elif action in action_id["SWAP"]:
                         stack_penult = self.stack.pop_penult(sent_idx)
