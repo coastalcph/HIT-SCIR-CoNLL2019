@@ -81,9 +81,23 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                             null_node_ids.append(str(x['id']))
                     else:
                         token_node_ids.append(str(x['id']))
-                    for tag,ind2 in x['deps']:
-                        enhanced_arc_indices.append((str(x['id']),str(ind2)))
-                        enhanced_arc_tags.append(tag)
+
+                    #HACK because conllu sometimes fails
+                    #do the parsing here instead
+                    #TODO: fix the conllu library so we don't have to hack it here
+                    if not x['deps'] == None:
+                        if not isinstance(x['deps'],list):
+                            deps = []
+                            split_dep = x['deps'].split("|")
+                            for dep in split_dep:
+                                dep_split = dep.split(':')
+                                dep_tuple = (':'.join(dep_split[1:]), dep_split[0])
+                                deps.append(dep_tuple)
+                            x['deps'] = deps
+
+                        for tag,ind2 in x['deps']:
+                            enhanced_arc_indices.append((str(x['id']),str(ind2)))
+                            enhanced_arc_tags.append(tag)
 
                 gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
