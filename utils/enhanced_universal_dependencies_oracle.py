@@ -111,7 +111,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         # RIGHT_EDGE
         if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
             labels = get_arc_label(s0,s1)
-            for label in labels:
+            for label in sorted(labels):
                 actions.append("RIGHT-EDGE:" + label)
                 sub_graph_arc_list.append((s0, s1))
             sub_graph[s0][s1] = True
@@ -120,7 +120,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         # LEFT_EDGE
         elif s1 != root_id and has_head(s1, s0) and check_sub_graph(s1, s0):
             labels = get_arc_label(s1,s0)
-            for label in labels:
+            for label in sorted(labels):
                 actions.append("LEFT-EDGE:" + label)
                 sub_graph_arc_list.append((s1, s0))
             sub_graph[s1][s0] = True
@@ -177,7 +177,6 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
     while not (check_graph_finish() and len(buffer) == 0 and len(stack) == 1):
         get_oracle_actions_onestep(sub_graph, stack, buffer, actions)
         assert len(actions) <10000
-        print(actions[-1])
         if actions[-1] == '-E-':
             #import pdb;pdb.set_trace()
             break

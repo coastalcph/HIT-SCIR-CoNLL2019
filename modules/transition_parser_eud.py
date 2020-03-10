@@ -321,9 +321,6 @@ class TransitionParser(Model):
                                 self.vocab.get_token_from_index(action, namespace='actions')
                                 .split(':', maxsplit=1)[1]))
 
-                            #print(f'new edge for sentence {sent_idx}: {mod_tok}, {head_tok}')
-                            # # compute composed representation
-
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
                                 else self.action_stack.get_output(sent_idx)
 
@@ -333,6 +330,7 @@ class TransitionParser(Model):
                         buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
                                 else self.buffer.get_output(sent_idx)
 
+                        # # compute composed representation
                         comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
                         comp_rep = torch.tanh(self.p_comp(comp_rep))
 
@@ -392,6 +390,7 @@ class TransitionParser(Model):
                                 extra={'token': stack_penult['token']})
 
                     elif action in action_id["FINISH"]:
+                        #import pdb;pdb.set_trace()
                         action_tag_for_terminate[sent_idx] = True
                         ratio_factor_losses[sent_idx] = ratio_factor
 
@@ -477,22 +476,17 @@ class TransitionParser(Model):
 
         for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                 "deprel", "misc"]:
-            try:
-                output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
-                #let's just ignore these guys for now
-                output_dict["multiword_ids"] = [None] * batch_size
-            except KeyError:
-                raise KeyError
+            output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
 
-        # prediction-mode
+        output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
+        # validation mode
         if gold_actions is not None:
-            gold_graphs = [x["gold_graphs"] for x in metadata]
             predicted_graphs = []
 
             for sent_idx in range(batch_size):
                 predicted_graphs.append(eud_trans_outputs_into_conllu({
                     k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
-                        "deprel", "misc", "edge_list", "null_node", "multiword_ids"]
+                        "deprel", "misc", "edge_list", "null_node", "multiwords"]
                 }))
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]

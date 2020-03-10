@@ -69,6 +69,8 @@ def serialize_field(field,key):
         return '|'.join(f'{k}={v}' for k,v in field.items())
     elif key == 'deps':
         return "|".join(f"{v}:{k}" for k,v in field)
+    elif isinstance(field,tuple):
+        return ''.join(str(x) for x in field)
     else:
         raise ValueError(f"Type not known for {key}, value: {field}")
 
@@ -88,23 +90,23 @@ def annotation_to_conllu(annotation):
 def eud_trans_outputs_to_annotation(outputs):
     edge_list = outputs["edge_list"]
     null_nodes = outputs["null_node"]
-
-    word_count = len(outputs["form"])
-    annotation = [{} for _ in range(word_count)]
+    annotation = [{} for _ in range(len(outputs["form"]))]
     for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
         "deprel", "misc"]:
         for token_annotation_dict, token_annotation_for_k in zip(annotation,outputs[k]):
             token_annotation_dict[k] = token_annotation_for_k
+    word_annotation = [x for x in annotation if isinstance(x['id'],int)]
 
     multiword_map = None
-    if outputs["multiword_ids"]:
-        multiword_ids = [[id] + [int(x) for x in id.split("-")] for id in outputs["multiword_ids"]]
-        multiword_forms = outputs["multiword_forms"]
-        multiword_map = {start: (id_, form) for (id_, start, end), form in zip(multiword_ids, multiword_forms)}
+    if outputs["multiwords"]:
+        multiword_map = {}
+        for d in outputs['multiwords']:
+            start,_ = d['id'].split("-")
+            multiword_map[int(start)] = (d)
 
-    null_node_prefix = len(annotation)+1
-    token_index_to_id = {len(annotation):0}
-    for i in range(len(annotation)):
+    null_node_prefix = len(word_annotation)+1
+    token_index_to_id = {len(word_annotation):0}
+    for i in range(len(word_annotation)):
         token_index_to_id[i]= i+1
     null_node_id = {}
     if null_nodes:
@@ -112,17 +114,15 @@ def eud_trans_outputs_to_annotation(outputs):
             token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
 
     output_annotation = []
-    for i, line in enumerate(annotation,start=1):
+    for i, line in enumerate(word_annotation,start=1):
 
         # Handle multiword tokens
         if multiword_map and i in multiword_map:
-            id_, form = multiword_map[i]
-            row = {"id":id_, "form":form}
-            output_annotation.append(row)
+            output_annotation.append(multiword_map[i])
         deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
-        #print(deps)
         if not deps:
-            raise ValueError(f"No edge found for {annotation[i-1]}")
+            #import pdb;pdb.set_trace()
+            raise ValueError(f"No edge found for {line}")
 
         line['deps'] = deps
         output_annotation.append(line)

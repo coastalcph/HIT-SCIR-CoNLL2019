@@ -70,6 +70,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 words = [x["form"] for x in word_annotation]
                 enhanced_arc_indices = []
                 enhanced_arc_tags = []
+                multiwords = []
 
                 null_node_ids = []
                 node_ids = ['0']
@@ -79,6 +80,11 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                     if isinstance(x['id'],tuple):
                         if x['id'][1] == '.':
                             null_node_ids.append(str(x['id']))
+                        elif x['id'][1] == '-':
+                            multiwords.append({'id':''.join([str(tup) for tup in (x['id'])]),'form':x['form']})
+                        else:
+                            raise TypeError(f"Unknown token ID type: {x['id']}")
+
                     else:
                         token_node_ids.append(str(x['id']))
 
@@ -90,8 +96,8 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                             deps = []
                             split_dep = x['deps'].split("|")
                             for dep in split_dep:
-                                dep_split = dep.split(':')
-                                dep_tuple = (':'.join(dep_split[1:]), dep_split[0])
+                                dep_split = dep.partition(':')
+                                dep_tuple = (dep_split[2], dep_split[0])
                                 deps.append(dep_tuple)
                             x['deps'] = deps
 
@@ -105,7 +111,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                     print(gold_actions)
                     continue
 
-                yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions)
+                yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions, multiwords)
 
     @overrides
     def text_to_instance(
@@ -115,6 +121,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         enhanced_arc_indices: List[Tuple[str, str]] = None,
         enhanced_arc_tags: List[str] = None,
         gold_actions: List[str] = None,
+        multiwords: List[Dict[str,str]]=None,
     ) -> Instance:
 
         """
@@ -137,7 +144,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         fields: Dict[str, Field] = {}
 
         text_field = TextField([Token(t) for t in words], self._token_indexers)
-        meta_dict = {"words": words, "annotation":annotation}
+        meta_dict = {"words": words, "annotation":annotation, "multiwords": multiwords}
         fields["words"] = text_field
 
         if enhanced_arc_tags is not None:
