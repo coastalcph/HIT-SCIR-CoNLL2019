@@ -203,19 +203,36 @@ class TransitionParser(Model):
                             if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
                                 valid_actions += action_id['REDUCE-1']
 
-                        #TODO: update this to allow an edge with a different label
-                        #we have to disable the actions of the label and it's not clear to me how they are indexed
+                        #Hacky code to verify that we do not draw the same edge with the same label twice
                         left_edge_exists = False
                         right_edge_exists = False
-                        for mod_tok, head_tok, _ in edge_list[sent_idx]:
+                        labels_left_edge = []
+                        labels_right_edge = []
+                        for mod_tok, head_tok, label in edge_list[sent_idx]:
                             if (mod_tok,head_tok) == (s1,s0):
                                 left_edge_exists=True
+                                labels_left_edge.append(label)
                             if (mod_tok,head_tok) == (s0,s1):
                                 right_edge_exists=True
+                                labels_right_edge.append(label)
                         if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
+                        elif left_edge_exists and s1 != root_id[sent_idx]:
+                            left_edge_possible_actions = \
+                                    [self.vocab.get_token_index(a, namespace='actions') for a in
+                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
+                            valid_actions += left_edge_possible_actions
+
                         if not right_edge_exists:
                             valid_actions += action_id['RIGHT-EDGE']
+                        elif right_edge_exists:
+                            right_edge_possible_actions = \
+                                    [self.vocab.get_token_index(a, namespace='actions') for a in
+                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                            valid_actions += right_edge_possible_actions
+
 
                     log_probs = None
                     action = valid_actions[0]
@@ -260,7 +277,7 @@ class TransitionParser(Model):
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
-                        import pdb;pdb.set_trace()
+                        #import pdb;pdb.set_trace()
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
