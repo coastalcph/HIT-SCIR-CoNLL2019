@@ -203,6 +203,8 @@ class TransitionParser(Model):
                             if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
                                 valid_actions += action_id['REDUCE-1']
 
+                        #TODO: update this to allow an edge with a different label
+                        #we have to disable the actions of the label and it's not clear to me how they are indexed
                         left_edge_exists = False
                         right_edge_exists = False
                         for mod_tok, head_tok, _ in edge_list[sent_idx]:
@@ -258,9 +260,10 @@ class TransitionParser(Model):
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
+                        import pdb;pdb.set_trace()
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
-                    # generate concept node, recursive way
+                    # generate null node, recursive way
                     if action in action_id["NODE"] :
                         null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
                         null_node[sent_idx].append(null_node_token)
@@ -320,7 +323,7 @@ class TransitionParser(Model):
                             self.buffer.pop(sent_idx)
                             self.buffer.push(sent_idx,
                                     input=comp_rep,
-                                    extra={'token': head_tok})
+                                    extra={'token': mod_tok})
 
 
                         elif action in action_id["LEFT-EDGE"] :
@@ -470,10 +473,10 @@ class TransitionParser(Model):
             predicted_graphs = []
 
             for sent_idx in range(batch_size):
-                    predicted_graphs.append(eud_trans_outputs_into_conllu({
-                        k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
-                            "deprel", "misc", "edge_list", "null_node", "multiword_ids"]
-                    }))
+                predicted_graphs.append(eud_trans_outputs_into_conllu({
+                    k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+                        "deprel", "misc", "edge_list", "null_node", "multiword_ids"]
+                }))
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
             gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation']) for sentence_metadata in metadata]
