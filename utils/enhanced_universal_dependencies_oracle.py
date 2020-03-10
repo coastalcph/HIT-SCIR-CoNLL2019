@@ -81,8 +81,9 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         labels = []
         for h in graph[w0]:
             if h[0] == w1:
-                labels.append(h[1])
-        return labels
+                return h[1]
+                #labels.append(h[1])
+        #return labels
 
     def get_dependent_null_node_id(w0):
         if w0 ==-1:
@@ -111,20 +112,20 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         # RIGHT_EDGE
         if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
             #TODO: temporary hack to solve bigger problems
-            labels = get_arc_label(s0,s1)[0]
-            for label in labels:
-                actions.append("RIGHT-EDGE:" + label)
-                sub_graph_arc_list.append((s0, s1))
+            #labels = get_arc_label(s0,s1)[0]
+            #for label in labels:
+            actions.append("RIGHT-EDGE:" + get_arc_label(s0,s1))
+            sub_graph_arc_list.append((s0, s1))
             sub_graph[s0][s1] = True
             return
 
         # LEFT_EDGE
         elif s1 != root_id and has_head(s1, s0) and check_sub_graph(s1, s0):
             #TODO: temporary hack to solve bigger problems
-            labels = get_arc_label(s1,s0)[0]
-            for label in labels:
-                actions.append("LEFT-EDGE:" + label)
-                sub_graph_arc_list.append((s1, s0))
+            #labels = get_arc_label(s1,s0)[0]
+            #for label in labels:
+            actions.append("LEFT-EDGE:" + get_arc_label(s1,s0))
+            sub_graph_arc_list.append((s1, s0))
             sub_graph[s1][s0] = True
             return
 
