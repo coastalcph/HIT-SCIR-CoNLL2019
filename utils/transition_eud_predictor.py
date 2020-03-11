@@ -104,13 +104,13 @@ def eud_trans_outputs_to_annotation(outputs):
             start,_ = d['id'].split("-")
             multiword_map[int(start)] = (d)
 
-    null_node_prefix = len(word_annotation)+1
+    null_node_prefix = len(word_annotation)
     token_index_to_id = {len(word_annotation):0}
     for i in range(len(word_annotation)):
         token_index_to_id[i]= i+1
     null_node_id = {}
     if null_nodes:
-        for i, node in enumerate(null_nodes,start=1):
+        for i, node in enumerate(null_nodes, start=1):
             token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
 
     output_annotation = []
@@ -121,18 +121,16 @@ def eud_trans_outputs_to_annotation(outputs):
             output_annotation.append(multiword_map[i])
         deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
         if not deps:
-            #import pdb;pdb.set_trace()
             raise ValueError(f"No edge found for {line}")
 
         line['deps'] = deps
         output_annotation.append(line)
 
     if null_nodes:
-        for i, node in enumerate(null_nodes,start=1):
-            deps_list = [token_index_to_id[edge[1]] + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]]-null_node_prefix == i]
-            if not deps_list:
-                raise ValueError(f"deps empty")
-            deps = "|".join(deps_list)
+        for i, node in enumerate(null_nodes, start=1):
+            deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
+            if not deps:
+                raise ValueError(f"No edge found for {line}")
             row = {"id":null_node_id[i], "deps":deps}
             output_annotation.append(row)
 
