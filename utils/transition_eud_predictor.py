@@ -108,12 +108,24 @@ def eud_trans_outputs_to_annotation(outputs):
     token_index_to_id = {len(word_annotation):0}
     for i in range(len(word_annotation)):
         token_index_to_id[i]= i+1
-    null_node_id = {}
     if null_nodes:
         for i, node in enumerate(null_nodes, start=1):
-            token_index_to_id[null_node_prefix + i] = null_node_id[i] = f'{null_node_prefix}.{i}'
+            token_index_to_id[null_node_prefix + i] = f'{null_node_prefix}.{i}'
 
     output_annotation = []
+    #this part is a bit of a headache
+    # index is the indexing in the parser
+    # ID is the actual ID of words
+    # i in the first enumerate is equivalent to ID so we need to convert edge[0] to ID 
+    # i in the second enumerate is equivalent to index so no need to convert
+    # EXAMPLE:
+    # idx, ID,   i
+    # 2     0    NA
+    # 0     1    1
+    # 1     2    2
+    # 3     2.1  3
+    # 4     2.2  4
+
     for i, line in enumerate(word_annotation,start=1):
 
         # Handle multiword tokens
@@ -127,11 +139,11 @@ def eud_trans_outputs_to_annotation(outputs):
         output_annotation.append(line)
 
     if null_nodes:
-        for i, node in enumerate(null_nodes, start=1):
-            deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
+        for i, node in enumerate(null_nodes, start=null_node_prefix+1):
+            deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if edge[0] == i])
             if not deps:
-                raise ValueError(f"No edge found for {line}")
-            row = {"id":null_node_id[i], "deps":deps}
+                raise ValueError(f"No edge found for {node}")
+            row = {"id":token_index_to_id[i], "deps":deps}
             output_annotation.append(row)
 
     return output_annotation
