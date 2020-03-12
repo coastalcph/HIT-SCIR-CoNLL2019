@@ -52,6 +52,7 @@ class XUDScore(Metric):
         string_gold = string_gold.encode("utf-8")
         gold_tmp_file = tempfile.NamedTemporaryFile(delete=False)
         gold_tmp_file.write(string_gold)
+        gold_tmp_file.close()
         cmd = ["perl", self._collapse, gold_tmp_file.name]
         gold_collapsed = subprocess.run(cmd, stdout=subprocess.PIPE, universal_newlines=True,
                 check=True)
