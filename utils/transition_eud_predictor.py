@@ -61,9 +61,8 @@ def eud_trans_outputs_into_conllu(outputs):
     return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs))
 
 def serialize_field(field,key):
-    #can happen that deps is string - but that should not happen
     if field == '_' or field is None:
-        return field
+        return '_'
     elif key in ["id", "form", "lemma", "upostag", "xpostag", "head", "deprel"]:
         if isinstance(field, (str,int)):
             return str(field)
@@ -75,7 +74,10 @@ def serialize_field(field,key):
         else:
             return '|'.join(f'{k}={v}' for k,v in field.items())
     elif key == 'deps':
-        return "|".join(f"{v}:{k}" for k,v in field)
+        if isinstance(field,str):
+            return field
+        else:
+            return "|".join(f"{v}:{k}" for k,v in field)
     else:
         raise ValueError(f"Type not known for {key}, value: {field}")
 
@@ -85,9 +87,7 @@ def annotation_to_conllu(annotation):
     for i, line in enumerate(annotation, start=1):
         line = [serialize_field(line.get(k), k) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
             "deprel", "deps", "misc"]]
-
         row = "\t".join(line)
-
         output_lines.append(row)
 
     return output_lines + ['\n']
