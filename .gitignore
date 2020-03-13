@@ -1,2 +1,4 @@
 __pycache__/
 checkpoints/
+slurm*
+checkpoints*
