@@ -49,8 +49,7 @@ class NoopParser(Model):
         self.train(training_mode)
 
         sent_len = [len(d['words']) for d in metadata]
-        # null_node = [[tok_metadata for tok_metadata in sent_metadata["annotation"] if "." in str(tok_metadata["id"])]
-        null_node = [[]
+        null_node = [[tok_metadata for tok_metadata in sent_metadata["annotation"] if "." in str(tok_metadata["id"])]
                      for sent_metadata in metadata]
         token_id = [{i: i - 1 for i in range(1, 1 + sent_len[sent_idx])}
                     for sent_idx in range(batch_size)]
