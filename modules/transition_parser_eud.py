@@ -217,21 +217,21 @@ class TransitionParser(Model):
                                 labels_right_edge.append(label)
                         if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
-                        #elif left_edge_exists and s1 != root_id[sent_idx]:
-                        #    left_edge_possible_actions = \
-                        #            [self.vocab.get_token_index(a, namespace='actions') for a in
-                        #            self.vocab.get_token_to_index_vocabulary('actions').keys()
-                        #            if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
-                        #    valid_actions += left_edge_possible_actions
+                        elif left_edge_exists and s1 != root_id[sent_idx]:
+                            left_edge_possible_actions = \
+                                    [self.vocab.get_token_index(a, namespace='actions') for a in
+                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
+                            valid_actions += left_edge_possible_actions
 
                         if not right_edge_exists:
                             valid_actions += action_id['RIGHT-EDGE']
-                        #elif right_edge_exists:
-                        #    right_edge_possible_actions = \
-                        #            [self.vocab.get_token_index(a, namespace='actions') for a in
-                        #            self.vocab.get_token_to_index_vocabulary('actions').keys()
-                        #            if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
-                        #    valid_actions += right_edge_possible_actions
+                        elif right_edge_exists:
+                            right_edge_possible_actions = \
+                                    [self.vocab.get_token_index(a, namespace='actions') for a in
+                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                            valid_actions += right_edge_possible_actions
 
 
                     log_probs = None
@@ -277,7 +277,6 @@ class TransitionParser(Model):
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
-                        #import pdb;pdb.set_trace()
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
@@ -390,7 +389,6 @@ class TransitionParser(Model):
                                 extra={'token': stack_penult['token']})
 
                     elif action in action_id["FINISH"]:
-                        #import pdb;pdb.set_trace()
                         action_tag_for_terminate[sent_idx] = True
                         ratio_factor_losses[sent_idx] = ratio_factor
 

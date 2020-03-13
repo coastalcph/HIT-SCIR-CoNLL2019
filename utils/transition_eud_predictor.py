@@ -61,6 +61,7 @@ def eud_trans_outputs_into_conllu(outputs):
     return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs))
 
 def serialize_field(field,key):
+    #bit of an overkill but let's play it safe
     if field == '_' or field is None:
         return '_'
     elif key in ["id", "form", "lemma", "upostag", "xpostag", "head", "deprel"]:
@@ -77,7 +78,13 @@ def serialize_field(field,key):
         if isinstance(field,str):
             return field
         else:
-            return "|".join(f"{v}:{k}" for k,v in field)
+            dep_list = []
+            for i,(k,v) in enumerate(field):
+                if isinstance(v,tuple):
+                    dep_list.append((k,''.join(str(val) for val in v)))
+                else:
+                    dep_list.append((k,v))
+            return "|".join(f"{v}:{k}" for k,v in dep_list)
     else:
         raise ValueError(f"Type not known for {key}, value: {field}")
 
@@ -107,7 +114,7 @@ def eud_trans_outputs_to_annotation(outputs):
         multiword_map = {}
         for d in outputs['multiwords']:
             start,_ = d['id'].split("-")
-            multiword_map[int(start)] = (d)
+            multiword_map[int(start)] = d
 
     null_node_prefix = len(word_annotation)
     token_index_to_id = {len(word_annotation):0}
