@@ -153,24 +153,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
             meta_dict["enhanced_arc_tags"] = enhanced_arc_tags
         if enhanced_arc_indices is not None:
             meta_dict["enhanced_arc_indices"] = enhanced_arc_indices
-        if enhanced_arc_indices is not None and enhanced_arc_tags is not None:
-            meta_dict["gold_graphs"] = []
-            for tag, (mod, head) in zip(enhanced_arc_tags, enhanced_arc_indices):
-                # THIS IS SUPER HACKY - there probably is a better way
-                if ")" in mod.partition(")"):
-                    start, _, end = mod.split(',')
-                    start = start.strip('(')
-                    end = end.strip(')').strip(' ')
-                    mod = f'{start}.{end}'
-
-                if ")" in head.partition(")"):
-                    start, _, end = head.split(',')
-                    start = start.strip('(')
-                    end = end.strip(')').strip(' ')
-                    head = f'{start}.{end}'
-
-                meta_dict["gold_graphs"].append((mod,head,tag))
-
         if gold_actions is not None:
             meta_dict["gold_actions"] = gold_actions
             fields["gold_actions"] = TextField([Token(a) for a in gold_actions], self._action_indexers)
