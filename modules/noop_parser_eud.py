@@ -58,7 +58,8 @@ class NoopParser(Model):
             'edge_list': [[(token_id[sent_idx][tok_metadata["id"]],
                             token_id[sent_idx][tok_metadata["head"]],
                             tok_metadata["deprel"])
-                           for tok_metadata in sent_metadata["annotation"]]
+                           for tok_metadata in sent_metadata["annotation"]
+                           if isinstance(tok_metadata["id"], int)]
                           for sent_idx, sent_metadata in enumerate(metadata)],
             'null_node': [[tok_metadata for tok_metadata in sent_metadata["annotation"]
                            if "." in str(tok_metadata["id"])]
