@@ -111,6 +111,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         # RIGHT_EDGE
         if s0 != -1 and has_head(s0, s1) and check_sub_graph(s0, s1):
             labels = get_arc_label(s0,s1)
+            #labels = [labels[0]] #just keep one
             for label in sorted(labels):
                 actions.append("RIGHT-EDGE:" + label)
                 sub_graph_arc_list.append((s0, s1))
@@ -120,6 +121,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         # LEFT_EDGE
         elif s1 != root_id and has_head(s1, s0) and check_sub_graph(s1, s0):
             labels = get_arc_label(s1,s0)
+            #labels = [labels[0]] #just keep one
             for label in sorted(labels):
                 actions.append("LEFT-EDGE:" + label)
                 sub_graph_arc_list.append((s1, s0))
@@ -127,7 +129,7 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
             return
 
         # NODE
-        elif s0 != root_id and null_node_ids and get_dependent_null_node_id(s0) != -1:
+        elif null_node_ids and get_dependent_null_node_id(s0) != -1:
             null_node_id = get_dependent_null_node_id(s0)
             buffer.append(null_node_id)
 
@@ -178,7 +180,6 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         get_oracle_actions_onestep(sub_graph, stack, buffer, actions)
         assert len(actions) <10000
         if actions[-1] == '-E-':
-            #import pdb;pdb.set_trace()
             break
 
     actions.append('FINISH')

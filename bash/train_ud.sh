@@ -4,7 +4,6 @@
 #SBATCH -p gpu --gres=gpu:titanx:1
 #SBATCH --time=2-00:00:00
 
-#echo $CUDA_VISIBLE_DEVICES
 #conda activate hit_scir
 # examples of training commands
 lang=$1

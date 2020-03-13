@@ -61,17 +61,30 @@ def eud_trans_outputs_into_conllu(outputs):
     return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs))
 
 def serialize_field(field,key):
+    #bit of an overkill but let's play it safe
     if field == '_' or field is None:
-        return field
+        return '_'
     elif key in ["id", "form", "lemma", "upostag", "xpostag", "head", "deprel"]:
         if isinstance(field, (str,int)):
             return str(field)
         elif isinstance(field,tuple):
             return ''.join(str(x) for x in field)
     elif key in ['feats', 'misc']:
-        return '|'.join(f'{k}={v}' for k,v in field.items())
+        if isinstance(field,str):
+            return field
+        else:
+            return '|'.join(f'{k}={v}' for k,v in field.items())
     elif key == 'deps':
-        return "|".join(f"{v}:{k}" for k,v in field)
+        if isinstance(field,str):
+            return field
+        else:
+            dep_list = []
+            for i,(k,v) in enumerate(field):
+                if isinstance(v,tuple):
+                    dep_list.append((k,''.join(str(val) for val in v)))
+                else:
+                    dep_list.append((k,v))
+            return "|".join(f"{v}:{k}" for k,v in dep_list)
     else:
         raise ValueError(f"Type not known for {key}, value: {field}")
 
@@ -81,9 +94,7 @@ def annotation_to_conllu(annotation):
     for i, line in enumerate(annotation, start=1):
         line = [serialize_field(line.get(k), k) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
             "deprel", "deps", "misc"]]
-
         row = "\t".join(line)
-
         output_lines.append(row)
 
     return output_lines + ['\n']
@@ -103,7 +114,7 @@ def eud_trans_outputs_to_annotation(outputs):
         multiword_map = {}
         for d in outputs['multiwords']:
             start,_ = d['id'].split("-")
-            multiword_map[int(start)] = (d)
+            multiword_map[int(start)] = d
 
     null_node_prefix = len(word_annotation)
     token_index_to_id = {len(word_annotation):0}

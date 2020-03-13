@@ -108,6 +108,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
 
                 if gold_actions[-2] == '-E-':
+                    print('Oracle failed to complete the tree, actions:')
                     print(gold_actions)
                     continue
 
@@ -152,9 +153,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
             meta_dict["enhanced_arc_tags"] = enhanced_arc_tags
         if enhanced_arc_indices is not None:
             meta_dict["enhanced_arc_indices"] = enhanced_arc_indices
-        if enhanced_arc_indices is not None and enhanced_arc_tags is not None:
-            meta_dict["gold_graphs"] = [(mod, head, tag) for tag, (mod, head) in zip(enhanced_arc_tags, enhanced_arc_indices)]
-
         if gold_actions is not None:
             meta_dict["gold_actions"] = gold_actions
             fields["gold_actions"] = TextField([Token(a) for a in gold_actions], self._action_indexers)

@@ -277,7 +277,6 @@ class TransitionParser(Model):
                         if log_probs is not None:
                             losses[sent_idx].append(log_probs[valid_action_tbl[action]])
                     except KeyError:
-                        #import pdb;pdb.set_trace()
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
@@ -390,7 +389,6 @@ class TransitionParser(Model):
                                 extra={'token': stack_penult['token']})
 
                     elif action in action_id["FINISH"]:
-                        #import pdb;pdb.set_trace()
                         action_tag_for_terminate[sent_idx] = True
                         ratio_factor_losses[sent_idx] = ratio_factor
 
