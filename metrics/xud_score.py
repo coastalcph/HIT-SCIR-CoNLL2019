@@ -3,6 +3,7 @@ import sys
 from typing import Dict, List, Any
 import tempfile
 import subprocess
+from retrying import retry
 
 from overrides import overrides
 
@@ -36,9 +37,11 @@ class XUDScore(Metric):
         pred_tmp_file = tempfile.NamedTemporaryFile(delete=False)
         pred_tmp_file.write(string_pred)
         pred_tmp_file.close()
-        cmd = ["perl", self._collapse, pred_tmp_file.name]
-        pred_collapsed = subprocess.run(cmd, stdout=subprocess.PIPE, universal_newlines=True,
-                check=True)
+        try:
+            pred_collapsed = self.collapse_conllu(pred_tmp_file.name)
+        except subprocess.CalledProcessError:
+            return
+
         preds = [pred for pred in pred_collapsed.stdout.partition("\n") ]
         pred_graphs = load_conllu_default(string_to_file(''.join(preds)))
 
@@ -49,9 +52,10 @@ class XUDScore(Metric):
         gold_tmp_file = tempfile.NamedTemporaryFile(delete=False)
         gold_tmp_file.write(string_gold)
         gold_tmp_file.close()
-        cmd = ["perl", self._collapse, gold_tmp_file.name]
-        gold_collapsed = subprocess.run(cmd, stdout=subprocess.PIPE, universal_newlines=True,
-                check=True)
+        try:
+            gold_collapsed = self.collapse_conllu(gold_tmp_file.name)
+        except subprocess.CalledProcessError:
+            return
         golds_c = [gold for gold in gold_collapsed.stdout.partition("\n")]
         gold_graphs = load_conllu_default(string_to_file(''.join(golds_c)))
         self.results.append(evaluate(gold_graphs, pred_graphs))
@@ -66,4 +70,10 @@ class XUDScore(Metric):
         if reset:
             self.results = []
         return results
+
+    @retry(stop_max_attempt_number=3)
+    def collapse_conllu(self,filename):
+        cmd = ["perl", self._collapse, filename]
+        return subprocess.run(cmd, stdout=subprocess.PIPE, universal_newlines=True,
+                    check=True)
 
