@@ -49,20 +49,30 @@ class NoopParser(Model):
         self.train(training_mode)
 
         sent_len = [len(d['words']) for d in metadata]
-        token_id = []
+        null_node = [[tok_metadata for tok_metadata in sent_metadata["annotation"] if "." in str(tok_metadata["id"])]
+                     for sent_metadata in metadata]
+        token_id = [{i: i - 1 for i in range(1, 1 + sent_len[sent_idx])}
+                    for sent_idx in range(batch_size)]
         for sent_idx in range(batch_size):
-            token_id.append({i: sent_len[sent_idx] - i for i in range(1 + sent_len[sent_idx])})
+            token_id[sent_idx][0] = sent_len[sent_idx]
+            for i, tok_metadata in enumerate(null_node[sent_idx], start=sent_len[sent_idx] + 1):
+                token_id[sent_idx][tok_metadata["id"]] = i
+
+        def map_head(h):  # since null node have None head, assign root arbitrarily
+            return 0 if h is None else h
+
+        def map_deprel(r):  # since null nodes have none deprel, assign root arbitrarily
+            return "root" if r is None else r
 
         # prediction-mode
         output_dict = {
             'edge_list': [[(token_id[sent_idx][tok_metadata["id"]],
-                            token_id[sent_idx][tok_metadata["head"]],
-                            tok_metadata["deprel"])
-                           for tok_metadata in sent_metadata["annotation"]]
+                            token_id[sent_idx][map_head(tok_metadata["head"])],
+                            map_deprel(tok_metadata["deprel"]))
+                           for tok_metadata in sent_metadata["annotation"]
+                           if tok_metadata["id"] in token_id[sent_idx]]
                           for sent_idx, sent_metadata in enumerate(metadata)],
-            'null_node': [[tok_metadata for tok_metadata in sent_metadata["annotation"]
-                           if "." in str(tok_metadata["id"])]
-                          for sent_metadata in metadata],
+            'null_node': null_node,
             "multiwords": [sent_metadata['multiwords'] for sent_metadata in metadata],
             'loss': self.p
         }
