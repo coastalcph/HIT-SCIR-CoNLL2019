@@ -9,15 +9,15 @@
 lang=$1
 iso=$2
 checkpoint_dir=$3
+datadir=${4:-/image/nlp-datasets/iwpt20/train-dev/}
 
-#BERT_PATH=/image/nlp-letre/bert/multi_cased_L-12_H-768_A-12/ \
 rm -rf $checkpoint_dir
-TRAIN_PATH=/image/nlp-datasets/iwpt20/train-dev/$lang/$iso-ud-train.conllu \
-DEV_PATH=/image/nlp-datasets/iwpt20/train-dev/$lang/$iso-ud-dev.conllu \
+TRAIN_PATH=$datadir/$lang/$iso-ud-train.conllu \
+DEV_PATH=$datadir/$lang/$iso-ud-dev.conllu \
 WORD_DIM=768 \
 LOWER_CASE=FALSE \
 BATCH_SIZE=8 \
-BERT_PATH=/image/nlp-letre/bert/distilmulti_cased_L-6_H-768_A-12 \
+BERT_PATH=/image/nlp-letre/bert/multi_cased_L-12_H-768_A-12/ \
 allennlp train \
 -s $checkpoint_dir \
 --include-package utils \

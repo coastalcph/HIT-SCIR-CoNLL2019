@@ -66,7 +66,8 @@
   "iterator": {
     "type": "bucket",
     "sorting_keys": [["words", "num_tokens"]],
-    "batch_size": std.parseInt(std.extVar('BATCH_SIZE'))
+    "batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
+    "instances_per_epoch": 5000
   },
   "trainer": {
     "num_epochs": 50,
