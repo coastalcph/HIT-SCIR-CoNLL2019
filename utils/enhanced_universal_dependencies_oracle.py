@@ -68,12 +68,9 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
     def lack_head(w):
         if w ==-1:
             return False
-        head_num = 0
-        for h in sub_graph[w]:
-            if sub_graph[w][h]:
-                head_num += 1
-        if head_num < len(graph[w]):
-            return True
+        for h in whole_graph[w]:
+            if whole_graph[w][h] and not sub_graph[w][h]:
+                return True
         return False
 
     # return the relation between child: w0, head: w1
@@ -179,7 +176,9 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
     while not (check_graph_finish() and len(buffer) == 0 and len(stack) == 1):
         get_oracle_actions_onestep(sub_graph, stack, buffer, actions)
         assert len(actions) <10000
+        #print(actions[-1])
         if actions[-1] == '-E-':
+            #import pdb;pdb.set_trace()
             break
 
     actions.append('FINISH')
