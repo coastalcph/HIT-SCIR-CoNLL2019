@@ -18,12 +18,6 @@
           "namespace": "actions"
       }
   },
-  "arc_tag_indexers": {
-      "arc_tags": {
-          "type": "single_id",
-          "namespace": "arc_tags"
-      }
-  },
   },
   "train_data_path": std.extVar('TRAIN_PATH'),
   "validation_data_path": std.extVar('DEV_PATH'),

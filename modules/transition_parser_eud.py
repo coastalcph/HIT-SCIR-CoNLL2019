@@ -424,7 +424,6 @@ class TransitionParser(Model):
                 words: Dict[str, torch.LongTensor],
                 metadata: List[Dict[str, Any]],
                 gold_actions: Dict[str, torch.LongTensor] = None,
-                enhanced_arc_tags: torch.LongTensor=None,
                 ) -> Dict[str, torch.LongTensor]:
 
         batch_size = len(metadata)

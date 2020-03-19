@@ -37,7 +37,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         token_indexers: Dict[str, TokenIndexer] = None,
         action_indexers: Dict[str, TokenIndexer] = None,
         use_language_specific_pos: bool = False,
-        arc_tag_indexers: Dict[str, TokenIndexer] = None,
         lazy: bool = False) -> None:
         super().__init__(lazy)
         self._token_indexers = token_indexers or {"tokens": SingleIdTokenIndexer()}
@@ -45,9 +44,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         self._action_indexers = None
         if action_indexers is not None and len(action_indexers) > 0:
             self._action_indexers = action_indexers
-        self._arc_tag_indexers = None
-        if arc_tag_indexers is not None and len(arc_tag_indexers) > 0:
-            self._arc_tag_indexers = arc_tag_indexers
 
     @overrides
     def _read(self, file_path: str):
@@ -88,19 +84,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                     else:
                         token_node_ids.append(str(x['id']))
 
-                    #HACK because conllu sometimes fails
-                    #do the parsing here instead
-                    #TODO: fix the conllu library so we don't have to hack it here
                     if not x['deps'] == None:
-                        if not isinstance(x['deps'],list):
-                            deps = []
-                            split_dep = x['deps'].split("|")
-                            for dep in split_dep:
-                                dep_split = dep.partition(':')
-                                dep_tuple = (dep_split[2], dep_split[0])
-                                deps.append(dep_tuple)
-                            x['deps'] = deps
-
                         for tag,ind2 in x['deps']:
                             enhanced_arc_indices.append((str(x['id']),str(ind2)))
                             enhanced_arc_tags.append(tag)
@@ -112,15 +96,13 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                     print(gold_actions)
                     continue
 
-                yield self.text_to_instance(words, annotation, enhanced_arc_indices, enhanced_arc_tags, gold_actions, multiwords)
+                yield self.text_to_instance(words, annotation, gold_actions, multiwords)
 
     @overrides
     def text_to_instance(
         self,  # type: ignore
         words: List[str],
         annotation: List[Dict[str,Any]],
-        enhanced_arc_indices: List[Tuple[str, str]] = None,
-        enhanced_arc_tags: List[str] = None,
         gold_actions: List[str] = None,
         multiwords: List[Dict[str,str]]=None,
     ) -> Instance:
@@ -148,11 +130,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         meta_dict = {"words": words, "annotation":annotation, "multiwords": multiwords}
         fields["words"] = text_field
 
-        if enhanced_arc_tags is not None:
-            fields["enhanced_arc_tags"] = TextField([Token(a) for a in enhanced_arc_tags], self._arc_tag_indexers)
-            meta_dict["enhanced_arc_tags"] = enhanced_arc_tags
-        if enhanced_arc_indices is not None:
-            meta_dict["enhanced_arc_indices"] = enhanced_arc_indices
         if gold_actions is not None:
             meta_dict["gold_actions"] = gold_actions
             fields["gold_actions"] = TextField([Token(a) for a in gold_actions], self._action_indexers)
