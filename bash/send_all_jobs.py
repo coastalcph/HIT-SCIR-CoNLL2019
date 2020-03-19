@@ -1,9 +1,17 @@
 import os,sys
-ISO_TODO = ['sv_talbanken', 'en_ewt', 'lv_lvtb', 'cs_fictree',
-'cs_pdt', 'it_isdt', 'uk_iu', 'pl_pdb','ru_syntagrus',
-'sk_snk','nl_alpino', 'nl_lassysmall', 'et_ewt']
-ISO_MEMORY_ERROR = ['cs_cac', 'ar_padt', 'fi_tdt']
+#run:
+# python send_all_jobs.py data_dir checkpoints
+# where data dir contains the UD directory and checkpoints
+# will save checkpoints with one directory per treebank, 
+# named after its iso
+
+
+#ISO_TODO = ['sv_talbanken', 'en_ewt', 'lv_lvtb', 'cs_fictree',
+#'cs_pdt', 'it_isdt', 'uk_iu', 'pl_pdb','ru_syntagrus',
+#'sk_snk','nl_alpino', 'nl_lassysmall', 'et_ewt']
+#ISO_TODO = ['cs_cac', 'ar_padt', 'fi_tdt']
 #ISO_TODO += ['cs_cac', 'ar_pdt', 'fi_tdt']
+ISO_TODO=None #do everything by default
 
 eud_dir=sys.argv[1]
 chkpoints = sys.argv[2]
@@ -16,10 +24,9 @@ for lang in langs:
     #not running jobs for the ones we already have a model for
     #if os.path.exists(f'{chkpoints}/{iso}/best.th'):
     #    continue
-    if iso in ISO_MEMORY_ERROR:
+    if not ISO_TODO or iso in ISO_TODO:
         if iso == 'et_ewt':
             send_cmd = f'sbatch --job-name {iso} bash/train_ud.sh {lang} {iso} {chkpoints}/{iso} /image/nlp-datasets/iwpt20/et_split/'
         else:
             send_cmd = f'sbatch --job-name {iso} bash/train_ud.sh {lang} {iso} {chkpoints}/{iso}'
-        #print(send_cmd)
         os.system(send_cmd)
