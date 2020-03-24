@@ -50,7 +50,6 @@ class TransitionParser(Model):
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
         self.pos_tag_embedding = pos_tag_embedding
-        #this is most probably incorrect
         self._xud_score = XUDScore()
 
 
@@ -110,7 +109,7 @@ class TransitionParser(Model):
             batch_size: int,
             sent_len: List[int],
             embedded_text_input: torch.Tensor,
-            oracle_actions: Optional[List[List[int]]] = None,
+            oracle_actions: Optional[List[List[str]]] = None,
             ) -> Dict[str, Any]:
 
         self.buffer.reset_stack(batch_size)
@@ -120,6 +119,7 @@ class TransitionParser(Model):
         # We will keep track of all the losses we accumulate during parsing.
         # If some decision is unambiguous because it's the only thing valid given
         # the parser state, we will not model it. We only model what is ambiguous.
+
         losses = [[] for _ in range(batch_size)]
         ratio_factor_losses = [[] for _ in range(batch_size)]
         edge_list = [[] for _ in range(batch_size)]
@@ -235,7 +235,8 @@ class TransitionParser(Model):
 
 
                     log_probs = None
-                    action = valid_actions[0]
+                    action_idx = valid_actions[0]
+                    action = self.vocab.get_token_from_index(action_idx, namespace='actions')
                     ratio_factor = torch.tensor([len(null_node[sent_idx]) / (1.0 * sent_len[sent_idx])],
                             device=self.pempty_action_emb.device)
 
@@ -258,29 +259,33 @@ class TransitionParser(Model):
                         log_probs = torch.log_softmax(logits, dim=0)
 
                         action_idx = torch.max(log_probs, 0)[1].item()
-                        action = valid_actions[action_idx]
+                        action_idx = valid_actions[action_idx]
+                        action = self.vocab.get_token_from_index(action_idx, namespace='actions')
 
                     if oracle_actions is not None:
                         action = oracle_actions[sent_idx].pop(0)
+                        action_idx = self.vocab.get_token_index(action, namespace='actions')
 
                     # push action into action_stack
                     self.action_stack.push(sent_idx,
                             input=self.action_embedding(
-                                torch.tensor(action, device=embedded_text_input.device)),
+                                torch.tensor(action_idx, device=embedded_text_input.device)),
                             extra={
-                                'token': self.vocab.get_token_from_index(action, namespace='actions')})
-                    action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
-                    #print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
+                                'token': action})
+                    action_list[sent_idx].append(action)
+                    #print(f'Sent ID: {sent_idx}, action {action}')
 
                     #log_probs should be none when validating so we should not get here
                     try:
-                        if log_probs is not None:
-                            losses[sent_idx].append(log_probs[valid_action_tbl[action]])
+                        #1 is reserved for unk action
+                        #TODO: this should be an option
+                        if log_probs is not None and action_idx != 1:
+                            losses[sent_idx].append(log_probs[valid_action_tbl[action_idx]])
                     except KeyError:
-                        raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
+                        raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
-                    if action in action_id["NODE"] :
+                    if action_idx in action_id["NODE"] :
                         null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
                         null_node[sent_idx].append(null_node_token)
 
@@ -297,14 +302,14 @@ class TransitionParser(Model):
 
                         total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
 
-                    if action in action_id["NODE"] + action_id["LEFT-EDGE"] \
+                    if action_idx in action_id["NODE"] + action_id["LEFT-EDGE"] \
                             + action_id["RIGHT-EDGE"] :
 
-                        if action in action_id["NODE"] :
+                        if action_idx in action_id["NODE"] :
                             modifier = self.buffer.get_stack(sent_idx)[-1]
                             head = self.stack.get_stack(sent_idx)[-1]
 
-                        elif action in action_id["LEFT-EDGE"] :
+                        elif action_idx in action_id["LEFT-EDGE"] :
                             head = self.stack.get_stack(sent_idx)[-1]
                             modifier = self.stack.get_stack(sent_idx)[-2]
                         else:
@@ -317,7 +322,7 @@ class TransitionParser(Model):
                         if oracle_actions is None:
                             edge_list[sent_idx].append((mod_tok,
                                 head_tok,
-                                self.vocab.get_token_from_index(action, namespace='actions')
+                                action
                                 .split(':', maxsplit=1)[1]))
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
@@ -333,14 +338,14 @@ class TransitionParser(Model):
                         comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
                         comp_rep = torch.tanh(self.p_comp(comp_rep))
 
-                        if action in action_id["NODE"] :
+                        if action_idx in action_id["NODE"] :
                             self.buffer.pop(sent_idx)
                             self.buffer.push(sent_idx,
                                     input=comp_rep,
                                     extra={'token': mod_tok})
 
 
-                        elif action in action_id["LEFT-EDGE"] :
+                        elif action_idx in action_id["LEFT-EDGE"] :
                             self.stack.pop(sent_idx)
                             self.stack.push(sent_idx,
                                     input=comp_rep,
@@ -361,10 +366,10 @@ class TransitionParser(Model):
                                     extra={'token': mod_tok})
 
                     # Execute the action to update the parser state
-                    if action in action_id["REDUCE-0"]:
+                    if action_idx in action_id["REDUCE-0"]:
                         self.stack.pop(sent_idx)
 
-                    if action in action_id["REDUCE-1"]:
+                    if action_idx in action_id["REDUCE-1"]:
                         stack_0 = self.stack.pop(sent_idx)
                         self.stack.pop(sent_idx)
                         self.stack.push(sent_idx,
@@ -372,7 +377,7 @@ class TransitionParser(Model):
                                 extra={'token': stack_0['token']})
 
 
-                    elif action in action_id["SHIFT"]:
+                    elif action_idx in action_id["SHIFT"]:
                         buffer = self.buffer.pop(sent_idx)
                         self.stack.push(sent_idx,
                                 input=buffer['stack_rnn_input'],
@@ -382,13 +387,13 @@ class TransitionParser(Model):
                             num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
                             generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
 
-                    elif action in action_id["SWAP"]:
+                    elif action_idx in action_id["SWAP"]:
                         stack_penult = self.stack.pop_penult(sent_idx)
                         self.buffer.push(sent_idx,
                                 input=stack_penult['stack_rnn_input'],
                                 extra={'token': stack_penult['token']})
 
-                    elif action in action_id["FINISH"]:
+                    elif action_idx in action_id["FINISH"]:
                         action_tag_for_terminate[sent_idx] = True
                         ratio_factor_losses[sent_idx] = ratio_factor
 
@@ -431,8 +436,7 @@ class TransitionParser(Model):
 
         #oracle_actions = None
         if gold_actions is not None:
-            oracle_actions = [d['gold_actions'] for d in metadata]
-            oracle_actions = [[self.vocab.get_token_index(s, namespace='actions') for s in l] for l in oracle_actions]
+            oracle_actions  = [d['gold_actions'] for d in metadata]
 
         embedded_text_input = self.text_field_embedder(words)
         embedded_text_input = self._input_dropout(embedded_text_input)

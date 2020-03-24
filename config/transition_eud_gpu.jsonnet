@@ -1,6 +1,8 @@
 {
   "vocabulary": {
-    "non_padded_namespaces": []
+    "non_padded_namespaces": [],
+        "min_count":{
+            "actions": 5
   },
   "dataset_reader": {
       "type": "enhanced_universal_dependencies",

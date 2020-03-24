@@ -24,9 +24,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
 
     token_indexers : `Dict[str, TokenIndexer]`, optional (default=`{"tokens": SingleIdTokenIndexer()}`)
         The token indexers to be applied to the words TextField.
-    use_language_specific_pos : `bool`, optional (default = False)
-        Whether to use UD POS tags, or to use the language specific POS tags
-        provided in the conllu format.
     tokenizer : `Tokenizer`, optional, default = None
         A tokenizer to use to split the text. This is useful when the tokens that you pass
         into the model need to have some particular attribute. Typically it is not necessary.
@@ -40,7 +37,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         lazy: bool = False) -> None:
         super().__init__(lazy)
         self._token_indexers = token_indexers or {"tokens": SingleIdTokenIndexer()}
-        self.use_language_specific_pos = use_language_specific_pos
         self._action_indexers = None
         if action_indexers is not None and len(action_indexers) > 0:
             self._action_indexers = action_indexers
