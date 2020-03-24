@@ -81,6 +81,10 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                         token_node_ids.append(str(x['id']))
 
                     if not x['deps'] == None:
+                        #TODO: WARNING THIS IS A BAAAAD HACK!!
+                        # MAKE THIS CONFIGURABLE
+                        # keep a max of 7 heads
+                        x['deps'] = x['deps'][:7]
                         for tag,ind2 in x['deps']:
                             enhanced_arc_indices.append((str(x['id']),str(ind2)))
                             enhanced_arc_tags.append(tag)

@@ -129,6 +129,7 @@ class TransitionParser(Model):
         root_id = [[] for _ in range(batch_size)]
         num_of_generated_node= [[] for _ in range(batch_size)]
         generated_order = [{} for _ in range(batch_size)]
+        #heads_count = [[] for _ in range(batch_size)]
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
@@ -143,7 +144,7 @@ class TransitionParser(Model):
                     # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
             root_id[sent_idx] = sent_len[sent_idx]
-            generated_order[sent_idx][root_id[sent_idx]] = 0
+            generated_order[sent_idx][root_id[sent_idx]] = {'order': 0}
             self.stack.push(sent_idx,
                     input=self.proot_stack_emb,
                     extra={'token': root_id[sent_idx]})
@@ -197,7 +198,7 @@ class TransitionParser(Model):
 
                         s1 = self.stack.get_stack(sent_idx)[-2]['token']
 
-                        if s1 != root_id[sent_idx] and generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
+                        if s1 != root_id[sent_idx] and generated_order[sent_idx][s0]['order'] > generated_order[sent_idx][s1]['order']:
                             valid_actions += action_id['SWAP']
                             #the oracle knows what to do but we need to add condition at prediction time
                             if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
@@ -217,7 +218,8 @@ class TransitionParser(Model):
                                 labels_right_edge.append(label)
                         if not left_edge_exists and s1 != root_id[sent_idx] :
                             valid_actions += action_id['LEFT-EDGE']
-                        elif left_edge_exists and s1 != root_id[sent_idx]:
+                        #TODO: WARNING!! HACKY!! THIS SHOULD BE CONFIGURABLE
+                        elif left_edge_exists and s1 != root_id[sent_idx] and generated_order[sent_idx][mod_tok]['head_count'] < 8:
                             left_edge_possible_actions = \
                                     [self.vocab.get_token_index(a, namespace='actions') for a in
                                     self.vocab.get_token_to_index_vocabulary('actions').keys()
@@ -226,7 +228,8 @@ class TransitionParser(Model):
 
                         if not right_edge_exists:
                             valid_actions += action_id['RIGHT-EDGE']
-                        elif right_edge_exists:
+                        #TODO: WARNING!! HACKY!! THIS SHOULD BE CONFIGURABLE
+                        elif right_edge_exists and generated_order[sent_idx][mod_tok]['head_count'] <8:
                             right_edge_possible_actions = \
                                     [self.vocab.get_token_index(a, namespace='actions') for a in
                                     self.vocab.get_token_to_index_vocabulary('actions').keys()
@@ -350,6 +353,7 @@ class TransitionParser(Model):
                             self.stack.push(sent_idx,
                                     input=comp_rep,
                                     extra={'token': head_tok})
+                            generated_order[sent_idx][mod_tok]['head_count'] +=1
 
                             # RIGHT-EDGE 
                         else:
@@ -365,6 +369,7 @@ class TransitionParser(Model):
                                     input=stack_0_rep,
                                     extra={'token': mod_tok})
 
+                            generated_order[sent_idx][mod_tok]['head_count'] +=1
                     # Execute the action to update the parser state
                     if action_idx in action_id["REDUCE-0"]:
                         self.stack.pop(sent_idx)
@@ -385,7 +390,8 @@ class TransitionParser(Model):
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         if s0 not in generated_order[sent_idx]:
                             num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
-                            generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
+                            generated_order[sent_idx][s0] = {'order':num_of_generated_node[sent_idx],
+                                                            'head_count' : 0}
 
                     elif action_idx in action_id["SWAP"]:
                         stack_penult = self.stack.pop_penult(sent_idx)
