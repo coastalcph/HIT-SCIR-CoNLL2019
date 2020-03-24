@@ -1,0 +1,26 @@
+labels 
+number of labels	133
+binned label frequencies 
+(1, 5)	29
+(5, 10)	10
+(10, 20)	12
+(20, 50)	15
+(50, 100)	14
+(100, 500)	13
+(500, 1000)	10
+1000+	30
+
+ heads 
+max heads	20
+freq of head numbers 
+1	155582
+2	10989
+3	1072
+4	202
+5	60
+6	15
+7	11
+8	6
+9	3
+11	2
+20	1
