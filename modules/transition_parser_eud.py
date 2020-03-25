@@ -256,17 +256,16 @@ class TransitionParser(Model):
                     action_list[sent_idx].append(action)
                     #print(f'Sent ID: {sent_idx}, action {action}')
 
-                    #log_probs should be none when validating so we should not get here
                     try:
-                        #1 is reserved for unk action
-                        #TODO: this should be an option
-                        if log_probs is not None and action_idx != 1:
+                        # do not calculate log probs of unked actions
+                        UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
+                        if log_probs is not None and not (UNK_ID and action_idx == UNK_ID):
                             losses[sent_idx].append(log_probs[valid_action_tbl[action_idx]])
                     except KeyError:
                         raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
-                    if action == "NODE" :
+                    if action == "NODE":
                         null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
                         null_node[sent_idx].append(null_node_token)
 
@@ -283,14 +282,8 @@ class TransitionParser(Model):
 
                         total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
 
-                    if action == "NODE" or action.startswith("LEFT-EDGE") \
-                            or action.startswith("RIGHT-EDGE") :
-
-                        if action == "NODE":
-                            modifier = self.buffer.get_stack(sent_idx)[-1]
-                            head = self.stack.get_stack(sent_idx)[-1]
-
-                        elif action.startswith("LEFT-EDGE") :
+                    if action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE") :
+                        if action.startswith("LEFT-EDGE") :
                             head = self.stack.get_stack(sent_idx)[-1]
                             modifier = self.stack.get_stack(sent_idx)[-2]
                         else:

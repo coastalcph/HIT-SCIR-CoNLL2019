@@ -130,12 +130,9 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
             null_node_id = get_dependent_null_node_id(s0)
             buffer.append(null_node_id)
 
-            actions.append("NODE:" + get_arc_label(null_node_id,s0)[0])
+            actions.append("NODE")
 
             null_node_ids[null_node_id] = True
-            sub_graph[null_node_id][s0] = True
-            sub_graph_arc_list.append((null_node_id, s0))
-
             return
 
         # REDUCE
@@ -178,12 +175,10 @@ def get_oracle_actions(token_ids, arc_indices, arc_tags, null_node_ids, node_ids
         assert len(actions) <10000
         #print(actions[-1])
         if actions[-1] == '-E-':
-            #import pdb;pdb.set_trace()
             break
 
     actions.append('FINISH')
     stack.pop()
 
     return actions
-
 
