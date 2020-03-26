@@ -214,6 +214,10 @@ class TransitionParser(Model):
                             valid_actions += right_edge_possible_actions
 
 
+                    #remove unknown actions:
+                    vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
+                    valid_actions = [valid_action for valid_action in valid_actions if valid_action in vocab_actions]
+
                     log_probs = None
                     action = valid_actions[0]
                     action_idx = self.vocab.get_token_index(action, namespace='actions')
@@ -318,7 +322,6 @@ class TransitionParser(Model):
                                     input=comp_rep,
                                     extra={'token': mod_tok})
 
-
                         elif action.startswith("LEFT-EDGE") :
                             self.stack.pop(sent_idx)
                             self.stack.push(sent_idx,
@@ -326,7 +329,7 @@ class TransitionParser(Model):
                                     extra={'token': head_tok})
                             head_count[sent_idx][mod_tok] +=1
 
-                            # RIGHT-EDGE 
+                        # RIGHT-EDGE 
                         else:
                             stack_0_rep = self.stack.get_stack(sent_idx)[-1]['stack_rnn_input']
                             self.stack.pop(sent_idx)
@@ -351,7 +354,6 @@ class TransitionParser(Model):
                         self.stack.push(sent_idx,
                                 input=stack_0['stack_rnn_input'],
                                 extra={'token': stack_0['token']})
-
 
                     elif action ==  "SHIFT":
                         buffer = self.buffer.pop(sent_idx)
