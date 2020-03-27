@@ -30,8 +30,6 @@ class TransitionParser(Model):
                  layer_dropout_probability: float = 0.0,
                  same_dropout_mask_per_instance: bool = True,
                  input_dropout: float = 0.0,
-                 lemma_text_field_embedder: TextFieldEmbedder = None,
-                 pos_tag_embedding: Embedding = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None
@@ -39,17 +37,10 @@ class TransitionParser(Model):
 
         super(TransitionParser, self).__init__(vocab, regularizer)
 
-        self._unlabeled_correct = 0
-        self._labeled_correct = 0
-        self._total_edges_predicted = 0
-        self._total_edges_actual = 0
-        self._exact_unlabeled_correct = 0
-        self._exact_labeled_correct = 0
-        self._total_sentences = 0
+        self._total_batches = 0
 
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
-        self.pos_tag_embedding = pos_tag_embedding
         self._xud_score = XUDScore()
 
 
@@ -411,6 +402,7 @@ class TransitionParser(Model):
                 ) -> Dict[str, torch.LongTensor]:
 
         batch_size = len(metadata)
+        #self._total_batches += 1
         sent_len = [len(d['words']) for d in metadata]
 
         #oracle_actions = None
@@ -432,6 +424,12 @@ class TransitionParser(Model):
             _loss = ret_train['loss']
             output_dict = {'loss': _loss}
             return output_dict
+        else:
+            #reset
+            if not self._total_batches or self._total_batches > self.num_validation_batches:
+                self._total_batches = 1
+            else:
+                self._total_batches += 1
 
         training_mode = self.training
         self.eval()
@@ -479,7 +477,8 @@ class TransitionParser(Model):
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
+        #self.num_validation_batches comes from modified trainer code
         all_metrics: Dict[str, float] = {}
-        if self._xud_score is not None and not self.training:
+        if self._xud_score is not None and not self.training and self._total_batches == self.num_validation_batches:
             all_metrics.update(self._xud_score.get_metric(reset=reset))
         return all_metrics
