@@ -70,7 +70,7 @@
     "num_epochs": 50,
     "grad_norm": 5.0,
     "grad_clipping": 5.0,
-    "patience": 50,
+    "patience": 10,
     "cuda_device": 0,
     "validation_metric": "+ELAS",
     "optimizer": {
