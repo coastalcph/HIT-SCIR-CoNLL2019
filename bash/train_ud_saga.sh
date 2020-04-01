@@ -5,8 +5,13 @@
 #SBATCH --time=2-00:00:00
 #SBATCH --mem-per-cpu=20G
 
-#conda activate hit_parser
 # examples of training commands
+workingdir='/cluster/work/users/mdelhoneux/hit_parser'
+cd $workingdir
+module load Perl/5.30.0-GCCcore-8.3.0
+module load Anaconda3/2019.03
+conda activate hit_parser
+
 lang=$1
 iso=$2
 checkpoint_dir=$3
