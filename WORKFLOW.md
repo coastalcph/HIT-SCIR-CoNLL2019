@@ -27,7 +27,7 @@ models: /cluster/projects/nn9447k/mdelhoneux/models/{mbert,langspecbert}/
 8. Collect full predictions into one directory
 
 TODO:
-- Fix training for ar_padt (mem error, long sent), cz_cac, fi_tdt (mem error, long sent)
+- Fix training for ar_padt (mem error, long sent), cs_cac, fi_tdt (mem error, long sent)
 	Miryam and Daniel both trying to train
 - Fix model path in training script
 	Daniel

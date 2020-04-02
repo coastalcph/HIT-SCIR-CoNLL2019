@@ -80,7 +80,7 @@
     },
     "learning_rate_scheduler": {
       "type": "slanted_triangular",
-      "num_epochs": 1,
+      "num_epochs": 2,
       "num_steps_per_epoch": 1000,
       "cut_frac": 0.1,
       "ratio": 32,
