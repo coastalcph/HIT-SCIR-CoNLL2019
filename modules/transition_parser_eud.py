@@ -427,11 +427,12 @@ class TransitionParser(Model):
 			return output_dict
 		else:
 			#reset
-			if not self._total_batches or self._total_batches > self.num_validation_batches:
+			if not self._total_batches or self._total_batches == self.num_validation_batches:
 				self._total_batches = 1
 			else:
 				self._total_batches += 1
 
+		#print(f'{self._total_batches}/{self.num_validation_batches}')
 		training_mode = self.training
 		self.eval()
 		with torch.no_grad():
