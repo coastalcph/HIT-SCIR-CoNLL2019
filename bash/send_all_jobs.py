@@ -12,11 +12,12 @@ import os,sys
 ISO_TODO = ['cs_cac', 'ar_padt', 'fi_tdt']
 ISO_TODO = ['ar_padt']
 ISO_TODO = ['ta_ttb']
+ISO_TODO = []
 #ISO_TODO += ['cs_cac', 'ar_pdt', 'fi_tdt']
 #ISO_TODO=None #do everything by default
 
 eud_dir='/cluster/projects/nn9447k/mdelhoneux/train-dev/' #sys.argv[1]
-chkpoints = 'checkoints' #sys.argv[2]
+chkpoints = 'checkpoints' #sys.argv[2]
 langs = os.listdir(eud_dir)
 for lang in langs:
 	if lang.endswith('PUD') or lang.endswith('FQB'):
