@@ -63,7 +63,7 @@
     "batch_size": std.parseInt(std.extVar('BATCH_SIZE'))
   },
   "trainer": {
-    "num_epochs": 1,
+    "num_epochs": 2,
     "grad_norm": 5.0,
     "grad_clipping": 5.0,
     "patience": 50,
