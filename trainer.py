@@ -297,7 +297,7 @@ class Trainer(TrainerBase):
         train_generator = lazy_groups_of(raw_train_generator, num_gpus)
         num_training_batches = math.ceil(self.iterator.get_num_batches(self.train_data)/num_gpus)
 
-        num_validation_batches = self.iterator.get_num_batches(self._validation_data)
+        num_validation_batches = self._validation_iterator.get_num_batches(self._validation_data)
         self.model.num_validation_batches = num_validation_batches
         self._last_log = time.time()
         last_save_time = time.time()

@@ -60,12 +60,18 @@
       ["pempty_action_emb", {"type": "normal"}],
     ]
   },
-  "iterator": {
-    "type": "bucket",
-    "sorting_keys": [["words", "num_tokens"]],
-    "batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
-        "instances_per_epoch": 5000
-  },
+	"iterator": {
+		"type": "bucket",
+		"sorting_keys": [["words", "num_tokens"]],
+		"batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
+		"instances_per_epoch": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_TRAIN'))
+	  },
+	"validation_iterator": {
+		"type": "bucket",
+		"sorting_keys": [["words", "num_tokens"]],
+		"batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
+		"instances_per_epoch": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_DEV'))
+	  },
   "trainer": {
     "num_epochs": 50,
     "grad_norm": 5.0,

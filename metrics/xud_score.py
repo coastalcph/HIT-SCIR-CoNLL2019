@@ -35,7 +35,7 @@ class XUDScore(Metric):
     def get_metric(self, reset: bool = False) -> Dict[str,float]:
         #predictions
         if self.predictions and self.golds:
-            print(len(self.predictions))
+            #print(len(self.predictions))
             #flatten list
             preds = [item for sublist in self.predictions for item in sublist]
             #hack to avoid double new lines when joining
@@ -72,7 +72,7 @@ class XUDScore(Metric):
         if reset:
             self.predictions = []
             self.golds = []
-        print(results['ELAS'].f1)
+        #print(results['ELAS'].f1)
         return {"ELAS":results['ELAS'].f1}
 
     @retry(stop_max_attempt_number=3)
