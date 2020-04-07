@@ -7,6 +7,7 @@
   },
   "dataset_reader": {
       "type": "enhanced_universal_dependencies",
+      "max_heads": 7,
       "token_indexers": {
           "tokens": {
               "type": "bert-pretrained",
