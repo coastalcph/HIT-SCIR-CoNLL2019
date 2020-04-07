@@ -42,7 +42,9 @@ class TransitionParser(Model):
 
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
-        self._xud_score = XUDScore()
+        #TODO: pass to config
+        self.output_null_nodes = False
+        self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
 
         self.word_dim = word_dim
@@ -461,10 +463,10 @@ class TransitionParser(Model):
                 predicted_graphs.append(eud_trans_outputs_into_conllu({
                         k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                                 "deprel", "misc", "edge_list", "null_node", "multiwords"]
-                }))
+                }, self.output_null_nodes))
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
-            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation']) for sentence_metadata in metadata]
+            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation'], self.output_null_nodes) for sentence_metadata in metadata]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
             self._xud_score(predicted_graphs_conllu,

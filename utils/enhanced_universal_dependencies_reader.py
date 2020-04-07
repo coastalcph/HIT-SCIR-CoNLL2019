@@ -58,6 +58,9 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
+                #ignore long sentences
+                if len(word_annotation) > 300:
+                    continue
 
                 words = [x["form"] for x in word_annotation]
                 enhanced_arc_indices = []
