@@ -27,6 +27,7 @@
   "validation_data_path": std.extVar('DEV_PATH'),
   "model": {
     "type": "transition_parser_ud",
+    "output_null_nodes": false,
     "text_field_embedder": {
         "tokens": {
             "type": "bert-pretrained",
