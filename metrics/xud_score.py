@@ -11,7 +11,6 @@ from allennlp.training.metrics.metric import Metric
 from metrics.iwpt20_xud_eval import evaluate, load_conllu_default, UDError
 from conllu import string_to_file
 import re
-NULL_NODE = re.compile(r"^[0-9][0-9]*\.[1-9][0-9]*")
 
 
 @Metric.register("xud")
@@ -55,10 +54,7 @@ class XUDScore(Metric):
                 preds = [pred for pred in pred_collapsed.stdout.partition("\n") ]
                 string_pred = ''.join(preds)
             else:
-                #preds = [pred for pred in predictions if not re.match(NULL_NODE, pred)]
                 string_pred = '\n'.join(preds)+'\n'
-                #import sys;sys.stdout=sys.stdout.terminal
-                #import ipdb;ipdb.set_trace()
 
             pred_graphs = load_conllu_default(string_to_file(string_pred))
 
@@ -78,7 +74,6 @@ class XUDScore(Metric):
                 golds = [gold for gold in gold_collapsed.stdout.partition("\n")]
                 string_gold = ''.join(golds)
             else:
-                #golds = [gold for gold in golds if not re.fullmatch(NULL_NODE, gold)]
                 string_gold = '\n'.join(golds)+'\n'
             gold_graphs = load_conllu_default(string_to_file(string_gold))
             results = evaluate(gold_graphs, pred_graphs)
