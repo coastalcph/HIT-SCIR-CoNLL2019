@@ -31,6 +31,7 @@ class TransitionParser(Model):
                  layer_dropout_probability: float = 0.0,
                  same_dropout_mask_per_instance: bool = True,
                  input_dropout: float = 0.0,
+                 output_null_nodes: bool = True,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None
@@ -42,8 +43,7 @@ class TransitionParser(Model):
 
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
-        #TODO: pass to config
-        self.output_null_nodes = False
+        self.output_null_nodes = output_null_nodes
         self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
 
