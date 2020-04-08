@@ -32,6 +32,7 @@ class TransitionParser(Model):
                  same_dropout_mask_per_instance: bool = True,
                  input_dropout: float = 0.0,
                  output_null_nodes: bool = True,
+                 validate_every_n_instances: int = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None
@@ -39,11 +40,12 @@ class TransitionParser(Model):
 
         super(TransitionParser, self).__init__(vocab, regularizer)
 
-        self._total_batches = 0
+        self._total_validation_instances = 0
 
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
         self.output_null_nodes = output_null_nodes
+        self.num_validation_instances = validate_every_n_instances
         self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
 
@@ -399,7 +401,6 @@ class TransitionParser(Model):
                 ) -> Dict[str, torch.LongTensor]:
 
         batch_size = len(metadata)
-        #self._total_batches += 1
         sent_len = [len(d['words']) for d in metadata]
 
         #oracle_actions = None
@@ -423,12 +424,12 @@ class TransitionParser(Model):
             return output_dict
         else:
             #reset
-            if not self._total_batches or self._total_batches == self.num_validation_batches:
-                self._total_batches = 1
+            if self.num_validation_instances and (not self._total_validation_instances or self._total_validation_instances == self.num_validation_instances):
+                self._total_validation_instances = 1
             else:
-                self._total_batches += 1
+                self._total_validation_instances += 1
 
-        #print(f'{self._total_batches}/{self.num_validation_batches}')
+        #print(f'{self._total_validation_instances}/{self.num_validation_instances}')
         training_mode = self.training
         self.eval()
         with torch.no_grad():
@@ -475,8 +476,10 @@ class TransitionParser(Model):
         return output_dict
 
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
-        #self.num_validation_batches comes from modified trainer code
         all_metrics: Dict[str, float] = {}
-        if self._xud_score is not None and not self.training and self._total_batches == self.num_validation_batches:
-            all_metrics.update(self._xud_score.get_metric(reset=reset))
+        if self._xud_score is not None and not self.training:
+            if self.num_validation_instances and self._total_validation_instances == self.num_validation_instances:
+                all_metrics.update(self._xud_score.get_metric(reset=reset))
+            elif not self.num_validation_instances:
+                all_metrics.update(self._xud_score.get_metric(reset=True))
         return all_metrics

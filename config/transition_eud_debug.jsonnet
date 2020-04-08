@@ -28,6 +28,7 @@
   "model": {
     "type": "transition_parser_ud",
     "output_null_nodes": false,
+    "validate_every_n_instances": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_DEV')),
     "text_field_embedder": {
         "tokens": {
             "type": "bert-pretrained",
