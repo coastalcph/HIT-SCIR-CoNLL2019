@@ -8,10 +8,12 @@ for tb in $treebanks; do
     gold=$(find $treebank_dir/${tb}/ -name *-ud-dev.conllu -exec basename {} \;)
     tb_code=$(echo $gold | sed 's/-.*//')
     pred=$(find ${checkpoints}/${tb_code}/ -name *preprocessed-stanza* -exec basename {} \;)
+    #pred=$(find ${checkpoints}/${tb_code}/ -name *preprocessed-udpipe* -exec basename {} \;)
     tmp_gold=/tmp/gold.conllu
     tmp_pred=/tmp/pred.conllu
     perl tools/enhanced_collapse_empty_nodes.pl ${treebank_dir}/${tb}/${gold} > $tmp_gold
-    perl tools/enhanced_collapse_empty_nodes.pl ${checkpoints}/${tb}/${pred} > $tmp_pred
+    perl tools/enhanced_collapse_empty_nodes.pl ${checkpoints}/${tb_code}/${pred} > $tmp_pred
     echo $tb
-    python metrics/iwpt20_xud_eval.py $tmp_gold $tmp_pred
+    #python metrics/iwpt20_xud_eval.py $tmp_gold $tmp_pred > ${checkpoints}/${tb_code}/dev_score_preprocessed-udpipe.txt
+    python metrics/iwpt20_xud_eval.py $tmp_gold $tmp_pred > ${checkpoints}/${tb_code}/dev_score_preprocessed-stanza.txt
 done
