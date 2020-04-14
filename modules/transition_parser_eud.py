@@ -425,9 +425,9 @@ class TransitionParser(Model):
         else:
             #reset
             if self.num_validation_instances and (not self._total_validation_instances or self._total_validation_instances == self.num_validation_instances):
-                self._total_validation_instances = 1
+                self._total_validation_instances = batch_size
             else:
-                self._total_validation_instances += 1
+                self._total_validation_instances += batch_size
 
         #print(f'{self._total_validation_instances}/{self.num_validation_instances}')
         training_mode = self.training
