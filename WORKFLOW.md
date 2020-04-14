@@ -1,3 +1,28 @@
+TODO:
+MUST:
+Miryam 1. Train language-specific instead of treebank-specific models by joining the training treebanks
+Artur 2. Fix predictions with preprocessed UDPipe+Stanza
+  - Fix prediction bug
+  - Both dev and test: preprocessing with Stanza+UDPipe with largest model
+  - Both dev and test: parser model from joint language
+Daniel 3. Evaluate on dev to make sure they are valid, update dev scores for all languages
+  - Verify valid output for ar_padt, cs_cac, fi_tdt (long sentences are skipped)
+Artur 4. Predictions on test with preprocessed UDPipe+Stanza
+Daniel 5. Collect to directory for submission https://universaldependencies.org/iwpt20/submission.html
+
+NICE TO HAVE:
+- Train new UDPipe/Stanza models from joined language training sets instead of per treebank
+- Find preprocessing models that do best on average on dev treebanks per language
+- Repeat with lang-spec BERT
+
+STRETCH GOAL:
+- Submit training jobs with preprocessed UDPipe/Stanza
+- Repeat with XLM-R large
+- Treebank embeddings with "guessing" during test
+
+
+
+
 train+dev: /cluster/projects/nn9447k/mdelhoneux/train-dev
 
 test: /cluster/projects/nn9447k/mdelhoneux/test/*.txt
@@ -25,27 +50,4 @@ models: /cluster/projects/nn9447k/mdelhoneux/models/{mbert,langspecbert}/
 	output: /cluster/projects/nn9447k/mdelhoneux/test/*-pred-udpipe*.conllu
 -->
 8. Collect full predictions into one directory
-
-TODO:
-- Fix training for ar_padt (mem error, long sent), cs_cac, fi_tdt (mem error, long sent)
-	Miryam and Daniel both trying to train
-- Fix model path in training script
-	Daniel
-- Copy already trained models to new path
-	Artur, Miryam
-- Support preprocessed stanza in send_all_jobs - update paths
-	Artur
-- Update paths in predict_ud.sh
-	Artur
-- Create predict_ud_test.sh
-	Artur
-- Submit training jobs with preprocessed stanza
-	Artur
-- Predictions on dev with preprocessed stanza - add scores to spreadsheet
-	Artur
-- Predictions on test with preprocessed stanza - collect to directory for submission
-- Repeat with UDPipe
-	Elham
-- Repeat with lang-spec BERT
-- Repeat with XLM-R large
 
