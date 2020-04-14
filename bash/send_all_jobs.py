@@ -11,6 +11,7 @@ import os,sys
 #'sk_snk','nl_alpino', 'nl_lassysmall', 'et_ewt']
 ISO_TODO = ['cs_cac', 'ar_padt', 'fi_tdt']
 ISO_TODO = ['ar_padt']
+ISO_TODO = ['cs_all', 'en_all', 'et_all', 'fi_all','fr_all','nl_all','pl_all']
 #ISO_TODO += ['cs_cac', 'ar_pdt', 'fi_tdt']
 #ISO_TODO=None #do everything by default
 
