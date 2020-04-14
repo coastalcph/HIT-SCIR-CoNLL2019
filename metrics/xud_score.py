@@ -35,7 +35,7 @@ class XUDScore(Metric):
         self.golds.append(golds)
 
     def get_metric(self, reset: bool = False) -> Dict[str,float]:
-        results = {}
+        results = {'ELAS':0}
         if self.predictions and self.golds:
             string_pred = self.get_string(self.predictions)
             pred_graphs = load_conllu_default(string_to_file(string_pred))

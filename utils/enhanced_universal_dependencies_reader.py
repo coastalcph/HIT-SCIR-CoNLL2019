@@ -35,11 +35,13 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         action_indexers: Dict[str, TokenIndexer] = None,
         use_language_specific_pos: bool = False,
         max_heads: int = None,
+        max_sentence_length: int = None,
         lazy: bool = False) -> None:
         super().__init__(lazy)
         self._token_indexers = token_indexers or {"tokens": SingleIdTokenIndexer()}
         self._action_indexers = None
         self.max_heads = max_heads
+        self.max_sentence_length = max_sentence_length
         if action_indexers is not None and len(action_indexers) > 0:
             self._action_indexers = action_indexers
 
@@ -61,7 +63,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 # as parsed by the conllu python library.
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
                 #ignore long sentences
-                if len(word_annotation) > 300:
+                if self.max_sentence_length and len(word_annotation) > self.max_sentence_length:
                     continue
 
                 words = [x["form"] for x in word_annotation]
