@@ -2,7 +2,7 @@
 #SBATCH --account=nn9447k
 #SBATCH --partition=accel
 #SBATCH --gres=gpu:1
-#SBATCH --time=00:30:00
+#SBATCH --time=01:00:00
 #SBATCH --mem-per-cpu=10G
 
 module load Perl/5.30.0-GCCcore-8.3.0
@@ -18,6 +18,6 @@ allennlp predict \
     --use-dataset-reader \
     --batch-size 32 \
     --silent \
-    --cuda-device -1 \
+    --cuda-device 0 \
     $checkpoint_dir \
     $preprocessed_file \

@@ -490,8 +490,9 @@ class TransitionParser(Model):
             gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation']) for sentence_metadata in metadata]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
-            self._xud_score(predicted_graphs_conllu,
-                    gold_graphs_conllu)
+            if self.training:
+                self._xud_score(predicted_graphs_conllu,
+                                gold_graphs_conllu)
 
         return output_dict
 
