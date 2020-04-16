@@ -296,8 +296,7 @@ class TransitionParser(Model):
                         if oracle_actions is None:
                             edge_list[sent_idx].append((mod_tok,
                                     head_tok,
-                                    action
-                                    .split(':', maxsplit=1)[1]))
+                                    action.split(':', maxsplit=1)[1]))
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
                                         else self.action_stack.get_output(sent_idx)
