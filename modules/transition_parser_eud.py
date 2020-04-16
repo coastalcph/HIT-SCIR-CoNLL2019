@@ -1,4 +1,5 @@
-import logging from typing import Dict, Optional, Any, List
+import logging
+from typing import Dict, Optional, Any, List
 from copy import deepcopy
 
 import torch
@@ -31,6 +32,7 @@ class TransitionParser(Model):
                  same_dropout_mask_per_instance: bool = True,
                  input_dropout: float = 0.0,
                  output_null_nodes: bool = True,
+                 max_heads: int = None,
                  validate_every_n_instances: int = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
@@ -44,6 +46,7 @@ class TransitionParser(Model):
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
         self.output_null_nodes = output_null_nodes
+        self.max_heads = max_heads
         self.num_validation_instances = validate_every_n_instances
         self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
@@ -194,15 +197,13 @@ class TransitionParser(Model):
                                 labels_left_edge.append(label)
                             if (mod_tok,head_tok) == (s0,s1):
                                 labels_right_edge.append(label)
-                        #TODO: WARNING!! HACKY!! THIS SHOULD BE CONFIGURABLE
-                        if s1 != root_id[sent_idx] and head_count[sent_idx][s1] < 8:
+                        if s1 != root_id[sent_idx] and (not self.max_heads or head_count[sent_idx][s1] < self.max_heads):
                             left_edge_possible_actions = \
                                     [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
                                     if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
                             valid_actions += left_edge_possible_actions
 
-                        #TODO: WARNING!! HACKY!! THIS SHOULD BE CONFIGURABLE
-                        if head_count[sent_idx][s0] < 8:
+                        if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
                             right_edge_possible_actions = \
                                     [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
                                     if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
@@ -469,9 +470,8 @@ class TransitionParser(Model):
             gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation'], self.output_null_nodes) for sentence_metadata in metadata]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
-            if self.training:
-                self._xud_score(predicted_graphs_conllu,
-                                gold_graphs_conllu)
+            self._xud_score(predicted_graphs_conllu,
+                            gold_graphs_conllu)
 
         return output_dict
 
