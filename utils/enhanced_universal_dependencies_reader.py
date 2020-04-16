@@ -89,9 +89,10 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                             enhanced_arc_indices.append((str(x['id']),str(ind2)))
                             enhanced_arc_tags.append(tag)
 
-                gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags, null_node_ids, node_ids)
+                gold_actions = get_oracle_actions(token_node_ids, enhanced_arc_indices, enhanced_arc_tags,
+                                                  null_node_ids, node_ids) if enhanced_arc_indices else None
 
-                if gold_actions[-2] == '-E-':
+                if gold_actions and gold_actions[-2] == '-E-':
                     print('Oracle failed to complete the tree, actions:')
                     print(gold_actions)
                     continue

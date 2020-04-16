@@ -275,7 +275,9 @@ class TransitionParser(Model):
                     #log_probs should be none when validating so we should not get here
                     try:
                         if log_probs is not None:
-                            losses[sent_idx].append(log_probs[valid_action_tbl[action]])
+                            loss = log_probs[valid_action_tbl[action]]
+                            if not torch.isnan(loss):
+                                losses[sent_idx].append(loss)
                     except KeyError:
                         raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
 
@@ -477,6 +479,7 @@ class TransitionParser(Model):
 
         output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
         # validation mode
+        # compute the accuracy when gold actions exist
         if gold_actions is not None:
             predicted_graphs = []
 
