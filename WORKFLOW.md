@@ -1,6 +1,6 @@
 TODO:
 MUST:
-Miryam 1. Train language-specific instead of treebank-specific models by joining the training treebanks
+DONE - Miryam 1. Train language-specific instead of treebank-specific models by joining the training treebanks
 Artur 2. Fix predictions with preprocessed UDPipe+Stanza
   - Fix prediction bug
   - Both dev and test: preprocessing with Stanza+UDPipe with largest model
