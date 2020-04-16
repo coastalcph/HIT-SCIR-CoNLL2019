@@ -257,10 +257,11 @@ class TransitionParser(Model):
                     #print(f'Sent ID: {sent_idx}, action {action}')
 
                     try:
-                        # do not calculate log probs of unked actions
                         UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
                         if log_probs is not None and not (UNK_ID and action_idx == UNK_ID):
-                                losses[sent_idx].append(log_probs[valid_action_tbl[action_idx]])
+                            loss = log_probs[valid_action_tbl[action]]
+                            if not torch.isnan(loss):
+                                losses[sent_idx].append(loss)
                     except KeyError:
                         raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
@@ -456,6 +457,7 @@ class TransitionParser(Model):
 
         output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
         # validation mode
+        # compute the accuracy when gold actions exist
         if gold_actions is not None:
             predicted_graphs = []
 
