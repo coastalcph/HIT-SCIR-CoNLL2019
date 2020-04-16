@@ -1,5 +1,6 @@
 import logging
 from typing import Dict, Optional, Any, List
+from copy import deepcopy
 
 import torch
 from allennlp.data import Vocabulary
@@ -30,8 +31,9 @@ class TransitionParser(Model):
                  layer_dropout_probability: float = 0.0,
                  same_dropout_mask_per_instance: bool = True,
                  input_dropout: float = 0.0,
-                 lemma_text_field_embedder: TextFieldEmbedder = None,
-                 pos_tag_embedding: Embedding = None,
+                 output_null_nodes: bool = True,
+                 max_heads: int = None,
+                 validate_every_n_instances: int = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
                  regularizer: Optional[RegularizerApplicator] = None
@@ -39,19 +41,14 @@ class TransitionParser(Model):
 
         super(TransitionParser, self).__init__(vocab, regularizer)
 
-        self._unlabeled_correct = 0
-        self._labeled_correct = 0
-        self._total_edges_predicted = 0
-        self._total_edges_actual = 0
-        self._exact_unlabeled_correct = 0
-        self._exact_labeled_correct = 0
-        self._total_sentences = 0
+        self._total_validation_instances = 0
 
         self.num_actions = vocab.get_vocab_size('actions')
         self.text_field_embedder = text_field_embedder
-        self.pos_tag_embedding = pos_tag_embedding
-        #this is most probably incorrect
-        self._xud_score = XUDScore()
+        self.output_null_nodes = output_null_nodes
+        self.max_heads = max_heads
+        self.num_validation_instances = validate_every_n_instances
+        self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
 
         self.word_dim = word_dim
@@ -67,7 +64,7 @@ class TransitionParser(Model):
                                               trainable=False)
 
 
-            # syntactic composition
+        # syntactic composition
         self.p_comp = torch.nn.Linear(self.hidden_dim * 5 + self.ratio_dim, self.word_dim)
         # parser state to hidden
         self.p_s2h = torch.nn.Linear(self.hidden_dim * 3 + self.ratio_dim, self.hidden_dim)
@@ -84,34 +81,34 @@ class TransitionParser(Model):
         self._input_dropout = Dropout(input_dropout)
 
         self.buffer = StackRnn(input_size=self.word_dim,
-                hidden_size=self.hidden_dim,
-                num_layers=num_layers,
-                recurrent_dropout_probability=recurrent_dropout_probability,
-                layer_dropout_probability=layer_dropout_probability,
-                same_dropout_mask_per_instance=same_dropout_mask_per_instance)
+                        hidden_size=self.hidden_dim,
+                        num_layers=num_layers,
+                        recurrent_dropout_probability=recurrent_dropout_probability,
+                        layer_dropout_probability=layer_dropout_probability,
+                        same_dropout_mask_per_instance=same_dropout_mask_per_instance)
 
         self.stack = StackRnn(input_size=self.word_dim,
-                hidden_size=self.hidden_dim,
-                num_layers=num_layers,
-                recurrent_dropout_probability=recurrent_dropout_probability,
-                layer_dropout_probability=layer_dropout_probability,
-                same_dropout_mask_per_instance=same_dropout_mask_per_instance)
+                        hidden_size=self.hidden_dim,
+                        num_layers=num_layers,
+                        recurrent_dropout_probability=recurrent_dropout_probability,
+                        layer_dropout_probability=layer_dropout_probability,
+                        same_dropout_mask_per_instance=same_dropout_mask_per_instance)
 
         self.action_stack = StackRnn(input_size=self.action_dim,
-                hidden_size=self.hidden_dim,
-                num_layers=num_layers,
-                recurrent_dropout_probability=recurrent_dropout_probability,
-                layer_dropout_probability=layer_dropout_probability,
-                same_dropout_mask_per_instance=same_dropout_mask_per_instance)
+                        hidden_size=self.hidden_dim,
+                        num_layers=num_layers,
+                        recurrent_dropout_probability=recurrent_dropout_probability,
+                        layer_dropout_probability=layer_dropout_probability,
+                        same_dropout_mask_per_instance=same_dropout_mask_per_instance)
 
         initializer(self)
 
     def _greedy_decode(self,
-            batch_size: int,
-            sent_len: List[int],
-            embedded_text_input: torch.Tensor,
-            oracle_actions: Optional[List[List[int]]] = None,
-            ) -> Dict[str, Any]:
+                        batch_size: int,
+                        sent_len: List[int],
+                        embedded_text_input: torch.Tensor,
+                        oracle_actions: Optional[List[List[str]]] = None,
+                        ) -> Dict[str, Any]:
 
         self.buffer.reset_stack(batch_size)
         self.stack.reset_stack(batch_size)
@@ -120,6 +117,7 @@ class TransitionParser(Model):
         # We will keep track of all the losses we accumulate during parsing.
         # If some decision is unambiguous because it's the only thing valid given
         # the parser state, we will not model it. We only model what is ambiguous.
+
         losses = [[] for _ in range(batch_size)]
         ratio_factor_losses = [[] for _ in range(batch_size)]
         edge_list = [[] for _ in range(batch_size)]
@@ -129,31 +127,25 @@ class TransitionParser(Model):
         root_id = [[] for _ in range(batch_size)]
         num_of_generated_node= [[] for _ in range(batch_size)]
         generated_order = [{} for _ in range(batch_size)]
+        head_count = [{} for _ in range(batch_size)] #keep track of the number of heads
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
                 if sent_len[sent_idx] > token_idx:
                     try:
                         self.buffer.push(sent_idx,
-                                input=embedded_text_input[sent_idx][sent_len[sent_idx] - 1 - token_idx],
-                                extra={'token': sent_len[sent_idx] - token_idx - 1})
+                                        input=embedded_text_input[sent_idx][sent_len[sent_idx] - 1 - token_idx],
+                                        extra={'token': sent_len[sent_idx] - token_idx - 1})
                     except IndexError:
                         raise IndexError(f"{sent_idx} {batch_size} {token_idx} {sent_len[sent_idx]} {embedded_text_input[sent_idx].dim()}")
 
-                    # init stack using proot_emb, considering batch
+        # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
             root_id[sent_idx] = sent_len[sent_idx]
             generated_order[sent_idx][root_id[sent_idx]] = 0
             self.stack.push(sent_idx,
-                    input=self.proot_stack_emb,
-                    extra={'token': root_id[sent_idx]})
-
-        action_id = {
-                action_: [self.vocab.get_token_index(a, namespace='actions') for a in
-                    self.vocab.get_token_to_index_vocabulary('actions').keys() if a.startswith(action_)]
-                for action_ in
-                ["SHIFT", "REDUCE-0", "REDUCE-1", "NODE", "LEFT-EDGE", "RIGHT-EDGE", "SWAP", "FINISH"]
-                }
+                            input=self.proot_stack_emb,
+                            extra={'token': root_id[sent_idx]})
 
         # compute probability of each of the actions and choose an action
         # either from the oracle or if there is no oracle, based on the model
@@ -173,79 +165,68 @@ class TransitionParser(Model):
                         sent_len[sent_idx]) and oracle_actions is None:
                     raise RuntimeError(f"Too many actions for a sentence {sent_idx}. actions: {action_list}")
                 total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
-                # if self.buffer.get_len(sent_idx) != 0:
                 if action_tag_for_terminate[sent_idx] == False:
                     trans_not_fin = True
                     valid_actions = []
                     # given the buffer and stack, conclude the valid action list
                     if self.buffer.get_len(sent_idx) == 0 and self.stack.get_len(sent_idx) ==1:
-                        valid_actions += action_id['FINISH']
+                        valid_actions += ['FINISH']
 
                     if self.buffer.get_len(sent_idx) > 0:
-                        valid_actions += action_id['SHIFT']
+                        valid_actions += ['SHIFT']
 
                     if self.stack.get_len(sent_idx) > 0:
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
-                        #the oracle knows what to do but we need to add condition at prediction time
-                        if (oracle_actions or s0 in [edge[0] for edge in edge_list[sent_idx]]) and\
-                                s0 != root_id[sent_idx]:
-                            valid_actions += action_id['REDUCE-0']
+                        if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
+                            valid_actions += ['REDUCE-0']
                         if len(null_node[sent_idx]) < sent_len[sent_idx]:
-                            valid_actions += action_id['NODE']
+                            valid_actions += ['NODE']
 
                     if self.stack.get_len(sent_idx) > 1:
-
                         s1 = self.stack.get_stack(sent_idx)[-2]['token']
-
                         if s1 != root_id[sent_idx] and generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
-                            valid_actions += action_id['SWAP']
-                            #the oracle knows what to do but we need to add condition at prediction time
-                            if oracle_actions or s1 in [edge[0] for edge in edge_list[sent_idx]]:
-                                valid_actions += action_id['REDUCE-1']
+                            valid_actions += ['SWAP']
+                        if s1 != root_id[sent_idx] and head_count[sent_idx][s1] > 0:
+                            valid_actions += ['REDUCE-1']
 
                         #Hacky code to verify that we do not draw the same edge with the same label twice
-                        left_edge_exists = False
-                        right_edge_exists = False
                         labels_left_edge = []
                         labels_right_edge = []
                         for mod_tok, head_tok, label in edge_list[sent_idx]:
                             if (mod_tok,head_tok) == (s1,s0):
-                                left_edge_exists=True
                                 labels_left_edge.append(label)
                             if (mod_tok,head_tok) == (s0,s1):
-                                right_edge_exists=True
                                 labels_right_edge.append(label)
-                        if not left_edge_exists and s1 != root_id[sent_idx] :
-                            valid_actions += action_id['LEFT-EDGE']
-                        elif left_edge_exists and s1 != root_id[sent_idx]:
+                        if s1 != root_id[sent_idx] and (not self.max_heads or head_count[sent_idx][s1] < self.max_heads):
                             left_edge_possible_actions = \
-                                    [self.vocab.get_token_index(a, namespace='actions') for a in
-                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
                                     if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
                             valid_actions += left_edge_possible_actions
 
-                        if not right_edge_exists:
-                            valid_actions += action_id['RIGHT-EDGE']
-                        elif right_edge_exists:
+                        if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
                             right_edge_possible_actions = \
-                                    [self.vocab.get_token_index(a, namespace='actions') for a in
-                                    self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                    [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
                                     if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
                             valid_actions += right_edge_possible_actions
 
 
+                    #remove unknown actions:
+                    vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
+                    valid_actions = [valid_action for valid_action in valid_actions if valid_action in vocab_actions]
+
                     log_probs = None
                     action = valid_actions[0]
+                    action_idx = self.vocab.get_token_index(action, namespace='actions')
                     ratio_factor = torch.tensor([len(null_node[sent_idx]) / (1.0 * sent_len[sent_idx])],
-                            device=self.pempty_action_emb.device)
+                                    device=self.pempty_action_emb.device)
 
                     if len(valid_actions) > 1:
                         stack_emb = self.stack.get_output(sent_idx)
                         buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
-                                else self.buffer.get_output(sent_idx)
+                                        else self.buffer.get_output(sent_idx)
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
-                                else self.action_stack.get_output(sent_idx)
+                                        else self.action_stack.get_output(sent_idx)
 
                         p_t = torch.cat([buffer_emb, stack_emb, action_emb])
                         p_t = torch.cat([p_t, ratio_factor])
@@ -253,36 +234,39 @@ class TransitionParser(Model):
                         h = torch.tanh(self.p_s2h(p_t))
                         h = torch.cat([h, ratio_factor])
 
-                        logits = self.p_act(h)[torch.tensor(valid_actions, dtype=torch.long, device=h.device)]
-                        valid_action_tbl = {a: i for i, a in enumerate(valid_actions)}
+                        valid_action_idx = [self.vocab.get_token_index(a, namespace='actions') for a in valid_actions]
+                        logits = self.p_act(h)[torch.tensor(valid_action_idx, dtype=torch.long, device=h.device)]
+                        valid_action_tbl = {a: i for i, a in enumerate(valid_action_idx)}
                         log_probs = torch.log_softmax(logits, dim=0)
 
                         action_idx = torch.max(log_probs, 0)[1].item()
-                        action = valid_actions[action_idx]
+                        action_idx = valid_action_idx[action_idx]
+                        action = self.vocab.get_token_from_index(action_idx, namespace='actions')
 
                     if oracle_actions is not None:
                         action = oracle_actions[sent_idx].pop(0)
+                        action_idx = self.vocab.get_token_index(action, namespace='actions')
 
                     # push action into action_stack
                     self.action_stack.push(sent_idx,
                             input=self.action_embedding(
-                                torch.tensor(action, device=embedded_text_input.device)),
+                                    torch.tensor(action_idx, device=embedded_text_input.device)),
                             extra={
-                                'token': self.vocab.get_token_from_index(action, namespace='actions')})
-                    action_list[sent_idx].append(self.vocab.get_token_from_index(action, namespace='actions'))
-                    #print(f'Sent ID: {sent_idx}, action {action_list[sent_idx][-1]}')
+                                    'token': action})
+                    action_list[sent_idx].append(action)
+                    #print(f'Sent ID: {sent_idx}, action {action}')
 
-                    #log_probs should be none when validating so we should not get here
                     try:
-                        if log_probs is not None:
+                        UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
+                        if log_probs is not None and not (UNK_ID and action_idx == UNK_ID):
                             loss = log_probs[valid_action_tbl[action]]
                             if not torch.isnan(loss):
                                 losses[sent_idx].append(loss)
                     except KeyError:
-                        raise KeyError(f'action number: {action}, name: {action_list[sent_idx][-1]}, valid actions: {valid_action_tbl}')
+                        raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
                     # generate null node, recursive way
-                    if action in action_id["NODE"] :
+                    if action == "NODE":
                         null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
                         null_node[sent_idx].append(null_node_token)
 
@@ -294,19 +278,13 @@ class TransitionParser(Model):
                         node_input = comp_rep
 
                         self.buffer.push(sent_idx,
-                                input=node_input,
-                                extra={'token': null_node_token})
+                                        input=node_input,
+                                        extra={'token': null_node_token})
 
                         total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
 
-                    if action in action_id["NODE"] + action_id["LEFT-EDGE"] \
-                            + action_id["RIGHT-EDGE"] :
-
-                        if action in action_id["NODE"] :
-                            modifier = self.buffer.get_stack(sent_idx)[-1]
-                            head = self.stack.get_stack(sent_idx)[-1]
-
-                        elif action in action_id["LEFT-EDGE"] :
+                    elif action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE") :
+                        if action.startswith("LEFT-EDGE") :
                             head = self.stack.get_stack(sent_idx)[-1]
                             modifier = self.stack.get_stack(sent_idx)[-2]
                         else:
@@ -318,79 +296,73 @@ class TransitionParser(Model):
 
                         if oracle_actions is None:
                             edge_list[sent_idx].append((mod_tok,
-                                head_tok,
-                                self.vocab.get_token_from_index(action, namespace='actions')
-                                .split(':', maxsplit=1)[1]))
+                                    head_tok,
+                                    action.split(':', maxsplit=1)[1]))
 
                         action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
-                                else self.action_stack.get_output(sent_idx)
+                                        else self.action_stack.get_output(sent_idx)
 
                         stack_emb = self.pempty_stack_emb if self.stack.get_len(sent_idx) == 0 \
-                                else self.stack.get_output(sent_idx)
+                                        else self.stack.get_output(sent_idx)
 
                         buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
-                                else self.buffer.get_output(sent_idx)
+                                        else self.buffer.get_output(sent_idx)
 
                         # # compute composed representation
                         comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
                         comp_rep = torch.tanh(self.p_comp(comp_rep))
 
-                        if action in action_id["NODE"] :
-                            self.buffer.pop(sent_idx)
-                            self.buffer.push(sent_idx,
-                                    input=comp_rep,
-                                    extra={'token': mod_tok})
-
-
-                        elif action in action_id["LEFT-EDGE"] :
+                        if action.startswith("LEFT-EDGE") :
                             self.stack.pop(sent_idx)
                             self.stack.push(sent_idx,
-                                    input=comp_rep,
-                                    extra={'token': head_tok})
+                                            input=comp_rep,
+                                            extra={'token': head_tok})
+                            head_count[sent_idx][mod_tok] +=1
 
-                            # RIGHT-EDGE 
+                        # RIGHT-EDGE 
                         else:
                             stack_0_rep = self.stack.get_stack(sent_idx)[-1]['stack_rnn_input']
                             self.stack.pop(sent_idx)
                             self.stack.pop(sent_idx)
 
                             self.stack.push(sent_idx,
-                                    input=comp_rep,
-                                    extra={'token': head_tok})
+                                            input=comp_rep,
+                                            extra={'token': head_tok})
 
                             self.stack.push(sent_idx,
-                                    input=stack_0_rep,
-                                    extra={'token': mod_tok})
+                                            input=stack_0_rep,
+                                            extra={'token': mod_tok})
+                            head_count[sent_idx][mod_tok] +=1
 
                     # Execute the action to update the parser state
-                    if action in action_id["REDUCE-0"]:
+                    elif action == "REDUCE-0":
                         self.stack.pop(sent_idx)
 
-                    if action in action_id["REDUCE-1"]:
+                    elif action == "REDUCE-1":
                         stack_0 = self.stack.pop(sent_idx)
                         self.stack.pop(sent_idx)
                         self.stack.push(sent_idx,
-                                input=stack_0['stack_rnn_input'],
-                                extra={'token': stack_0['token']})
+                                        input=stack_0['stack_rnn_input'],
+                                        extra={'token': stack_0['token']})
 
-
-                    elif action in action_id["SHIFT"]:
+                    elif action ==  "SHIFT":
                         buffer = self.buffer.pop(sent_idx)
                         self.stack.push(sent_idx,
-                                input=buffer['stack_rnn_input'],
-                                extra={'token': buffer['token']})
+                                        input=buffer['stack_rnn_input'],
+                                        extra={'token': buffer['token']})
                         s0 = self.stack.get_stack(sent_idx)[-1]['token']
                         if s0 not in generated_order[sent_idx]:
                             num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
                             generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
+                            head_count[sent_idx][s0] = 0
 
-                    elif action in action_id["SWAP"]:
+                    elif action == "SWAP":
                         stack_penult = self.stack.pop_penult(sent_idx)
                         self.buffer.push(sent_idx,
-                                input=stack_penult['stack_rnn_input'],
-                                extra={'token': stack_penult['token']})
+                                        input=stack_penult['stack_rnn_input'],
+                                        extra={'token': stack_penult['token']})
 
-                    elif action in action_id["FINISH"]:
+                    elif action == "FINISH":
                         action_tag_for_terminate[sent_idx] = True
                         ratio_factor_losses[sent_idx] = ratio_factor
 
@@ -398,8 +370,8 @@ class TransitionParser(Model):
 
         # categorical cross-entropy
         _loss_CCE = -torch.sum(
-                torch.stack([torch.sum(torch.stack(cur_loss)) for cur_loss in losses if len(cur_loss) > 0])) / \
-                        sum([len(cur_loss) for cur_loss in losses])
+                        torch.stack([torch.sum(torch.stack(cur_loss)) for cur_loss in losses if len(cur_loss) > 0])) / \
+                                        sum([len(cur_loss) for cur_loss in losses])
 
         _loss = _loss_CCE
 
@@ -433,8 +405,7 @@ class TransitionParser(Model):
 
         #oracle_actions = None
         if gold_actions is not None:
-            oracle_actions = [d['gold_actions'] for d in metadata]
-            oracle_actions = [[self.vocab.get_token_index(s, namespace='actions') for s in l] for l in oracle_actions]
+            oracle_actions  = deepcopy([d['gold_actions'] for d in metadata])
 
         embedded_text_input = self.text_field_embedder(words)
         embedded_text_input = self._input_dropout(embedded_text_input)
@@ -451,7 +422,14 @@ class TransitionParser(Model):
             _loss = ret_train['loss']
             output_dict = {'loss': _loss}
             return output_dict
+        else:
+            #reset
+            if self.num_validation_instances and (not self._total_validation_instances or self._total_validation_instances == self.num_validation_instances):
+                self._total_validation_instances = batch_size
+            else:
+                self._total_validation_instances += batch_size
 
+        #print(f'{self._total_validation_instances}/{self.num_validation_instances}')
         training_mode = self.training
         self.eval()
         with torch.no_grad():
@@ -468,14 +446,14 @@ class TransitionParser(Model):
 
         # prediction-mode
         output_dict = {
-            'edge_list': edge_list,
-            'null_node': null_node,
-            'loss': _loss
+                'edge_list': edge_list,
+                'null_node': null_node,
+                'loss': _loss
         }
 
         for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
-                "deprel", "misc"]:
-            output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
+                        "deprel", "misc"]:
+                output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
 
         output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
         # validation mode
@@ -485,12 +463,12 @@ class TransitionParser(Model):
 
             for sent_idx in range(batch_size):
                 predicted_graphs.append(eud_trans_outputs_into_conllu({
-                    k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
-                        "deprel", "misc", "edge_list", "null_node", "multiwords"]
-                }))
+                        k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+                                "deprel", "misc", "edge_list", "null_node", "multiwords"]
+                }, self.output_null_nodes))
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
-            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation']) for sentence_metadata in metadata]
+            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation'], self.output_null_nodes) for sentence_metadata in metadata]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
             self._xud_score(predicted_graphs_conllu,
@@ -501,5 +479,8 @@ class TransitionParser(Model):
     def get_metrics(self, reset: bool = False) -> Dict[str, float]:
         all_metrics: Dict[str, float] = {}
         if self._xud_score is not None and not self.training:
-            all_metrics.update(self._xud_score.get_metric(reset=reset))
+            if self.num_validation_instances and self._total_validation_instances == self.num_validation_instances:
+                all_metrics.update(self._xud_score.get_metric(reset=reset))
+            elif not self.num_validation_instances:
+                all_metrics.update(self._xud_score.get_metric(reset=True))
         return all_metrics

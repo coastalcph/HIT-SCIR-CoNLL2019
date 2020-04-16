@@ -24,9 +24,6 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
 
     token_indexers : `Dict[str, TokenIndexer]`, optional (default=`{"tokens": SingleIdTokenIndexer()}`)
         The token indexers to be applied to the words TextField.
-    use_language_specific_pos : `bool`, optional (default = False)
-        Whether to use UD POS tags, or to use the language specific POS tags
-        provided in the conllu format.
     tokenizer : `Tokenizer`, optional, default = None
         A tokenizer to use to split the text. This is useful when the tokens that you pass
         into the model need to have some particular attribute. Typically it is not necessary.
@@ -37,11 +34,14 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         token_indexers: Dict[str, TokenIndexer] = None,
         action_indexers: Dict[str, TokenIndexer] = None,
         use_language_specific_pos: bool = False,
+        max_heads: int = None,
+        max_sentence_length: int = None,
         lazy: bool = False) -> None:
         super().__init__(lazy)
         self._token_indexers = token_indexers or {"tokens": SingleIdTokenIndexer()}
-        self.use_language_specific_pos = use_language_specific_pos
         self._action_indexers = None
+        self.max_heads = max_heads
+        self.max_sentence_length = max_sentence_length
         if action_indexers is not None and len(action_indexers) > 0:
             self._action_indexers = action_indexers
 
@@ -62,6 +62,9 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
+                #ignore long sentences
+                if self.max_sentence_length and len(word_annotation) > self.max_sentence_length:
+                    continue
 
                 words = [x["form"] for x in word_annotation]
                 enhanced_arc_indices = []
@@ -85,6 +88,9 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                         token_node_ids.append(str(x['id']))
 
                     if not x['deps'] == None:
+                        if self.max_heads:
+                            x['deps'] = x['deps'][:self.max_heads]
+
                         for tag,ind2 in x['deps']:
                             enhanced_arc_indices.append((str(x['id']),str(ind2)))
                             enhanced_arc_tags.append(tag)

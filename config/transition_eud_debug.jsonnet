@@ -1,9 +1,14 @@
 {
   "vocabulary": {
-    "non_padded_namespaces": []
+    "non_padded_namespaces": [],
+    "min_count":{
+        "actions": 5
+    }
   },
   "dataset_reader": {
       "type": "enhanced_universal_dependencies",
+      "max_heads": 7,
+      "max_sentence_length": 100,
       "token_indexers": {
           "tokens": {
               "type": "bert-pretrained",
@@ -23,6 +28,9 @@
   "validation_data_path": std.extVar('DEV_PATH'),
   "model": {
     "type": "transition_parser_ud",
+    "output_null_nodes": false,
+    "max_heads": 7,
+    "validate_every_n_instances": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_DEV')),
     "text_field_embedder": {
         "tokens": {
             "type": "bert-pretrained",
@@ -57,11 +65,18 @@
       ["pempty_action_emb", {"type": "normal"}],
     ]
   },
-  "iterator": {
-    "type": "bucket",
-    "sorting_keys": [["words", "num_tokens"]],
-    "batch_size": std.parseInt(std.extVar('BATCH_SIZE'))
-  },
+	"iterator": {
+		"type": "bucket",
+		"sorting_keys": [["words", "num_tokens"]],
+		"batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
+		"instances_per_epoch": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_TRAIN'))
+	  },
+	"validation_iterator": {
+		"type": "bucket",
+		"sorting_keys": [["words", "num_tokens"]],
+		"batch_size": std.parseInt(std.extVar('BATCH_SIZE')),
+		"instances_per_epoch": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_DEV'))
+	  },
   "trainer": {
     "num_epochs": 2,
     "grad_norm": 5.0,

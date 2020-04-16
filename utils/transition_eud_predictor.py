@@ -1,4 +1,5 @@
 import json
+import re
 from typing import List
 
 from allennlp.common.util import JsonDict, sanitize
@@ -57,10 +58,10 @@ class EUDPParserPredictor(Predictor):
         return '\n'.join(predictions)+'\n'
 
 
-def eud_trans_outputs_into_conllu(outputs):
-    return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs))
+def eud_trans_outputs_into_conllu(outputs, output_null_nodes=True):
+    return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs), output_null_nodes)
 
-def serialize_field(field,key):
+def serialize_field(field,key, output_null_nodes=True):
     #bit of an overkill but let's play it safe
     if field == '_' or field is None:
         return '_'
@@ -76,30 +77,40 @@ def serialize_field(field,key):
             return '|'.join(f'{k}={v}' for k,v in field.items())
     elif key == 'deps':
         if isinstance(field,str):
+            if not output_null_nodes:
+                NNODE_IN_DEPS = re.compile('(([0-9][0-9]*)\.[1-9][0-9]*)')
+                field = re.sub(NNODE_IN_DEPS, r'\2', field)
             return field
         else:
             dep_list = []
             for i,(k,v) in enumerate(field):
                 if isinstance(v,tuple):
-                    dep_list.append((k,''.join(str(val) for val in v)))
+                    if output_null_nodes:
+                        dep_list.append((k,''.join(str(val) for val in v)))
+                    else:
+                        dep_list.append((k, v[0]))
                 else:
+                    assert(isinstance(v,int))
                     dep_list.append((k,v))
+
             return "|".join(f"{v}:{k}" for k,v in dep_list)
     else:
         raise ValueError(f"Type not known for {key}, value: {field}")
 
-def annotation_to_conllu(annotation):
+NULL_NODE_ID = re.compile(r"^[0-9][0-9]*\.[1-9][0-9]*")
+def annotation_to_conllu(annotation, output_null_nodes=True):
     output_lines = []
 
     for i, line in enumerate(annotation, start=1):
-        line = [serialize_field(line.get(k), k) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
+        line = [serialize_field(line.get(k), k, output_null_nodes) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
             "deprel", "deps", "misc"]]
-        row = "\t".join(line)
-        output_lines.append(row)
+        if output_null_nodes or not re.match(NULL_NODE_ID, line[0]):
+            row = "\t".join(line)
+            output_lines.append(row)
 
     return output_lines + ['\n']
 
-def eud_trans_outputs_to_annotation(outputs):
+def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
     edge_list = outputs["edge_list"]
     null_nodes = outputs["null_node"]
     annotation = [{} for _ in range(len(outputs["form"]))]
@@ -122,7 +133,12 @@ def eud_trans_outputs_to_annotation(outputs):
         token_index_to_id[i]= i+1
     if null_nodes:
         for i, node in enumerate(null_nodes, start=1):
-            token_index_to_id[null_node_prefix + i] = f'{null_node_prefix}.{i}'
+            if output_null_nodes:
+                token_index_to_id[null_node_prefix + i] = f'{null_node_prefix}.{i}'
+            else:
+                #TODO: hacky! come up with something better
+                #attach everything that is attached to a node to the last sentence item
+                token_index_to_id[null_node_prefix + i] = null_node_prefix
 
     output_annotation = []
     #this part is a bit of a headache
@@ -150,7 +166,7 @@ def eud_trans_outputs_to_annotation(outputs):
         line['deps'] = deps
         output_annotation.append(line)
 
-    if null_nodes:
+    if null_nodes and output_null_nodes:
         for i, node in enumerate(null_nodes, start=null_node_prefix+1):
             deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if edge[0] == i])
             if not deps:

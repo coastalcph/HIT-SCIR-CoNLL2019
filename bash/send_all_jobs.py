@@ -10,6 +10,9 @@ import os,sys
 #'cs_pdt', 'it_isdt', 'uk_iu', 'pl_pdb','ru_syntagrus',
 #'sk_snk','nl_alpino', 'nl_lassysmall', 'et_ewt']
 ISO_TODO = ['cs_cac', 'ar_padt', 'fi_tdt']
+ISO_TODO = ['ar_padt']
+ISO_TODO = ['cs_all', 'et_all', 'nl_all','pl_all']
+#ISO_TODO += ['cs_cac', 'ar_pdt', 'fi_tdt']
 #ISO_TODO=None #do everything by default
 
 eud_dir='/cluster/projects/nn9447k/mdelhoneux/train-dev/' #sys.argv[1]
