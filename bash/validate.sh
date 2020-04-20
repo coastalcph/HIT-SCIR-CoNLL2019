@@ -14,5 +14,5 @@ for div in dev test; do
     done
   done
   wait < <(jobs -p)
-  tail -n1 /cluster/projects/nn9447k/mdelhoneux/models/mbert/*/*predicted-*-test.conllu.validation.txt
+  tail -n1 /cluster/projects/nn9447k/mdelhoneux/models/mbert/*/*predicted-*-$div.conllu.validation.txt
 done
