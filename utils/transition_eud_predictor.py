@@ -159,7 +159,12 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
         # Handle multiword tokens
         if multiword_map and i in multiword_map:
             output_annotation.append(multiword_map[i])
-        deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
+        deps =[(token_index_to_id[edge[1]], edge[2]) for edge in edge_list if token_index_to_id[edge[0]] == i ]
+        #sort by index
+        deps = sorted(deps, key=lambda x:x[0])
+        string_deps = "|".join([str(dep[0]) + ':' + dep[1] for dep in deps])
+
+        #deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if token_index_to_id[edge[0]] == i])
         if not deps:
             raise ValueError(f"No edge found for {line}")
 
@@ -168,7 +173,10 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
 
     if null_nodes and output_null_nodes:
         for i, node in enumerate(null_nodes, start=null_node_prefix+1):
-            deps = "|".join([str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if edge[0] == i])
+            deps = [str(token_index_to_id[edge[1]]) + ':' + edge[2] for edge in edge_list if edge[0] == i]
+            #TODO: fix? this will sort alphabetically
+            deps = sorted(deps, key=lambda x:x[0])
+            string_deps = "|".join([str(dep[0]) + ':' + dep[1] for dep in deps])
             if not deps:
                 raise ValueError(f"No edge found for {node}")
             row = {"id":token_index_to_id[i], "deps":deps}
