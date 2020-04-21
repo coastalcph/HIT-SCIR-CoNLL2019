@@ -190,7 +190,7 @@ class TransitionParser(Model):
                             valid_actions += ['REDUCE-1']
 
                         #Hacky code to verify that we do not draw the same edge with the same label twice
-                        labels_left_edge = []
+                        labels_left_edge = ['root']
                         labels_right_edge = []
                         for mod_tok, head_tok, label in edge_list[sent_idx]:
                             if (mod_tok,head_tok) == (s1,s0):
@@ -204,9 +204,14 @@ class TransitionParser(Model):
                             valid_actions += left_edge_possible_actions
 
                         if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
-                            right_edge_possible_actions = \
-                                    [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
-                                    if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                            if s0 == root_id[sent_idx]:
+                                right_edge_possible_actions = ['RIGHT-EDGE:root']
+                            else:
+                                #hack to disable root
+                                labels_right_edge += ['root']
+                                right_edge_possible_actions = \
+                                        [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                        if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
                             valid_actions += right_edge_possible_actions
 
 
@@ -254,7 +259,7 @@ class TransitionParser(Model):
                             extra={
                                     'token': action})
                     action_list[sent_idx].append(action)
-                    #print(f'Sent ID: {sent_idx}, action {action}')
+                    print(f'Sent ID: {sent_idx}, action {action}')
 
                     try:
                         UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
