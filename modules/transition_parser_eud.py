@@ -190,7 +190,7 @@ class TransitionParser(Model):
                             valid_actions += ['REDUCE-1']
 
                         #Hacky code to verify that we do not draw the same edge with the same label twice
-                        labels_left_edge = ['root']
+                        labels_left_edge = ['root'] #should not be in vocab anyway actually but be safe
                         labels_right_edge = []
                         for mod_tok, head_tok, label in edge_list[sent_idx]:
                             if (mod_tok,head_tok) == (s1,s0):
@@ -204,7 +204,7 @@ class TransitionParser(Model):
                             valid_actions += left_edge_possible_actions
 
                         if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
-                            if s0 == root_id[sent_idx]:
+                            if s1 == root_id[sent_idx]:
                                 right_edge_possible_actions = ['RIGHT-EDGE:root']
                             else:
                                 #hack to disable root
@@ -259,16 +259,16 @@ class TransitionParser(Model):
                             extra={
                                     'token': action})
                     action_list[sent_idx].append(action)
-                    print(f'Sent ID: {sent_idx}, action {action}')
+                    #print(f'Sent ID: {sent_idx}, action {action}')
 
                     try:
                         UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
                         if log_probs is not None and not (UNK_ID and action_idx == UNK_ID):
-                            loss = log_probs[valid_action_tbl[action]]
+                            loss = log_probs[valid_action_tbl[action_idx]]
                             if not torch.isnan(loss):
                                 losses[sent_idx].append(loss)
                     except KeyError:
-                        raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
+                        raise KeyError(f'action: {action}, valid actions: {valid_actions}')
 
                     # generate null node, recursive way
                     if action == "NODE":
