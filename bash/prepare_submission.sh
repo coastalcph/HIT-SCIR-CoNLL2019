@@ -48,4 +48,4 @@ for f in *.conllu; do
 done
 
 wait < <(jobs -p)
-tail -n1 ../validation/*
+tail -n1 ../validation/*/*/*.txt
