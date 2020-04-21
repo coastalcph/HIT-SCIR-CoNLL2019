@@ -30,6 +30,7 @@ for f in *.conllu; do
     echo Skipped because a concat model exists
     continue
   fi
+  sed -i 's/\([	|]0:\)\w*/\1root/' $f
   python ../tools/validate.py $f --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
   timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $f" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu
@@ -44,7 +45,7 @@ for f in *.conllu; do
     wc -l ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head -n-1
     diff --color=always -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
   fi
-  cp -v $f $preprocessor/$div/$lang.txt
+  cp -v $f $preprocessor/$div/$lang.conllu
 done
 
 wait < <(jobs -p)
