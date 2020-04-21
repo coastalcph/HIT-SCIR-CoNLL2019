@@ -25,13 +25,13 @@ for f in *.conllu; do
   preprocessor=${basename##*-}
   basename=${basename#*_}
   treebank_suffix=${basename%%-*}
-  echo $lang $treebank_suffix $preprocessor $div $f
+  echo === $lang $treebank_suffix $preprocessor $div $f
   if [ $treebank_suffix != all -a -f ${lang}_all-predicted-$preprocessor-$div.conllu ]; then
     echo Skipped because a concat model exists
     continue
   fi
   python ../tools/validate.py $f --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
-  perl ../tools/enhanced_collapse_empty_nodes.pl $f > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
+  timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $f" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu
   if [ $div == dev ]; then
     perl ../tools/enhanced_collapse_empty_nodes.pl ../dev-gold/$lang.conllu > ../collapsed/gold/$div/$lang.conllu 2>/dev/null
