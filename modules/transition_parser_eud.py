@@ -259,7 +259,7 @@ class TransitionParser(Model):
                     try:
                         UNK_ID = self.vocab.get_token_index('@@UNKNOWN@@')
                         if log_probs is not None and not (UNK_ID and action_idx == UNK_ID):
-                            loss = log_probs[valid_action_tbl[action]]
+                            loss = log_probs[valid_action_tbl[action_idx]]
                             if not torch.isnan(loss):
                                 losses[sent_idx].append(loss)
                     except KeyError:
