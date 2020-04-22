@@ -432,13 +432,15 @@ class TransitionParser(Model):
             if head_tok == root_id:
                 pred = mod_tok
                 break
-        if pred is None:
-            print("No predicate (dependent of root) found", file=sys.stderr)
-            return
         orphans = set(generated_order) - reachable[root_id]  # All nodes not reachable from the root
         while orphans:
             tok = next(iter(orphans))
-            edge_list.append((tok, root_id, "orphan"))
+            if pred is None:
+                # print(f"No predicate (dependent of root) found: {edge_list}", file=sys.stderr)
+                edge_list.append((tok, root_id, "root"))
+                pred = tok
+            else:
+                edge_list.append((tok, pred, "orphan"))
             orphans -= reachable[tok]  # All cycle members were taken care of by doing this
 
     # Returns an expression of the loss for the sequence of actions.
