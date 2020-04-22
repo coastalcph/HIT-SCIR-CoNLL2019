@@ -62,14 +62,11 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
             for annotation in parse_incr(string_to_file(conllu_string), metadata_parsers = METADATA_PARSERS):
                 sent_id = annotation.metadata['sent_id']
                 text = annotation.metadata['text']
-                #import sys;sys.stdout=sys.stdout.terminal
-                #import ipdb;ipdb.set_trace()
                 # CoNLLU annotations sometimes add back in words that have been elided
                 # in the original sentence; we remove these, as we're just predicting
                 # dependencies for the original sentence.
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
-                #TODO: get sent_id and text id
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
                 #ignore long sentences
                 if self.max_sentence_length and len(word_annotation) > self.max_sentence_length:

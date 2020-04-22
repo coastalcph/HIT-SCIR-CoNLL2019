@@ -51,7 +51,6 @@ class EUDPParserPredictor(Predictor):
 
     @overrides
     def dump_line(self, outputs: JsonDict) -> str:
-        #TODO: add sentence ID?
         predictions= eud_trans_outputs_into_conllu(outputs)
         #avoids printing two new lines
         predictions = [pred if pred != '\n' else '' for pred in predictions]
