@@ -438,7 +438,7 @@ class TransitionParser(Model):
         orphans = set(generated_order) - reachable[root_id]  # All nodes not reachable from the root
         while orphans:
             tok = next(iter(orphans))
-            edge_list.append(tok, root_id, "orphan")
+            edge_list.append((tok, root_id, "orphan"))
             orphans -= reachable[tok]  # All cycle members were taken care of by doing this
 
     # Returns an expression of the loss for the sequence of actions.
