@@ -474,16 +474,12 @@ class TransitionParser(Model):
                         k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                                 "deprel", "misc", "edge_list", "null_node", "multiwords", "text", "sent_id"]
                 }, self.output_null_nodes))
-                gold_annotation = [{'sent_id':output_dict['sent_id'],'text':output_dict['text']}]
+                gold_annotation = [{'sent_id':output_dict['sent_id'][sent_idx],'text':output_dict['text'][sent_idx]}]
                 for annotation in metadata[sent_idx]['annotation']:
                     gold_annotation.append(annotation)
                 gold_graphs_conllu.append(annotation_to_conllu(gold_annotation, self.output_null_nodes))
-                #gold_annotations[sent_idx].append(metadata[sent_idx]['annotation'])
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
-            #import sys;sys.stdout=sys.stdout.terminal
-            #import ipdb;ipdb.set_trace()
-            #gold_graphs_conllu = [annotation_to_conllu(gold_annotation, self.output_null_nodes) for gold_annotation in gold_annotations]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
             self._xud_score(predicted_graphs_conllu,
