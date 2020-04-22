@@ -13,3 +13,5 @@ for f in *.conllu; do
   diff -q ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt && echo OK
 done
 
+echo Unique errors:
+sed -n '/^\[/{s/\[[^[]*][^[]*\[//;s/\].*//;p}' ../validation/*/*/*

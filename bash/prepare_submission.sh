@@ -30,7 +30,9 @@ for f in *.conllu; do
     echo Skipped because a concat model exists
     continue
   fi
-  sed -i 's/\([	|]0:\)\w*/\1root/' $f
+  # Workarounds for validation errors:
+  sed -i 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f
+
   python ../tools/validate.py $f --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
   timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $f" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu
