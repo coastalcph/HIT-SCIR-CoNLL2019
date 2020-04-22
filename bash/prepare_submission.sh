@@ -45,7 +45,7 @@ for f in *.conllu; do
   if ! diff -q ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt; then
     echo Text mismatch: $f
     wc -l ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head -n-1
-    diff --color=always -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
+    diff -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
   fi
   cp -v $f $preprocessor/$div/$lang.conllu
 done
