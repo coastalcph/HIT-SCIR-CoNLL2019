@@ -106,8 +106,10 @@ def serialize_field(field, key, output_null_nodes=True):
 NULL_NODE_ID = re.compile(r"^[0-9][0-9]*\.[1-9][0-9]*")
 def annotation_to_conllu(annotation, output_null_nodes=True):
     output_lines = []
+    output_lines.append(f'# sent_id = {annotation[0]["sent_id"]}')
+    output_lines.append(f'# text = {annotation[0]["text"]}')
 
-    for i, line in enumerate(annotation, start=1):
+    for i, line in enumerate(annotation[1:], start=1):
         line = [serialize_field(line.get(k), k, output_null_nodes) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
             "deprel", "deps", "misc"]]
         if output_null_nodes or not re.match(NULL_NODE_ID, str(line[0])):
@@ -147,6 +149,7 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
                 token_index_to_id[null_node_prefix + i] = null_node_prefix
 
     output_annotation = []
+    output_annotation.append({'sent_id':outputs["sent_id"],'text':outputs['text']})
     #this part is a bit of a headache
     # index is the indexing in the parser
     # ID is the actual ID of words
@@ -160,10 +163,6 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
     # 3     2.1  3
     # 4     2.2  4
 
-    #import sys; sys.stdout=sys.stdout.terminal
-    #import ipdb;ipdb.set_trace()
-    #output_annotation.append(f'{output["sent_id"]}\n')
-    #output_annotation.append(f'{output["text"]}\n')
     for i, line in enumerate(word_annotation,start=1):
 
         # Handle multiword tokens

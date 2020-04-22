@@ -14,6 +14,10 @@ from .enhanced_universal_dependencies_oracle import get_oracle_actions
 
 logger = logging.getLogger(__name__)
 
+METADATA_PARSERS = {
+        "sent_id": lambda key, value: (key, value),
+        "text": lambda key, value: (key, value),
+        }
 
 @DatasetReader.register("enhanced_universal_dependencies")
 class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
@@ -55,12 +59,17 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
             conllu_string= conllu_file.read()
             logger.info("Reading UD instances from conllu dataset at: %s", file_path)
 
-            for annotation in parse_incr(string_to_file(conllu_string)):
+            for annotation in parse_incr(string_to_file(conllu_string), metadata_parsers = METADATA_PARSERS):
+                sent_id = annotation.metadata['sent_id']
+                text = annotation.metadata['text']
+                #import sys;sys.stdout=sys.stdout.terminal
+                #import ipdb;ipdb.set_trace()
                 # CoNLLU annotations sometimes add back in words that have been elided
                 # in the original sentence; we remove these, as we're just predicting
                 # dependencies for the original sentence.
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
+                #TODO: get sent_id and text id
                 word_annotation = [x for x in annotation if isinstance(x["id"], int)]
                 #ignore long sentences
                 if self.max_sentence_length and len(word_annotation) > self.max_sentence_length:
@@ -103,7 +112,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
                     print(gold_actions)
                     continue
 
-                yield self.text_to_instance(words, annotation, gold_actions, multiwords)
+                yield self.text_to_instance(words, annotation, gold_actions, multiwords, sent_id, text)
 
     @overrides
     def text_to_instance(
@@ -112,6 +121,8 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         annotation: List[Dict[str,Any]],
         gold_actions: List[str] = None,
         multiwords: List[Dict[str,str]]=None,
+        sent_id: str = None,
+        text: str = None,
     ) -> Instance:
 
         """
@@ -134,7 +145,7 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
         fields: Dict[str, Field] = {}
 
         text_field = TextField([Token(t) for t in words], self._token_indexers)
-        meta_dict = {"words": words, "annotation":annotation, "multiwords": multiwords}
+        meta_dict = {"words": words, "annotation":annotation, "multiwords": multiwords, 'sent_id':sent_id, 'text':text}
         fields["words"] = text_field
 
         if gold_actions is not None:
