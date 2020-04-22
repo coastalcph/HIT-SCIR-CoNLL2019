@@ -1,7 +1,8 @@
 import logging
-from typing import Dict, Optional, Any, List
+from typing import Dict, Optional, Any, List, Set
 from copy import deepcopy
 
+import sys
 import torch
 from allennlp.data import Vocabulary
 from allennlp.models import SimpleTagger
@@ -128,6 +129,7 @@ class TransitionParser(Model):
         num_of_generated_node= [[] for _ in range(batch_size)]
         generated_order = [{} for _ in range(batch_size)]
         head_count = [{} for _ in range(batch_size)] #keep track of the number of heads
+        reachable = [{} for _ in range(batch_size)]  # set of node ids reachable from each node (by id)
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
             for sent_idx in range(batch_size):
@@ -142,6 +144,7 @@ class TransitionParser(Model):
         # init stack using proot_emb, considering batch
         for sent_idx in range(batch_size):
             root_id[sent_idx] = sent_len[sent_idx]
+            reachable[sent_idx][root_id[sent_idx]] = {root_id[sent_idx]}  # only root is reachable from root so far
             generated_order[sent_idx][root_id[sent_idx]] = 0
             self.stack.push(sent_idx,
                             input=self.proot_stack_emb,
@@ -165,83 +168,20 @@ class TransitionParser(Model):
                         sent_len[sent_idx]) and oracle_actions is None:
                     raise RuntimeError(f"Too many actions for a sentence {sent_idx}. actions: {action_list}")
                 total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
-                if action_tag_for_terminate[sent_idx] == False:
+                if not action_tag_for_terminate[sent_idx]:
                     trans_not_fin = True
-                    valid_actions = []
-                    # given the buffer and stack, conclude the valid action list
-                    if self.buffer.get_len(sent_idx) == 0 and self.stack.get_len(sent_idx) ==1:
-                        valid_actions += ['FINISH']
-
-                    if self.buffer.get_len(sent_idx) > 0:
-                        valid_actions += ['SHIFT']
-
-                    if self.stack.get_len(sent_idx) > 0:
-                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
-                        if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
-                            valid_actions += ['REDUCE-0']
-                        if len(null_node[sent_idx]) < sent_len[sent_idx]:
-                            valid_actions += ['NODE']
-
-                    if self.stack.get_len(sent_idx) > 1:
-                        s1 = self.stack.get_stack(sent_idx)[-2]['token']
-                        if s1 != root_id[sent_idx] and generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
-                            valid_actions += ['SWAP']
-                        if s1 != root_id[sent_idx] and head_count[sent_idx][s1] > 0:
-                            valid_actions += ['REDUCE-1']
-
-                        #Hacky code to verify that we do not draw the same edge with the same label twice
-                        labels_left_edge = []
-                        labels_right_edge = []
-                        for mod_tok, head_tok, label in edge_list[sent_idx]:
-                            if (mod_tok,head_tok) == (s1,s0):
-                                labels_left_edge.append(label)
-                            if (mod_tok,head_tok) == (s0,s1):
-                                labels_right_edge.append(label)
-                        if s1 != root_id[sent_idx] and (not self.max_heads or head_count[sent_idx][s1] < self.max_heads):
-                            left_edge_possible_actions = \
-                                    [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
-                                    if a.startswith('LEFT-EDGE') and a.split('LEFT-EDGE:')[1] not in labels_left_edge]
-                            valid_actions += left_edge_possible_actions
-
-                        if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
-                            right_edge_possible_actions = \
-                                    [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
-                                    if a.startswith('RIGHT-EDGE') and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
-                            valid_actions += right_edge_possible_actions
-
-
-                    #remove unknown actions:
-                    vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
-                    valid_actions = [valid_action for valid_action in valid_actions if valid_action in vocab_actions]
+                    valid_actions = self.calc_valid_actions(edge_list, generated_order, head_count, null_node, root_id,
+                                                            sent_idx, sent_len)
 
                     log_probs = None
                     action = valid_actions[0]
                     action_idx = self.vocab.get_token_index(action, namespace='actions')
                     ratio_factor = torch.tensor([len(null_node[sent_idx]) / (1.0 * sent_len[sent_idx])],
-                                    device=self.pempty_action_emb.device)
+                                                device=self.pempty_action_emb.device)
 
                     if len(valid_actions) > 1:
-                        stack_emb = self.stack.get_output(sent_idx)
-                        buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
-                                        else self.buffer.get_output(sent_idx)
-
-                        action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
-                                        else self.action_stack.get_output(sent_idx)
-
-                        p_t = torch.cat([buffer_emb, stack_emb, action_emb])
-                        p_t = torch.cat([p_t, ratio_factor])
-
-                        h = torch.tanh(self.p_s2h(p_t))
-                        h = torch.cat([h, ratio_factor])
-
-                        valid_action_idx = [self.vocab.get_token_index(a, namespace='actions') for a in valid_actions]
-                        logits = self.p_act(h)[torch.tensor(valid_action_idx, dtype=torch.long, device=h.device)]
-                        valid_action_tbl = {a: i for i, a in enumerate(valid_action_idx)}
-                        log_probs = torch.log_softmax(logits, dim=0)
-
-                        action_idx = torch.max(log_probs, 0)[1].item()
-                        action_idx = valid_action_idx[action_idx]
-                        action = self.vocab.get_token_from_index(action_idx, namespace='actions')
+                        action, action_idx, log_probs, valid_action_tbl = self.predict_action(ratio_factor, sent_idx,
+                                                                                              valid_actions)
 
                     if oracle_actions is not None:
                         action = oracle_actions[sent_idx].pop(0)
@@ -265,110 +205,15 @@ class TransitionParser(Model):
                     except KeyError:
                         raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
-                    # generate null node, recursive way
-                    if action == "NODE":
-                        null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
-                        null_node[sent_idx].append(null_node_token)
+                    self.exec_action(action, action_sequence_length, action_tag_for_terminate, edge_list,
+                                     generated_order, head_count, null_node, num_of_generated_node, oracle_actions,
+                                     ratio_factor, ratio_factor_losses, sent_idx, sent_len, total_node_num,
+                                     reachable)
 
-                        stack_emb = self.stack.get_output(sent_idx)
-
-                        stack_emb = torch.cat([stack_emb, ratio_factor])
-                        comp_rep = torch.tanh(self.update_null_node(stack_emb))
-
-                        node_input = comp_rep
-
-                        self.buffer.push(sent_idx,
-                                        input=node_input,
-                                        extra={'token': null_node_token})
-
-                        total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
-
-                    elif action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE") :
-                        if action.startswith("LEFT-EDGE") :
-                            head = self.stack.get_stack(sent_idx)[-1]
-                            modifier = self.stack.get_stack(sent_idx)[-2]
-                        else:
-                            head = self.stack.get_stack(sent_idx)[-2]
-                            modifier = self.stack.get_stack(sent_idx)[-1]
-
-                        (head_rep, head_tok) = (head['stack_rnn_output'], head['token'])
-                        (mod_rep, mod_tok) = (modifier['stack_rnn_output'], modifier['token'])
-
-                        if oracle_actions is None:
-                            edge_list[sent_idx].append((mod_tok,
-                                    head_tok,
-                                    action.split(':', maxsplit=1)[1]))
-
-                        action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
-                                        else self.action_stack.get_output(sent_idx)
-
-                        stack_emb = self.pempty_stack_emb if self.stack.get_len(sent_idx) == 0 \
-                                        else self.stack.get_output(sent_idx)
-
-                        buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
-                                        else self.buffer.get_output(sent_idx)
-
-                        # # compute composed representation
-                        comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
-                        comp_rep = torch.tanh(self.p_comp(comp_rep))
-
-                        if action.startswith("LEFT-EDGE") :
-                            self.stack.pop(sent_idx)
-                            self.stack.push(sent_idx,
-                                            input=comp_rep,
-                                            extra={'token': head_tok})
-                            head_count[sent_idx][mod_tok] +=1
-
-                        # RIGHT-EDGE 
-                        else:
-                            stack_0_rep = self.stack.get_stack(sent_idx)[-1]['stack_rnn_input']
-                            self.stack.pop(sent_idx)
-                            self.stack.pop(sent_idx)
-
-                            self.stack.push(sent_idx,
-                                            input=comp_rep,
-                                            extra={'token': head_tok})
-
-                            self.stack.push(sent_idx,
-                                            input=stack_0_rep,
-                                            extra={'token': mod_tok})
-                            head_count[sent_idx][mod_tok] +=1
-
-                    # Execute the action to update the parser state
-                    elif action == "REDUCE-0":
-                        self.stack.pop(sent_idx)
-
-                    elif action == "REDUCE-1":
-                        stack_0 = self.stack.pop(sent_idx)
-                        self.stack.pop(sent_idx)
-                        self.stack.push(sent_idx,
-                                        input=stack_0['stack_rnn_input'],
-                                        extra={'token': stack_0['token']})
-
-                    elif action == "SHIFT":
-                        buffer = self.buffer.pop(sent_idx)
-                        self.stack.push(sent_idx,
-                                        input=buffer['stack_rnn_input'],
-                                        extra={'token': buffer['token']})
-                        s0 = self.stack.get_stack(sent_idx)[-1]['token']
-                        if s0 not in generated_order[sent_idx]:
-                            num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
-                            generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
-                            head_count[sent_idx][s0] = 0
-
-                    elif action == "SWAP":
-                        stack_penult = self.stack.pop_penult(sent_idx)
-                        self.buffer.push(sent_idx,
-                                        input=stack_penult['stack_rnn_input'],
-                                        extra={'token': stack_penult['token']})
-
-                    elif action == "FINISH":
-                        action_tag_for_terminate[sent_idx] = True
-                        ratio_factor_losses[sent_idx] = ratio_factor
-
-                    action_sequence_length[sent_idx] += 1
-
-        # TODO detect cycles in edge_list, select arbitrary element, attach to root's dependent
+        if oracle_actions is None:  # Fix edge_list if we are not training. If training, it's empty (no output)
+            for sent_idx in range(batch_size):
+                self.fix_unconnected_egraph(edge_list[sent_idx], reachable[sent_idx], root_id[sent_idx],
+                                            generated_order[sent_idx])
 
         # categorical cross-entropy
         _loss_CCE = -torch.sum(
@@ -394,6 +239,208 @@ class TransitionParser(Model):
         ret["null_node"] = ret_node
 
         return ret
+
+    def calc_valid_actions(self, edge_list, generated_order, head_count, null_node, root_id, sent_idx, sent_len):
+        valid_actions = []
+        # given the buffer and stack, conclude the valid action list
+        if self.buffer.get_len(sent_idx) == 0 and self.stack.get_len(sent_idx) == 1:
+            valid_actions += ['FINISH']
+        if self.buffer.get_len(sent_idx) > 0:
+            valid_actions += ['SHIFT']
+        if self.stack.get_len(sent_idx) > 0:
+            s0 = self.stack.get_stack(sent_idx)[-1]['token']
+            if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
+                valid_actions += ['REDUCE-0']
+            if len(null_node[sent_idx]) < sent_len[sent_idx]:
+                valid_actions += ['NODE']
+
+            if self.stack.get_len(sent_idx) > 1:
+                s1 = self.stack.get_stack(sent_idx)[-2]['token']
+                if s1 != root_id[sent_idx] and \
+                        generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
+                    valid_actions += ['SWAP']
+                if s1 != root_id[sent_idx] and head_count[sent_idx][s1] > 0:
+                    valid_actions += ['REDUCE-1']
+
+                # Hacky code to verify that we do not draw the same edge with the same label twice
+                labels_left_edge = []
+                labels_right_edge = []
+                for mod_tok, head_tok, label in edge_list[sent_idx]:
+                    if (mod_tok, head_tok) == (s1, s0):
+                        labels_left_edge.append(label)
+                    if (mod_tok, head_tok) == (s0, s1):
+                        labels_right_edge.append(label)
+                if s1 != root_id[sent_idx] and (not self.max_heads or
+                                                head_count[sent_idx][s1] < self.max_heads):
+                    left_edge_possible_actions = \
+                        [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                         if a.startswith('LEFT-EDGE') and
+                         a.split('LEFT-EDGE:')[1] not in labels_left_edge]
+                    valid_actions += left_edge_possible_actions
+
+                if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
+                    right_edge_possible_actions = \
+                        [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                         if a.startswith('RIGHT-EDGE')
+                         and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                    valid_actions += right_edge_possible_actions
+        # remove unknown actions:
+        vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
+        valid_actions = [valid_action for valid_action in valid_actions if valid_action in vocab_actions]
+        return valid_actions
+
+    def predict_action(self, ratio_factor, sent_idx, valid_actions):
+        stack_emb = self.stack.get_output(sent_idx)
+        buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
+            else self.buffer.get_output(sent_idx)
+        action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
+            else self.action_stack.get_output(sent_idx)
+        p_t = torch.cat([buffer_emb, stack_emb, action_emb])
+        p_t = torch.cat([p_t, ratio_factor])
+        h = torch.tanh(self.p_s2h(p_t))
+        h = torch.cat([h, ratio_factor])
+        valid_action_idx = [self.vocab.get_token_index(a, namespace='actions') for a in valid_actions]
+        logits = self.p_act(h)[torch.tensor(valid_action_idx, dtype=torch.long, device=h.device)]
+        valid_action_tbl = {a: i for i, a in enumerate(valid_action_idx)}
+        log_probs = torch.log_softmax(logits, dim=0)
+        action_idx = torch.max(log_probs, 0)[1].item()
+        action_idx = valid_action_idx[action_idx]
+        action = self.vocab.get_token_from_index(action_idx, namespace='actions')
+        return action, action_idx, log_probs, valid_action_tbl
+
+    def exec_action(self, action, action_sequence_length, action_tag_for_terminate, edge_list, generated_order,
+                    head_count, null_node, num_of_generated_node, oracle_actions, ratio_factor, ratio_factor_losses,
+                    sent_idx, sent_len, total_node_num, reachable: List[Dict[int, Set[int]]]):
+        # generate null node, recursive way
+        if action == "NODE":
+            null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
+            null_node[sent_idx].append(null_node_token)
+            reachable[sent_idx][null_node_token] = {null_node_token}
+
+            stack_emb = self.stack.get_output(sent_idx)
+
+            stack_emb = torch.cat([stack_emb, ratio_factor])
+            comp_rep = torch.tanh(self.update_null_node(stack_emb))
+
+            node_input = comp_rep
+
+            self.buffer.push(sent_idx,
+                             input=node_input,
+                             extra={'token': null_node_token})
+
+            total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
+
+        elif action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE"):
+            if action.startswith("LEFT-EDGE"):
+                head = self.stack.get_stack(sent_idx)[-1]
+                modifier = self.stack.get_stack(sent_idx)[-2]
+            else:
+                head = self.stack.get_stack(sent_idx)[-2]
+                modifier = self.stack.get_stack(sent_idx)[-1]
+
+            (head_rep, head_tok) = (head['stack_rnn_output'], head['token'])
+            (mod_rep, mod_tok) = (modifier['stack_rnn_output'], modifier['token'])
+
+            if oracle_actions is None:
+                edge_list[sent_idx].append((mod_tok,
+                                            head_tok,
+                                            action.split(':', maxsplit=1)[1]))
+            # propagate reachability
+            for tok, reachable_for_tok_set in reachable[sent_idx].items():
+                if head_tok in reachable_for_tok_set:
+                    reachable_for_tok_set.add(mod_tok)
+
+            action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
+                else self.action_stack.get_output(sent_idx)
+
+            stack_emb = self.pempty_stack_emb if self.stack.get_len(sent_idx) == 0 \
+                else self.stack.get_output(sent_idx)
+
+            buffer_emb = self.pempty_buffer_emb if self.buffer.get_len(sent_idx) == 0 \
+                else self.buffer.get_output(sent_idx)
+
+            # # compute composed representation
+            comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
+            comp_rep = torch.tanh(self.p_comp(comp_rep))
+
+            if action.startswith("LEFT-EDGE"):
+                self.stack.pop(sent_idx)
+                self.stack.push(sent_idx,
+                                input=comp_rep,
+                                extra={'token': head_tok})
+                head_count[sent_idx][mod_tok] += 1
+
+            # RIGHT-EDGE
+            else:
+                stack_0_rep = self.stack.get_stack(sent_idx)[-1]['stack_rnn_input']
+                self.stack.pop(sent_idx)
+                self.stack.pop(sent_idx)
+
+                self.stack.push(sent_idx,
+                                input=comp_rep,
+                                extra={'token': head_tok})
+
+                self.stack.push(sent_idx,
+                                input=stack_0_rep,
+                                extra={'token': mod_tok})
+                head_count[sent_idx][mod_tok] += 1
+
+        # Execute the action to update the parser state
+        elif action == "REDUCE-0":
+            self.stack.pop(sent_idx)
+
+        elif action == "REDUCE-1":
+            stack_0 = self.stack.pop(sent_idx)
+            self.stack.pop(sent_idx)
+            self.stack.push(sent_idx,
+                            input=stack_0['stack_rnn_input'],
+                            extra={'token': stack_0['token']})
+
+        elif action == "SHIFT":
+            buffer = self.buffer.pop(sent_idx)
+            self.stack.push(sent_idx,
+                            input=buffer['stack_rnn_input'],
+                            extra={'token': buffer['token']})
+            s0 = self.stack.get_stack(sent_idx)[-1]['token']
+            if s0 not in generated_order[sent_idx]:
+                num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
+                generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
+                head_count[sent_idx][s0] = 0
+                reachable[sent_idx][s0] = {s0}
+
+        elif action == "SWAP":
+            stack_penult = self.stack.pop_penult(sent_idx)
+            self.buffer.push(sent_idx,
+                             input=stack_penult['stack_rnn_input'],
+                             extra={'token': stack_penult['token']})
+
+        elif action == "FINISH":
+            action_tag_for_terminate[sent_idx] = True
+            ratio_factor_losses[sent_idx] = ratio_factor
+        action_sequence_length[sent_idx] += 1
+
+    def fix_unconnected_egraph(self, edge_list, reachable, root_id, generated_order):
+        """
+        Detect cycles in edge_list, select arbitrary element, attach to root's dependent.
+        Postprocessing to avoid validation errors (validate.py --level 2): L2 Enhanced unconnected-egraph
+        Since REDUCE-{0,1} has a precondition requiring a head, the only way to get an unconnect graph
+        (which means there are nodes unreachable from the root) is if there are cycles.
+        """
+        # Find the dependent of root since it will be the head of all orphans
+        pred = None
+        for mod_tok, head_tok, label in edge_list:
+            if head_tok == root_id:
+                pred = mod_tok
+                break
+        if pred is None:
+            print("No predicate (dependent of root) found", file=sys.stderr)
+            return
+        orphans = set(generated_order) - reachable[root_id]  # All nodes not reachable from the root
+        while orphans:
+            tok = next(iter(orphans))
+            edge_list.append(tok, root_id, "orphan")
+            orphans -= reachable[tok]  # All cycle members were taken care of by doing this
+
     # Returns an expression of the loss for the sequence of actions.
     # (that is, the oracle_actions if present or the predicted sequence otherwise)
     def forward(self,
@@ -458,6 +505,7 @@ class TransitionParser(Model):
                 output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
 
         output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
+
         # validation mode
         # compute the accuracy when gold actions exist
         if gold_actions is not None:
