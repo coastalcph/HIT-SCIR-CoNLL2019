@@ -350,7 +350,7 @@ class TransitionParser(Model):
                                         input=stack_0['stack_rnn_input'],
                                         extra={'token': stack_0['token']})
 
-                    elif action ==  "SHIFT":
+                    elif action == "SHIFT":
                         buffer = self.buffer.pop(sent_idx)
                         self.stack.push(sent_idx,
                                         input=buffer['stack_rnn_input'],
@@ -372,6 +372,8 @@ class TransitionParser(Model):
                         ratio_factor_losses[sent_idx] = ratio_factor
 
                     action_sequence_length[sent_idx] += 1
+
+        # TODO detect cycles in edge_list, select arbitrary element, attach to root's dependent
 
         # categorical cross-entropy
         _loss_CCE = -torch.sum(

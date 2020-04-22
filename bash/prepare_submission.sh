@@ -25,27 +25,28 @@ for f in *.conllu; do
   preprocessor=${basename##*-}
   basename=${basename#*_}
   treebank_suffix=${basename%%-*}
-  echo === $lang $treebank_suffix $preprocessor $div $f
+  echo === $lang $treebank_suffix $preprocessor $div $f -> $preprocessor/$div/$lang.conllu
   if [ $treebank_suffix != all -a -f ${lang}_all-predicted-$preprocessor-$div.conllu ]; then
     echo Skipped because a concat model exists
     continue
   fi
-  sed -i 's/\([	|]0:\)\w*/\1root/' $f
-  python ../tools/validate.py $f --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
-  timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $f" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
+  # Workarounds for validation errors:
+  sed 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f | perl ../tools/conllu-quick-fix.pl > $preprocessor/$div/$lang.conllu
+
+  python ../tools/validate.py $preprocessor/$div/$lang.conllu --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
+  timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu
   if [ $div == dev ]; then
     perl ../tools/enhanced_collapse_empty_nodes.pl ../dev-gold/$lang.conllu > ../collapsed/gold/$div/$lang.conllu 2>/dev/null
     python ../tools/iwpt20_xud_eval.py ../collapsed/gold/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu
   fi
   perl ../tools/text_without_spaces.pl ../$div/$lang.txt > ../text_without_spaces/gold/$div/$lang.txt
-  perl ../tools/conllu_to_text.pl $f | ../tools/text_without_spaces.pl > ../text_without_spaces/$preprocessor/$div/$lang.txt
+  perl ../tools/conllu_to_text.pl $preprocessor/$div/$lang.conllu | ../tools/text_without_spaces.pl > ../text_without_spaces/$preprocessor/$div/$lang.txt
   if ! diff -q ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt; then
-    echo Text mismatch: $f
+    echo Text mismatch: $preprocessor/$div/$lang.conllu ($f)
     wc -l ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head -n-1
-    diff --color=always -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
+    diff -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
   fi
-  cp -v $f $preprocessor/$div/$lang.conllu
 done
 
 wait < <(jobs -p)
