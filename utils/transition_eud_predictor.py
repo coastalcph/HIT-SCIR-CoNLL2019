@@ -60,6 +60,8 @@ class EUDPParserPredictor(Predictor):
 def eud_trans_outputs_into_conllu(outputs, output_null_nodes=True):
     return annotation_to_conllu(eud_trans_outputs_to_annotation(outputs), output_null_nodes)
 
+NNODE_IN_DEPS = re.compile('(([0-9][0-9]*)\.[1-9][0-9]*)')
+
 def serialize_field(field, key, output_null_nodes=True):
     #bit of an overkill but let's play it safe
     field_type_error = False
@@ -82,7 +84,6 @@ def serialize_field(field, key, output_null_nodes=True):
     elif key == 'deps':
         if isinstance(field,str):
             if not output_null_nodes:
-                NNODE_IN_DEPS = re.compile('(([0-9][0-9]*)\.[1-9][0-9]*)')
                 field = re.sub(NNODE_IN_DEPS, r'\2', field)
             return field
         else:
@@ -141,7 +142,7 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
     if null_nodes:
         for i, node in enumerate(null_nodes, start=1):
             if output_null_nodes:
-                token_index_to_id[null_node_prefix + i] = float(f'{null_node_prefix}.{i}')
+                token_index_to_id[null_node_prefix + i] = f'{null_node_prefix}.{i}'
             else:
                 #TODO: hacky! come up with something better
                 #attach everything that is attached to a node to the last sentence item
