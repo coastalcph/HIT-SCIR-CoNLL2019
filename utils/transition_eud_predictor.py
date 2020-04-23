@@ -169,7 +169,7 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
         if multiword_map and i in multiword_map:
             output_annotation.append(multiword_map[i])
         deps =[(token_index_to_id[edge[1]], edge[2]) for edge in edge_list if token_index_to_id[edge[0]] == i ]
-        deps = sorted(deps, key=lambda x:x[0])
+        deps = sorted(deps, key=lambda x:tuple(int(i) for i in str(x[0]).split(".")))
         string_deps = "|".join([str(dep[0]) + ':' + dep[1] for dep in deps])
 
         if not deps:
@@ -181,7 +181,7 @@ def eud_trans_outputs_to_annotation(outputs, output_null_nodes = True):
     if null_nodes and output_null_nodes:
         for i, node in enumerate(null_nodes, start=null_node_prefix+1):
             deps = [(token_index_to_id[edge[1]], edge[2]) for edge in edge_list if edge[0] == i]
-            deps = sorted(deps, key=lambda x:x[0])
+            deps = sorted(deps, key=lambda x:tuple(int(i) for i in str(x[0]).split(".")))
             string_deps = "|".join([str(dep[0]) + ':' + dep[1] for dep in deps])
             if not deps:
                 raise ValueError(f"No edge found for {node}")
