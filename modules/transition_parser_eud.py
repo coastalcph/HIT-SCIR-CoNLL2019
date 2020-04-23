@@ -263,7 +263,7 @@ class TransitionParser(Model):
                     valid_actions += ['REDUCE-1']
 
                 # Hacky code to verify that we do not draw the same edge with the same label twice
-                labels_left_edge = []
+                labels_left_edge = ['root'] #should not be in vocab anyway actually but be safe
                 labels_right_edge = []
                 for mod_tok, head_tok, label in edge_list[sent_idx]:
                     if (mod_tok, head_tok) == (s1, s0):
@@ -279,10 +279,15 @@ class TransitionParser(Model):
                     valid_actions += left_edge_possible_actions
 
                 if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
-                    right_edge_possible_actions = \
-                        [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
-                         if a.startswith('RIGHT-EDGE')
-                         and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                    if s1 == root_id[sent_idx]:
+                        right_edge_possible_actions = ['RIGHT-EDGE:root']
+                    else:
+                        #hack to disable root
+                        labels_right_edge += ['root']
+                        right_edge_possible_actions = \
+                                [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                if a.startswith('RIGHT-EDGE')
+                                and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
                     valid_actions += right_edge_possible_actions
         # remove unknown actions:
         vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
@@ -507,20 +512,25 @@ class TransitionParser(Model):
                 output_dict[k] = [[token_metadata[k] for token_metadata in sentence_metadata['annotation']] for sentence_metadata in metadata]
 
         output_dict["multiwords"] = [sentence_metadata['multiwords'] for sentence_metadata in metadata]
-
+        output_dict["sent_id"] = [sentence_metadata['sent_id'] for sentence_metadata in metadata]
+        output_dict["text"] = [sentence_metadata['text'] for sentence_metadata in metadata]
         # validation mode
         # compute the accuracy when gold actions exist
         if gold_actions is not None:
             predicted_graphs = []
+            gold_graphs_conllu = []
 
             for sent_idx in range(batch_size):
                 predicted_graphs.append(eud_trans_outputs_into_conllu({
                         k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
-                                "deprel", "misc", "edge_list", "null_node", "multiwords"]
+                                "deprel", "misc", "edge_list", "null_node", "multiwords", "text", "sent_id"]
                 }, self.output_null_nodes))
+                gold_annotation = [{'sent_id':output_dict['sent_id'][sent_idx],'text':output_dict['text'][sent_idx]}]
+                for annotation in metadata[sent_idx]['annotation']:
+                    gold_annotation.append(annotation)
+                gold_graphs_conllu.append(annotation_to_conllu(gold_annotation, self.output_null_nodes))
 
             predicted_graphs_conllu = [line for lines in predicted_graphs for line in lines]
-            gold_graphs_conllu = [annotation_to_conllu(sentence_metadata['annotation'], self.output_null_nodes) for sentence_metadata in metadata]
             gold_graphs_conllu = [line for lines in gold_graphs_conllu for line in lines]
 
             self._xud_score(predicted_graphs_conllu,
