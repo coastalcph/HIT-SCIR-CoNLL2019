@@ -43,7 +43,7 @@ for f in *.conllu; do
   perl ../tools/text_without_spaces.pl ../$div/$lang.txt > ../text_without_spaces/gold/$div/$lang.txt
   perl ../tools/conllu_to_text.pl $preprocessor/$div/$lang.conllu | ../tools/text_without_spaces.pl > ../text_without_spaces/$preprocessor/$div/$lang.txt
   if ! diff -q ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt; then
-    echo Text mismatch: $preprocessor/$div/$lang.conllu ($f)
+    echo "Text mismatch: $preprocessor/$div/$lang.conllu ($f)"
     wc -l ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head -n-1
     diff -dy ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt | head
   fi
