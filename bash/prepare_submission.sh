@@ -4,6 +4,7 @@ rm -rf collapsed validation text_without_spaces
 mkdir -p {submission,collapsed,validation,text_without_spaces}/{stanza,udpipe,gold}/{dev,test} dev dev-gold test
 if [ -n "$GET_PRED" ]; then
   scp saga:/cluster/projects/nn9447k/mdelhoneux/models/mbert/*/*-predicted-*.conllu submission/
+  scp saga:/cluster/projects/nn9447k/mdelhoneux/models/mbert/*_all/*-predicted-*.conllu submission/
 fi
 if [ -n "$GET_TEXT" ]; then
   for div in test dev; do
