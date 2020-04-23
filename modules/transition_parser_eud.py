@@ -434,7 +434,7 @@ class TransitionParser(Model):
                 break
         orphans = set(generated_order) - reachable[root_id]  # All nodes not reachable from the root
         while orphans:
-            tok = next(iter(orphans))
+            tok = max(orphans, key=lambda x: len(reachable[x]))  # Start from nodes with the most descendents: "roots"
             if pred is None:
                 # print(f"No predicate (dependent of root) found: {edge_list}", file=sys.stderr)
                 edge_list.append((tok, root_id, "root"))
