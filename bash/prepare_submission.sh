@@ -18,29 +18,30 @@ if [ -n "$GET_TEXT" ]; then
 fi
 cd submission/ || exit
 for f in *.conllu; do
-  lang=${f%_*}
+  lang=${f%-*}
+  lang=${lang%_*}
   basename=${f%.*}
   div=${basename##*-}
   basename=${basename%-*}
   preprocessor=${basename##*-}
   basename=${basename#*_}
   treebank_suffix=${basename%%-*}
+  [ -n "$PREPROCESSOR" ] && [ $preprocessor != $PREPROCESSOR ] && continue
+  [ -n "$DIV" ] && [ $div != $DIV ] && continue
   echo "=== $lang $treebank_suffix $preprocessor $div $f -> submission/$preprocessor/$div/$lang.conllu"
   if [ $treebank_suffix != all ] && [ -f ${lang}_all-predicted-$preprocessor-$div.conllu ]; then
     echo Skipped because a concat model exists
     continue
   fi
-  [ -n "$PREPROCESSOR" ] && [ $preprocessor != $PREPROCESSOR ] && continue
-  [ -n "$DIV" ] && [ $div != $DIV ] && continue
   # Workarounds for validation errors:
   sed 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f | perl ../tools/conllu-quick-fix.pl > $preprocessor/$div/$lang.conllu
 
   python ../tools/validate.py $preprocessor/$div/$lang.conllu --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
-  timeout 10s "perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu" > ../collapsed/$preprocessor/$div/$lang.conllu 2>/dev/null
+  timeout 10s perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu > ../collapsed/$preprocessor/$div/$lang.conllu 2>../collapsed/$preprocessor/$div/$lang.log || cat ../collapsed/$preprocessor/$div/$lang.log
   echo Evaluating submission/$preprocessor/$div/$lang.conllu against itself
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu | grep ELAS
   if [ $div == dev ]; then
-    perl ../tools/enhanced_collapse_empty_nodes.pl ../dev-gold/$lang.conllu > ../collapsed/gold/$div/$lang.conllu 2>/dev/null
+    perl ../tools/enhanced_collapse_empty_nodes.pl ../dev-gold/$lang.conllu > ../collapsed/gold/$div/$lang.conllu 2>../collapsed/gold/$div/$lang.log || cat ../collapsed/gold/$div/$lang.log
     echo Evaluating submission/$preprocessor/$div/$lang.conllu against dev-gold/$lang.conllu
     python ../tools/iwpt20_xud_eval.py ../collapsed/gold/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu | grep ELAS
   fi
