@@ -1,6 +1,6 @@
 #!/bin/bash
 cd "$(dirname $0)/.." || exit
-mkdir -p preprocessed
+mkdir -p preprocessed text_without_spaces/preprocessed-{udpipe,stanza}/{dev,test}
 if [ -n "$GET_PRED" ]; then
   scp -r saga:/cluster/projects/nn9447k/mdelhoneux/*/preprocessed/* preprocessed/
 fi
@@ -28,6 +28,7 @@ for f in *.conllu; do
   treebank_suffix=${basename%%-*}
   [ $treebank_suffix != all -a -f ${lang}_all-preprocessed-$preprocessor-$div.conllu ] && continue
   printf "%-50s" $f
-  diff -q ../text_without_spaces/{gold,$preprocessor}/$div/$lang.txt && echo OK
+  perl ../tools/conllu_to_text.pl $f | ../tools/text_without_spaces.pl > ../text_without_spaces/preprocessed-$preprocessor/$div/$lang.txt
+  diff -q ../text_without_spaces/{gold,preprocessed-$preprocessor}/$div/$lang.txt && echo OK
 done
 
