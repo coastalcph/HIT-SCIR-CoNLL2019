@@ -106,8 +106,9 @@ def serialize_field(field, key, output_null_nodes=True):
 NULL_NODE_ID = re.compile(r"^[0-9][0-9]*\.[1-9][0-9]*")
 def annotation_to_conllu(annotation, output_null_nodes=True):
     output_lines = []
-    output_lines.append(f'# sent_id = {annotation[0]["sent_id"]}'.encode(encoding='UTF-8',errors='strict').decode())
-    output_lines.append(f'# text = {annotation[0]["text"]}'.encode(encoding='UTF-8',errors='strict').decode())
+    for key in "sent_id", "text":
+        if key in annotation[0]:
+            output_lines.append(f'# {key} = {annotation[0][key]}'.encode(encoding='UTF-8',errors='strict').decode())
 
     for i, line in enumerate(annotation[1:], start=1):
         line = [serialize_field(line.get(k), k, output_null_nodes) for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
