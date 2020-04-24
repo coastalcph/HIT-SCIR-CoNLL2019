@@ -107,7 +107,7 @@ NULL_NODE_ID = re.compile(r"^[0-9][0-9]*\.[1-9][0-9]*")
 def annotation_to_conllu(annotation, output_null_nodes=True):
     output_lines = []
     for key in "sent_id", "text":
-        if key in annotation[0]:
+        if key in annotation[0] and annotation[0][key] is not None:
             output_lines.append(f'# {key} = {annotation[0][key]}'.encode(encoding='UTF-8',errors='strict').decode())
 
     for i, line in enumerate(annotation[1:], start=1):
