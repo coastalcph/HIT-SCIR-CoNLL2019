@@ -10,6 +10,8 @@ checkpoint_dir=$1
 preprocessed_file=$2
 output_file=$3
 
+# Bug: output_null_nodes=false actually makes the parser output null nodes, which it doesn't otherwise!
+# Workaround: set it to false always
 allennlp predict \
     --output-file $checkpoint_dir/$output_file \
     --predictor transition_predictor_eud \
@@ -19,5 +21,6 @@ allennlp predict \
     --batch-size 32 \
     --silent \
     --cuda-device 0 \
+    --override '{"model": {"output_null_nodes": false}}' \
     $checkpoint_dir \
     $preprocessed_file \
