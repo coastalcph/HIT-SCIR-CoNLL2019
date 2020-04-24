@@ -304,6 +304,8 @@ class TransitionParser(Model):
         # remove unknown actions:
         vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
         valid_actions = [valid_action for valid_action in valid_actions if valid_action in vocab_actions]
+        if not valid_actions:
+            valid_actions = ["FINISH"]
         return valid_actions
 
     def predict_action(self, ratio_factor, sent_idx, valid_actions):
