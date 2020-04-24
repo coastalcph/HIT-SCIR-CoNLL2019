@@ -525,7 +525,8 @@ class TransitionParser(Model):
                         k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                                 "deprel", "misc", "edge_list", "null_node", "multiwords", "text", "sent_id"]
                 }, self.output_null_nodes))
-                gold_annotation = [{'sent_id':output_dict['sent_id'][sent_idx],'text':output_dict['text'][sent_idx]}]
+                gold_annotation = [{key: output_dict[key][sent_idx]} for key in ("sent_id", "text")
+                                   if output_dict[key][sent_idx]]
                 for annotation in metadata[sent_idx]['annotation']:
                     gold_annotation.append(annotation)
                 gold_graphs_conllu.append(annotation_to_conllu(gold_annotation, self.output_null_nodes))

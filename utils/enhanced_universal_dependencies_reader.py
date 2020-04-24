@@ -59,15 +59,16 @@ class EnhancedUniversalDependenciesDatasetReader(DatasetReader):
             conllu_string= conllu_file.read()
             logger.info("Reading UD instances from conllu dataset at: %s", file_path)
 
-            for annotation in parse_incr(string_to_file(conllu_string), metadata_parsers = METADATA_PARSERS):
-                sent_id = annotation.metadata['sent_id']
-                text = annotation.metadata['text']
+            for annotation_index, annotation in enumerate(parse_incr(string_to_file(conllu_string),
+                                                                     metadata_parsers=METADATA_PARSERS), start=1):
+                word_annotation = [x for x in annotation if isinstance(x["id"], int)]
+                sent_id = annotation.metadata.get('sent_id', str(annotation_index))
+                text = annotation.metadata.get('text')
                 # CoNLLU annotations sometimes add back in words that have been elided
                 # in the original sentence; we remove these, as we're just predicting
                 # dependencies for the original sentence.
                 # We filter by integers here as elided words have a non-integer word id,
                 # as parsed by the conllu python library.
-                word_annotation = [x for x in annotation if isinstance(x["id"], int)]
                 #ignore long sentences
                 if self.max_sentence_length and len(word_annotation) > self.max_sentence_length:
                     continue
