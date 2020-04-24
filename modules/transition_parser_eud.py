@@ -255,7 +255,10 @@ class TransitionParser(Model):
             if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
                 valid_actions += ['REDUCE-0']
             if len(null_node[sent_idx]) < sent_len[sent_idx]:  # Max number of null nodes is the number of words
-                valid_actions += ['NODE']
+                # valid_actions += ['NODE']
+                # Support legacy models with "NODE:*" actions that also create an edge:
+                valid_actions += [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                                  if a.startswith('NODE')]
 
             if self.stack.get_len(sent_idx) > 1:
                 s1 = self.stack.get_stack(sent_idx)[-2]['token']
@@ -321,7 +324,7 @@ class TransitionParser(Model):
                     head_count, swap_count, null_node, num_of_generated_node, oracle_actions, ratio_factor,
                     ratio_factor_losses, sent_idx, sent_len, total_node_num, reachable: List[Dict[int, Set[int]]]):
         # generate null node, recursive way
-        if action == "NODE":
+        if action.startswith("NODE"):  # Support legacy models with "NODE:*" actions that also create an edge
             null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
             null_node[sent_idx].append(null_node_token)
             head_count[sent_idx][null_node_token] = swap_count[sent_idx][null_node_token] = 0
@@ -339,9 +342,12 @@ class TransitionParser(Model):
                              extra={'token': null_node_token})
 
             total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
-
-        elif action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE"):
-            if action.startswith("LEFT-EDGE"):
+        # Support legacy models with "NODE:*" actions that also create an edge
+        if action.startswith("NODE:") or action.startswith("LEFT-EDGE") or action.startswith("RIGHT-EDGE"):
+            if action.startswith("NODE:"):
+                modifier = self.buffer.get_stack(sent_idx)[-1]
+                head = self.stack.get_stack(sent_idx)[-1]
+            elif action.startswith("LEFT-EDGE"):
                 head = self.stack.get_stack(sent_idx)[-1]
                 modifier = self.stack.get_stack(sent_idx)[-2]
             else:
@@ -373,13 +379,16 @@ class TransitionParser(Model):
             comp_rep = torch.cat([head_rep, mod_rep, action_emb, buffer_emb, stack_emb, ratio_factor])
             comp_rep = torch.tanh(self.p_comp(comp_rep))
 
-            if action.startswith("LEFT-EDGE"):
+            if action.startswith("NODE:"):
+                self.buffer.pop(sent_idx)
+                self.buffer.push(sent_idx,
+                                 input=comp_rep,
+                                 extra={'token': mod_tok})
+            elif action.startswith("LEFT-EDGE"):
                 self.stack.pop(sent_idx)
                 self.stack.push(sent_idx,
                                 input=comp_rep,
                                 extra={'token': head_tok})
-                head_count[sent_idx][mod_tok] += 1
-
             # RIGHT-EDGE
             else:
                 stack_0_rep = self.stack.get_stack(sent_idx)[-1]['stack_rnn_input']
@@ -393,7 +402,7 @@ class TransitionParser(Model):
                 self.stack.push(sent_idx,
                                 input=stack_0_rep,
                                 extra={'token': mod_tok})
-                head_count[sent_idx][mod_tok] += 1
+            head_count[sent_idx][mod_tok] += 1
 
         # Execute the action to update the parser state
         elif action == "REDUCE-0":
