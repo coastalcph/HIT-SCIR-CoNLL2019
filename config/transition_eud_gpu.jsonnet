@@ -30,6 +30,7 @@
     "type": "transition_parser_ud",
     "output_null_nodes": false,
     "max_heads": 7,
+    "max_swaps_per_node": 3,
     "validate_every_n_instances": std.parseInt(std.extVar('INSTANCES_PER_EPOCH_DEV')),
     "text_field_embedder": {
         "tokens": {

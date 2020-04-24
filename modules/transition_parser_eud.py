@@ -34,6 +34,7 @@ class TransitionParser(Model):
                  input_dropout: float = 0.0,
                  output_null_nodes: bool = True,
                  max_heads: int = None,
+                 max_swaps_per_node: int = 3,
                  validate_every_n_instances: int = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
@@ -48,6 +49,7 @@ class TransitionParser(Model):
         self.text_field_embedder = text_field_embedder
         self.output_null_nodes = output_null_nodes
         self.max_heads = max_heads
+        self.max_swaps_per_node = max_swaps_per_node
         self.num_validation_instances = validate_every_n_instances
         self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
@@ -128,7 +130,8 @@ class TransitionParser(Model):
         root_id = [[] for _ in range(batch_size)]
         num_of_generated_node= [[] for _ in range(batch_size)]
         generated_order = [{} for _ in range(batch_size)]
-        head_count = [{} for _ in range(batch_size)] #keep track of the number of heads
+        head_count = [{} for _ in range(batch_size)] # keep track of the number of heads
+        swap_count = [{} for _ in range(batch_size)] # keep track of the number of swaps
         reachable = [{} for _ in range(batch_size)]  # set of node ids reachable from each node (by id)
         # push the tokens onto the buffer (tokens is in reverse order)
         for token_idx in range(max(sent_len)):
@@ -164,14 +167,14 @@ class TransitionParser(Model):
         while trans_not_fin:
             trans_not_fin = False
             for sent_idx in range(batch_size):
-                if (action_sequence_length[sent_idx] > 1000 *
+                if (action_sequence_length[sent_idx] > 10000 *
                         sent_len[sent_idx]) and oracle_actions is None:
                     raise RuntimeError(f"Too many actions for a sentence {sent_idx}. actions: {action_list}")
                 total_node_num[sent_idx] = sent_len[sent_idx] + len(null_node[sent_idx])
                 if not action_tag_for_terminate[sent_idx]:
                     trans_not_fin = True
-                    valid_actions = self.calc_valid_actions(edge_list, generated_order, head_count, null_node, root_id,
-                                                            sent_idx, sent_len)
+                    valid_actions = self.calc_valid_actions(edge_list, generated_order, head_count, swap_count,
+                                                            null_node, root_id, sent_idx, sent_len)
 
                     log_probs = None
                     action = valid_actions[0]
@@ -206,7 +209,7 @@ class TransitionParser(Model):
                         raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
 
                     self.exec_action(action, action_sequence_length, action_tag_for_terminate, edge_list,
-                                     generated_order, head_count, null_node, num_of_generated_node, oracle_actions,
+                                     generated_order, head_count, swap_count, null_node, num_of_generated_node, oracle_actions,
                                      ratio_factor, ratio_factor_losses, sent_idx, sent_len, total_node_num,
                                      reachable)
 
@@ -240,7 +243,7 @@ class TransitionParser(Model):
 
         return ret
 
-    def calc_valid_actions(self, edge_list, generated_order, head_count, null_node, root_id, sent_idx, sent_len):
+    def calc_valid_actions(self, edge_list, generated_order, head_count, swap_count, null_node, root_id, sent_idx, sent_len):
         valid_actions = []
         # given the buffer and stack, conclude the valid action list
         if self.buffer.get_len(sent_idx) == 0 and self.stack.get_len(sent_idx) == 1:
@@ -251,19 +254,20 @@ class TransitionParser(Model):
             s0 = self.stack.get_stack(sent_idx)[-1]['token']
             if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
                 valid_actions += ['REDUCE-0']
-            if len(null_node[sent_idx]) < sent_len[sent_idx]:
+            if len(null_node[sent_idx]) < sent_len[sent_idx]:  # Max number of null nodes is the number of words
                 valid_actions += ['NODE']
 
             if self.stack.get_len(sent_idx) > 1:
                 s1 = self.stack.get_stack(sent_idx)[-2]['token']
                 if s1 != root_id[sent_idx] and \
-                        generated_order[sent_idx][s0] > generated_order[sent_idx][s1]:
+                        generated_order[sent_idx][s0] > generated_order[sent_idx][s1] and \
+                        swap_count[sent_idx][s1] < self.max_swaps_per_node:
                     valid_actions += ['SWAP']
                 if s1 != root_id[sent_idx] and head_count[sent_idx][s1] > 0:
                     valid_actions += ['REDUCE-1']
 
                 # Hacky code to verify that we do not draw the same edge with the same label twice
-                labels_left_edge = ['root'] #should not be in vocab anyway actually but be safe
+                labels_left_edge = ['root']  # should not be in vocab anyway actually but be safe
                 labels_right_edge = []
                 for mod_tok, head_tok, label in edge_list[sent_idx]:
                     if (mod_tok, head_tok) == (s1, s0):
@@ -282,7 +286,7 @@ class TransitionParser(Model):
                     if s1 == root_id[sent_idx]:
                         right_edge_possible_actions = ['RIGHT-EDGE:root']
                     else:
-                        #hack to disable root
+                        # hack to disable root
                         labels_right_edge += ['root']
                         right_edge_possible_actions = \
                                 [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
@@ -314,12 +318,13 @@ class TransitionParser(Model):
         return action, action_idx, log_probs, valid_action_tbl
 
     def exec_action(self, action, action_sequence_length, action_tag_for_terminate, edge_list, generated_order,
-                    head_count, null_node, num_of_generated_node, oracle_actions, ratio_factor, ratio_factor_losses,
-                    sent_idx, sent_len, total_node_num, reachable: List[Dict[int, Set[int]]]):
+                    head_count, swap_count, null_node, num_of_generated_node, oracle_actions, ratio_factor,
+                    ratio_factor_losses, sent_idx, sent_len, total_node_num, reachable: List[Dict[int, Set[int]]]):
         # generate null node, recursive way
         if action == "NODE":
             null_node_token = len(null_node[sent_idx]) + sent_len[sent_idx] + 1
             null_node[sent_idx].append(null_node_token)
+            head_count[sent_idx][null_node_token] = swap_count[sent_idx][null_node_token] = 0
             reachable[sent_idx][null_node_token] = {null_node_token}
 
             stack_emb = self.stack.get_output(sent_idx)
@@ -410,7 +415,7 @@ class TransitionParser(Model):
             if s0 not in generated_order[sent_idx]:
                 num_of_generated_node[sent_idx] = len(generated_order[sent_idx])
                 generated_order[sent_idx][s0] = num_of_generated_node[sent_idx]
-                head_count[sent_idx][s0] = 0
+                head_count[sent_idx][s0] = swap_count[sent_idx][s0] = 0
                 reachable[sent_idx][s0] = {s0}
 
         elif action == "SWAP":
@@ -418,6 +423,7 @@ class TransitionParser(Model):
             self.buffer.push(sent_idx,
                              input=stack_penult['stack_rnn_input'],
                              extra={'token': stack_penult['token']})
+            swap_count[sent_idx][stack_penult['token']] += 1
 
         elif action == "FINISH":
             action_tag_for_terminate[sent_idx] = True
