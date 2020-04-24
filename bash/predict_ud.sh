@@ -19,6 +19,6 @@ allennlp predict \
     --batch-size 32 \
     --silent \
     --cuda-device 0 \
-    --override '{"model": {"output_null_nodes": true}}' \
+    --override '{"model": {"output_null_nodes": true, "max_heads": 7}}' \
     $checkpoint_dir \
     $preprocessed_file \
