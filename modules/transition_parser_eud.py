@@ -206,7 +206,7 @@ class TransitionParser(Model):
                             if not torch.isnan(loss):
                                 losses[sent_idx].append(loss)
                     except KeyError:
-                        raise KeyError(f'action: {action}, valid actions: {valid_action_tbl}')
+                        raise KeyError(f'action: {action}, valid actions: {valid_actions}')
 
                     self.exec_action(action, action_sequence_length, action_tag_for_terminate, edge_list,
                                      generated_order, head_count, swap_count, null_node, num_of_generated_node, oracle_actions,
@@ -531,8 +531,8 @@ class TransitionParser(Model):
                         k:output_dict[k][sent_idx] for k in ["id", "form", "lemma", "upostag", "xpostag", "feats", "head",
                                 "deprel", "misc", "edge_list", "null_node", "multiwords", "text", "sent_id"]
                 }, self.output_null_nodes))
-                gold_annotation = [{key: output_dict[key][sent_idx]} for key in ("sent_id", "text")
-                                   if output_dict[key][sent_idx]]
+                gold_annotation = [{key: output_dict[key][sent_idx] for key in ("sent_id", "text")
+                    if output_dict[key][sent_idx]}]
                 for annotation in metadata[sent_idx]['annotation']:
                     gold_annotation.append(annotation)
                 gold_graphs_conllu.append(annotation_to_conllu(gold_annotation, self.output_null_nodes))
