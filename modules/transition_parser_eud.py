@@ -259,9 +259,9 @@ class TransitionParser(Model):
                 # Support legacy models with "NODE:*" actions that also create an edge:
                 node_possible_actions = [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
                                          if a.startswith('NODE')]
-                if len(node_possible_actions) > 1:
-                    logger.warning(f"Possible node actions: {node_possible_actions}. "
-                                   f"NODE:* actions are deprecated - train a new model!")
+                # if len(node_possible_actions) > 1:
+                #     logger.warning(f"Possible node actions: {node_possible_actions}. "
+                #                    f"NODE:* actions are deprecated - train a new model!")
                 valid_actions += node_possible_actions
 
             if self.stack.get_len(sent_idx) > 1:
