@@ -37,7 +37,8 @@ for f in *.conllu; do
   fi
   # Workarounds for validation errors:
   # sed 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f |
-  sed 's/\(0:root|\?\)\+/0:root/g' $f | perl ../tools/conllu-quick-fix.pl > $preprocessor/$div/$lang.conllu
+  # sed 's/\(0:root|\?\)\+/0:root/g' $f |
+  perl ../tools/conllu-quick-fix.pl < $f > $preprocessor/$div/$lang.conllu
 
   python ../tools/validate.py $preprocessor/$div/$lang.conllu --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
   timeout 10s perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu > ../collapsed/$preprocessor/$div/$lang.conllu 2>../collapsed/$preprocessor/$div/$lang.log || head -v -n5 ../collapsed/$preprocessor/$div/$lang.log
