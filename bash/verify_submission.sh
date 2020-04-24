@@ -1,7 +1,8 @@
 #!/bin/bash
 cd submission/
 for f in *.conllu; do
-  lang=${f%_*}
+  lang=${f%%-*}
+  lang=${lang%_*}
   basename=${f%.*}
   div=${basename##*-}
   basename=${basename%-*}
