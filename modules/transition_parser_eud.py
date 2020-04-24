@@ -291,14 +291,14 @@ class TransitionParser(Model):
 
                 if not self.max_heads or head_count[sent_idx][s0] < self.max_heads:
                     if s1 == root_id[sent_idx]:
-                        right_edge_possible_actions = ['RIGHT-EDGE:root']
+                        right_edge_possible_actions = [] if "root" in labels_right_edge else ['RIGHT-EDGE:root']
                     else:
                         # hack to disable root
                         labels_right_edge += ['root']
                         right_edge_possible_actions = \
-                                [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
-                                if a.startswith('RIGHT-EDGE')
-                                and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
+                            [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
+                             if a.startswith('RIGHT-EDGE')
+                             and a.split('RIGHT-EDGE:')[1] not in labels_right_edge]
                     valid_actions += right_edge_possible_actions
         # remove unknown actions:
         vocab_actions = self.vocab.get_token_to_index_vocabulary('actions').keys()
