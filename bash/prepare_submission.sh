@@ -35,6 +35,9 @@ for f in *.conllu; do
     echo Skipped because a concat model exists
     continue
   fi
+  if [ $lang != en ] && [ $lang != it ] && [ $lang != sv ]; then
+    continue  # final run, TODO remove this
+  fi
   # Workarounds for validation errors:
   # sed 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f |
   # sed 's/\(0:root|\?\)\+/0:root/g' $f |
