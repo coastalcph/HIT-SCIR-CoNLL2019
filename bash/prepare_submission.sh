@@ -41,7 +41,7 @@ for f in *.conllu; do
   perl ../tools/conllu-quick-fix.pl < $f > $preprocessor/$div/$lang.conllu
 
   python ../tools/validate.py $preprocessor/$div/$lang.conllu --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
-  timeout 10s perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu > ../collapsed/$preprocessor/$div/$lang.conllu 2>../collapsed/$preprocessor/$div/$lang.log || head -v -n5 ../collapsed/$preprocessor/$div/$lang.log
+  timeout 60s perl ../tools/enhanced_collapse_empty_nodes.pl $preprocessor/$div/$lang.conllu > ../collapsed/$preprocessor/$div/$lang.conllu 2>../collapsed/$preprocessor/$div/$lang.log || head -v -n5 ../collapsed/$preprocessor/$div/$lang.log
   echo -n Evaluating submission/$preprocessor/$div/$lang.conllu against itself " ... "
   python ../tools/iwpt20_xud_eval.py ../collapsed/$preprocessor/$div/$lang.conllu ../collapsed/$preprocessor/$div/$lang.conllu | grep ELAS
   if [ $div == dev ]; then
