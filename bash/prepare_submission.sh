@@ -35,16 +35,13 @@ for f in *.conllu; do
     echo Skipped because a concat model exists
     continue
   fi
-  if [ $lang != en ] && [ $lang != it ] && [ $lang != sv ]; then
-    continue  # final run, TODO remove this
-  fi
   # Workarounds for validation errors:
   # sed 's/\([	|]0:\)\w*/\1root/g;s/0:root|0:root/0:root/g' $f |
   # sed 's/\(0:root|\?\)\+/0:root/g' $f |
   perl ../tools/conllu-quick-fix.pl < $f > $preprocessor/$div/$lang.conllu
   if [ $preprocessor == udpipe ] && [ $div == test ] && [ $lang == sv ]; then
     # Workaround for weird udpipe issue resulting in space in lemma (L1 Format trailing-whitespace)
-    sed -i 's/\(\tand\) /\1/' $preprocessor/$div/$lang.conllu
+    sed -i 's/\(\tand\) \(\t\)/\1\2/' $preprocessor/$div/$lang.conllu
   fi
 
   python ../tools/validate.py $preprocessor/$div/$lang.conllu --lang $lang --level 2 > ../validation/$preprocessor/$div/$lang.txt 2>&1 &
