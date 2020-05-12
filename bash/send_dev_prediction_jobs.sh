@@ -17,16 +17,20 @@ for model in "${models[@]}"; do
     preprocessed_udpipe=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-udpipe-dev.conllu)
     gold_file=${test_dir}-gold/$iso.conllu
 
-    sbatch --job-name ${model}_stanza bash/predict_ud.sh \
-           ${checkpoint_dir}/${model}/ \
-           ${preprocessed_stanza} \
-           ${iso}-predicted-stanza-dev.conllu \
-           ${gold_file}
+    if [ -z "$preprocessor" ] || [ "$preprocessor" == stanza ]; then
+      sbatch --job-name ${model}_stanza bash/predict_ud.sh \
+             ${checkpoint_dir}/${model}/ \
+             ${preprocessed_stanza} \
+             ${iso}-predicted-stanza-dev.conllu \
+             ${gold_file}
+    fi
 
-    sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
-           ${checkpoint_dir}/${model}/ \
-           ${preprocessed_udpipe} \
-           ${iso}-predicted-udpipe-dev.conllu \
-           ${gold_file}
+    if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
+      sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
+             ${checkpoint_dir}/${model}/ \
+             ${preprocessed_udpipe} \
+             ${iso}-predicted-udpipe-dev.conllu \
+             ${gold_file}
+    fi
 
 done
