@@ -35,6 +35,7 @@ class TransitionParser(Model):
                  output_null_nodes: bool = True,
                  max_heads: int = None,
                  max_swaps_per_node: int = 3,
+                 fix_unconnected_egraph: bool = True,
                  validate_every_n_instances: int = None,
                  action_embedding: Embedding = None,
                  initializer: InitializerApplicator = InitializerApplicator(),
@@ -50,6 +51,7 @@ class TransitionParser(Model):
         self.output_null_nodes = output_null_nodes
         self.max_heads = max_heads
         self.max_swaps_per_node = max_swaps_per_node
+        self._fix_unconnected_egraph = fix_unconnected_egraph
         self.num_validation_instances = validate_every_n_instances
         self._xud_score = XUDScore(collapse=self.output_null_nodes)
 
@@ -213,7 +215,8 @@ class TransitionParser(Model):
                                      ratio_factor, ratio_factor_losses, sent_idx, sent_len, total_node_num,
                                      reachable)
 
-        if oracle_actions is None:  # Fix edge_list if we are not training. If training, it's empty (no output)
+        if oracle_actions is None and self._fix_unconnected_egraph:
+            # Fix edge_list if we are not training. If training, it's empty (no output)
             for sent_idx in range(batch_size):
                 self.fix_unconnected_egraph(edge_list[sent_idx], reachable[sent_idx], root_id[sent_idx],
                                             generated_order[sent_idx])

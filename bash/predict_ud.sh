@@ -20,7 +20,7 @@ allennlp predict \
     --batch-size 32 \
     --silent \
     --cuda-device 0 \
-    --override '{"model": {"output_null_nodes": true, "max_heads": 7}}' \
+    --override "{\"model\": {\"output_null_nodes\": true, \"max_heads\": 7, \"max_swaps_per_node\": ${max_swaps_per_node:-3}, \"fix_unconnected_egraph\": ${fix_unconnected_egraph:-true}}}" \
     $checkpoint_dir \
     $preprocessed_file \
 
