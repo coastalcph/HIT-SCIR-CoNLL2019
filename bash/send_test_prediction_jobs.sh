@@ -14,15 +14,18 @@ for model in "${models[@]}"; do
     iso=$(echo $model | grep -o '^[^_]*')
     preprocessed_stanza=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-stanza-test.conllu)
     preprocessed_udpipe=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-udpipe-test.conllu)
+    gold_file=${test_dir}-gold/$iso.conllu
 
     sbatch --job-name ${model}_stanza bash/predict_ud.sh \
            ${checkpoint_dir}/${model}/ \
            ${preprocessed_stanza} \
            ${iso}-predicted-stanza-test.conllu
+           ${gold_file}
 
     sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
            ${checkpoint_dir}/${model}/ \
            ${preprocessed_udpipe} \
            ${iso}-predicted-udpipe-test.conllu
+           ${gold_file}
 
 done

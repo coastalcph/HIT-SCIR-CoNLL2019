@@ -9,9 +9,10 @@ module load Perl/5.30.0-GCCcore-8.3.0
 checkpoint_dir=$1
 preprocessed_file=$2
 output_file=$3
+pred_file=${output_dir:-$checkpoint_dir}/$output_file
 
 allennlp predict \
-    --output-file ${output_dir:-$checkpoint_dir}/$output_file \
+    --output-file $pred_file \
     --predictor transition_predictor_eud \
     --include-package utils \
     --include-package modules \
@@ -22,3 +23,13 @@ allennlp predict \
     --override '{"model": {"output_null_nodes": true, "max_heads": 7}}' \
     $checkpoint_dir \
     $preprocessed_file \
+
+if [ $# -ge 4 ]; then
+  gold_file=$4
+  eval_dir=$(mktemp)
+  mkdir -p $eval_dir/{gold,pred}
+  perl ../tools/enhanced_collapse_empty_nodes.pl $pred_file > $eval_dir/pred/$output_file
+  perl ../tools/enhanced_collapse_empty_nodes.pl $gold_file > $eval_dir/gold/$output_file
+  python ../tools/iwpt20_xud_eval.py $eval_dir/gold/$output_file $eval_dir/pred/$output_file | tee $eval_dir/eval.log
+  grep -zPo "(?<=ELAS F1 Score: ).*" $eval_dir/eval.log > ${output_dir:-.}/${output_file%%-*}_elas.txt
+fi
