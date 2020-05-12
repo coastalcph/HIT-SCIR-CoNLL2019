@@ -11,7 +11,7 @@ preprocessed_file=$2
 output_file=$3
 
 allennlp predict \
-    --output-file $checkpoint_dir/$output_file \
+    --output-file ${output_dir:-$checkpoint_dir}/$output_file \
     --predictor transition_predictor_eud \
     --include-package utils \
     --include-package modules \
