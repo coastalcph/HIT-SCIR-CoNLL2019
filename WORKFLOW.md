@@ -1,7 +1,8 @@
 TODO:
-- Run predictions with concat UDPipe/Stanza models
+- Debug differences between development scores and final ones
 
-STRETCH GOAL:
+NICE TO HAVE:
+- Run predictions with concat UDPipe/Stanza models
 - Find preprocessing models that do best on average on dev treebanks per language
 - Train with preprocessed UDPipe/Stanza
 - Repeat with lang-spec BERT
