@@ -19,13 +19,13 @@ for model in "${models[@]}"; do
     sbatch --job-name ${model}_stanza bash/predict_ud.sh \
            ${checkpoint_dir}/${model}/ \
            ${preprocessed_stanza} \
-           ${iso}-predicted-stanza-dev.conllu
+           ${iso}-predicted-stanza-dev.conllu \
            ${gold_file}
 
     sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
            ${checkpoint_dir}/${model}/ \
            ${preprocessed_udpipe} \
-           ${iso}-predicted-udpipe-dev.conllu
+           ${iso}-predicted-udpipe-dev.conllu \
            ${gold_file}
 
 done
