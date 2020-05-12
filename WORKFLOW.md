@@ -1,10 +1,10 @@
 TODO:
-- Train new UDPipe/Stanza models from joined language training sets instead of per treebank
-- Find preprocessing models that do best on average on dev treebanks per language
-- Repeat with lang-spec BERT
+- Run predictions with concat UDPipe/Stanza models
 
 STRETCH GOAL:
-- Submit training jobs with preprocessed UDPipe/Stanza
+- Find preprocessing models that do best on average on dev treebanks per language
+- Train with preprocessed UDPipe/Stanza
+- Repeat with lang-spec BERT
 - Repeat with XLM-R large
 - Treebank embeddings with "guessing" during test
 
