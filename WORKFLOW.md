@@ -1,16 +1,4 @@
 TODO:
-MUST:
-DONE - Miryam 1. Train language-specific instead of treebank-specific models by joining the training treebanks
-Artur 2. Fix predictions with preprocessed UDPipe+Stanza
-  - Fix prediction bug
-  - Both dev and test: preprocessing with Stanza+UDPipe with largest model
-  - Both dev and test: parser model from joint language
-Daniel 3. Evaluate on dev to make sure they are valid, update dev scores for all languages
-  - Verify valid output for ar_padt, cs_cac, fi_tdt (long sentences are skipped)
-Artur 4. Predictions on test with preprocessed UDPipe+Stanza
-Daniel 5. Collect to directory for submission https://universaldependencies.org/iwpt20/submission.html
-
-NICE TO HAVE:
 - Train new UDPipe/Stanza models from joined language training sets instead of per treebank
 - Find preprocessing models that do best on average on dev treebanks per language
 - Repeat with lang-spec BERT
