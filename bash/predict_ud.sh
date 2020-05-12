@@ -26,10 +26,10 @@ allennlp predict \
 
 if [ $# -ge 4 ]; then
   gold_file=$4
-  eval_dir=$(mktemp)
-  mkdir -p $eval_dir/{gold,pred}
-  perl tools/enhanced_collapse_empty_nodes.pl $pred_file > $eval_dir/pred/$output_file
-  perl tools/enhanced_collapse_empty_nodes.pl $gold_file > $eval_dir/gold/$output_file
-  python tools/iwpt20_xud_eval.py $eval_dir/gold/$output_file $eval_dir/pred/$output_file | tee $eval_dir/eval.log
-  grep -zPo "(?<=ELAS F1 Score: ).*" $eval_dir/eval.log > ${output_dir:-.}/${output_file%%-*}_elas.txt
+  eval_dir=${output_dir:-$(mktemp)}
+  mkdir -p $eval_dir/collapsed/{gold,pred}
+  perl tools/enhanced_collapse_empty_nodes.pl $pred_file > $eval_dir/collapsed/pred/$output_file
+  perl tools/enhanced_collapse_empty_nodes.pl $gold_file > $eval_dir/collapsed/gold/$output_file
+  python tools/iwpt20_xud_eval.py $eval_dir/collapsed/gold/$output_file $eval_dir/collapsed/pred/$output_file | tee $eval_dir/${output_file%%-*}_eval.log
+  grep -zPo "(?<=ELAS F1 Score: ).*" $eval_dir/${output_file%%-*}_eval.log > ${output_dir:-.}/${output_file%%-*}_elas.txt
 fi
