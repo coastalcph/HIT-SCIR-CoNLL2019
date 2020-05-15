@@ -13,6 +13,7 @@ models=(
 
 for model in "${models[@]}"; do
     iso=$(echo $model | grep -o '^[^_]*')
+    [ -n "$lang" ] && [ "$iso" != "$lang" ] && continue
     preprocessed_stanza=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-stanza-test.conllu)
     preprocessed_udpipe=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-udpipe-test.conllu)
     gold_file=${test_dir}-gold/$iso.conllu
