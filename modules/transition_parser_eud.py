@@ -373,9 +373,10 @@ class TransitionParser(Model):
                                             head_tok,
                                             action.split(':', maxsplit=1)[1]))
             # propagate reachability
+            reachable_from_mod = reachable[sent_idx][mod_tok]
             for tok, reachable_for_tok_set in reachable[sent_idx].items():
                 if head_tok in reachable_for_tok_set:
-                    reachable_for_tok_set.add(mod_tok)
+                    reachable_for_tok_set |= reachable_from_mod
 
             action_emb = self.pempty_action_emb if self.action_stack.get_len(sent_idx) == 0 \
                 else self.action_stack.get_output(sent_idx)
