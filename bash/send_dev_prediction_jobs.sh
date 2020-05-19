@@ -41,4 +41,13 @@ for model in "${models[@]}"; do
              ${output_null_nodes}
     fi
 
+    if [ -z "$preprocessor" ] || [ "$preprocessor" == gold ]; then
+      sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
+             ${checkpoint_dir}/${model}/ \
+             ${gold_file} \
+             ${iso}-predicted-gold-dev.conllu \
+             ${gold_file} \
+             ${output_null_nodes}
+    fi
+
 done
