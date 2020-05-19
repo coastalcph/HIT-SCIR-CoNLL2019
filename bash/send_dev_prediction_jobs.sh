@@ -17,13 +17,19 @@ for model in "${models[@]}"; do
     preprocessed_stanza=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-stanza-dev.conllu)
     preprocessed_udpipe=$(find $test_dir/preprocessed/ -name ${iso}-ud-preprocessed-udpipe-dev.conllu)
     gold_file=${test_dir}-gold/$iso.conllu
+    if [ "${iso}" == et ]; then
+      output_null_nodes=false  # no null nodes for Estonian since collapsing them takes forever
+    else
+      output_null_nodes=true
+    fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == stanza ]; then
       sbatch --job-name ${model}_stanza bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_stanza} \
              ${iso}-predicted-stanza-dev.conllu \
-             ${gold_file}
+             ${gold_file} \
+             ${output_null_nodes}
     fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
@@ -31,7 +37,8 @@ for model in "${models[@]}"; do
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_udpipe} \
              ${iso}-predicted-udpipe-dev.conllu \
-             ${gold_file}
+             ${gold_file} \
+             ${output_null_nodes}
     fi
 
 done

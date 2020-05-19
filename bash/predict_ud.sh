@@ -10,6 +10,11 @@ checkpoint_dir=$1
 preprocessed_file=$2
 output_file=$3
 pred_file=${output_dir:-$checkpoint_dir}/$output_file
+if [ $# -ge 4 ]; then
+  output_null_nodes=$4
+else
+  output_null_nodes=true
+fi
 
 allennlp predict \
     --output-file $pred_file \
@@ -20,7 +25,7 @@ allennlp predict \
     --batch-size 32 \
     --silent \
     --cuda-device 0 \
-    --override "{\"model\": {\"output_null_nodes\": true, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
+    --override "{\"model\": {\"output_null_nodes\": ${output_null_nodes}, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
     $checkpoint_dir \
     $preprocessed_file \
 
