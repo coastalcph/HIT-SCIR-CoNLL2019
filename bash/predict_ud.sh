@@ -2,8 +2,8 @@
 #SBATCH --account=nn9447k
 #SBATCH --partition=accel
 #SBATCH --gres=gpu:1
-#SBATCH --time=09:00:00
-#SBATCH --mem-per-cpu=50G
+#SBATCH --time=01:00:00
+#SBATCH --mem-per-cpu=10G
 
 module load Perl/5.30.0-GCCcore-8.3.0
 checkpoint_dir=$1
