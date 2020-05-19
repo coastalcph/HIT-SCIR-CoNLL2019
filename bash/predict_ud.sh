@@ -10,8 +10,8 @@ checkpoint_dir=$1
 preprocessed_file=$2
 output_file=$3
 pred_file=${output_dir:-$checkpoint_dir}/$output_file
-if [ $# -ge 4 ]; then
-  output_null_nodes=$4
+if [ $# -ge 5 ]; then
+  output_null_nodes=$5
 else
   output_null_nodes=true
 fi
