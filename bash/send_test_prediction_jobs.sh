@@ -35,7 +35,7 @@ for model in "${models[@]}"; do
      fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
-      export output_dir="${top_output_dir:-.}/test/stanza"
+      export output_dir="${top_output_dir:-.}/test/udpipe"
       sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_udpipe} \
