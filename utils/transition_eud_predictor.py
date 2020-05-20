@@ -51,7 +51,7 @@ class EUDPParserPredictor(Predictor):
 
     @overrides
     def dump_line(self, outputs: JsonDict) -> str:
-        predictions= eud_trans_outputs_into_conllu(outputs)
+        predictions= eud_trans_outputs_into_conllu(outputs, output_null_nodes=self._model.output_null_nodes)
         #avoids printing two new lines
         predictions = [pred if pred != '\n' else '' for pred in predictions]
         return '\n'.join(predictions)+'\n'
