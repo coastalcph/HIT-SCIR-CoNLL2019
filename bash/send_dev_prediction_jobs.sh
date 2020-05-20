@@ -4,10 +4,10 @@ test_dir=/cluster/projects/nn9447k/mdelhoneux/dev
 checkpoint_dir=/cluster/projects/nn9447k/mdelhoneux/models/mbert
 
 models=(
-    ar_padt  en_ewt      et_ewt      it_isdt     nl_all        pl_all  ru_syntagrus  ta_ttb
+    ar_padt  en_ewt      it_isdt     nl_all        pl_all  ru_syntagrus  ta_ttb
     bg_btb   et_all      fi_tdt      lt_alksnis  sk_snk        uk_iu
     cs_all   fr_sequoia  lv_lvtb     sv_talbanken
-#    cs_cac   cs_fictree  cs_pdt      nl_alpino  nl_lassysmall  pl_lfg  pl_pdb  et_edt
+#    cs_cac   cs_fictree  cs_pdt      nl_alpino  nl_lassysmall  pl_lfg  pl_pdb  et_edt et_ewt
 )
 
 top_output_dir="${output_dir:-.}"
