@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --account=nn9447k
 #SBATCH --partition=accel
-#SBATCH --gres=gpu:1
-#SBATCH --time=01:00:00
+#SBATCH --time=02:00:00
 #SBATCH --mem-per-cpu=10G
 
 module load Perl/5.30.0-GCCcore-8.3.0
@@ -24,7 +23,7 @@ allennlp predict \
     --use-dataset-reader \
     --batch-size 32 \
     --silent \
-    --cuda-device 0 \
+    --cuda-device -1 \
     --override "{\"model\": {\"output_null_nodes\": ${output_null_nodes}, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
     $checkpoint_dir \
     $preprocessed_file
