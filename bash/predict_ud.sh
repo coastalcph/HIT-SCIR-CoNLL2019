@@ -4,6 +4,8 @@
 #SBATCH --time=02:00:00
 #SBATCH --mem-per-cpu=10G
 
+set -x
+
 module load Perl/5.30.0-GCCcore-8.3.0
 checkpoint_dir=$1
 preprocessed_file=$2
