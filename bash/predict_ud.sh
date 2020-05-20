@@ -30,7 +30,7 @@ allennlp predict \
     $checkpoint_dir \
     $preprocessed_file
 
-grep -c sent_id $preprocessed_file $pred_file
+grep -c '^# sent_id' $preprocessed_file $pred_file
 
 if [ $# -ge 4 ]; then
   gold_file=$4
