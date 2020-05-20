@@ -24,6 +24,7 @@ for model in "${models[@]}"; do
     fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == stanza ]; then
+      export output_dir="${output_dir:-.}/dev/stanza"
       sbatch --job-name ${model}_stanza bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_stanza} \
@@ -33,6 +34,7 @@ for model in "${models[@]}"; do
     fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
+      export output_dir="${output_dir:-.}/dev/udpipe"
       sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_udpipe} \
@@ -42,6 +44,7 @@ for model in "${models[@]}"; do
     fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == gold ]; then
+      export output_dir="${output_dir:-.}/dev/gold"
       sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${gold_file} \
