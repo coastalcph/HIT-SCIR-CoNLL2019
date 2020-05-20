@@ -26,6 +26,7 @@ for model in "${models[@]}"; do
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == stanza ]; then
       export output_dir="${top_output_dir:-.}/test/stanza"
+      mkdir -p "${output_dir}"
       sbatch --job-name ${model}_stanza -o "$output_dir/$iso-%j.out" bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_stanza} \
@@ -36,6 +37,7 @@ for model in "${models[@]}"; do
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
       export output_dir="${top_output_dir:-.}/test/udpipe"
+      mkdir -p "${output_dir}"
       sbatch --job-name ${model}_udpipe -o "$output_dir/$iso-%j.out" bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_udpipe} \
