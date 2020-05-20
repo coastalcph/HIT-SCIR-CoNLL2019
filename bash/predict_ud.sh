@@ -27,7 +27,9 @@ allennlp predict \
     --cuda-device 0 \
     --override "{\"model\": {\"output_null_nodes\": ${output_null_nodes}, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
     $checkpoint_dir \
-    $preprocessed_file \
+    $preprocessed_file
+
+grep -c sent_id $preprocessed_file $pred_file
 
 if [ $# -ge 4 ]; then
   gold_file=$4
