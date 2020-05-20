@@ -257,7 +257,8 @@ class TransitionParser(Model):
             s0 = self.stack.get_stack(sent_idx)[-1]['token']
             if s0 != root_id[sent_idx] and head_count[sent_idx][s0] > 0:
                 valid_actions += ['REDUCE-0']
-            if len(null_node[sent_idx]) < sent_len[sent_idx]:  # Max number of null nodes is the number of words
+            if self.output_null_nodes and \
+                    len(null_node[sent_idx]) < sent_len[sent_idx]:  # Max number of null nodes is the number of words
                 # valid_actions += ['NODE']
                 # Support legacy models with "NODE:*" actions that also create an edge:
                 node_possible_actions = [a for a in self.vocab.get_token_to_index_vocabulary('actions').keys()
