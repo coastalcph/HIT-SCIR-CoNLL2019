@@ -26,20 +26,20 @@ for model in "${models[@]}"; do
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == stanza ]; then
       export output_dir="${top_output_dir:-.}/test/stanza"
-      sbatch --job-name ${model}_stanza bash/predict_ud.sh \
+      sbatch --job-name ${model}_stanza -o "$output_dir/$iso-%j.out" bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_stanza} \
-             ${iso}-predicted-stanza-test.conllu \
+             ${iso}.conllu \
              ${gold_file} \
              ${output_null_nodes}
      fi
 
     if [ -z "$preprocessor" ] || [ "$preprocessor" == udpipe ]; then
       export output_dir="${top_output_dir:-.}/test/udpipe"
-      sbatch --job-name ${model}_udpipe bash/predict_ud.sh \
+      sbatch --job-name ${model}_udpipe -o "$output_dir/$iso-%j.out" bash/predict_ud.sh \
              ${checkpoint_dir}/${model}/ \
              ${preprocessed_udpipe} \
-             ${iso}-predicted-udpipe-test.conllu \
+             ${iso}.conllu \
              ${gold_file} \
              ${output_null_nodes}
      fi
