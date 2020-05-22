@@ -26,4 +26,16 @@ IWPT2020 Shared Task official website: <https://universaldependencies.org/iwpt20
 - Elham Pejhan
 - Daniel Hershcovich
 
+## Citation
+
+More details are available in the following publication:
+
+    @inproceedings{hershcovich2020koepsala,
+        author={Hershcovich, Daniel and de Lhoneux, Miryam and Kulmizev, Artur and Pejhan, Elham and Nivre, Joakim},
+        title={K{\o}psala: Transition-Based Graph Parsing via Efficient Training and Effective Encoding},
+        booktitle={Proc. of IWPT Shared Task},
+        month={July},
+        year={2020}
+    }
+
 For further information, please contact Daniel Hershcovich: <dh@di.ku.dk>
