@@ -26,7 +26,7 @@ allennlp predict \
     --batch-size 32 \
     --silent \
     --cuda-device -1 \
-    --override "{\"dataset_reader\": {\"max_sentence_length\": 9999}}, {\"model\": {\"output_null_nodes\": ${output_null_nodes}, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
+    --override "{\"dataset_reader\": {\"max_sentence_length\": 9999}, \"model\": {\"output_null_nodes\": ${output_null_nodes}, \"max_heads\": 7, \"max_swaps_per_node\": 30, \"fix_unconnected_egraph\": true}}" \
     $checkpoint_dir \
     $preprocessed_file
 
