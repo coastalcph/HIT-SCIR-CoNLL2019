@@ -1,0 +1,1570 @@
+# sent_id = 1
+# text = சாதாரண, சாமானிய ஏழையெளிய மக்களுக்கு மனசாட்சிக்கு விரோதம் இல்லாமல், அனைவரும் பாடுபட வேண்டும்.
+1	சாதாரண	சாதாரணம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	6	nmod	4:advmod	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	5	punct	4:punct	_
+3	சாமானிய	சாமானியம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	4:nmod	_
+4	ஏழையெளிய	ஏழையெளு	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:amod|11:orphan	_
+5	மக்களுக்கு	மக்கள்	NOUN	NND-3PA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Plur|Person=3	1	conj	8:obl:loc	_
+6	மனசாட்சிக்கு	மனசாட்சி	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	8	obl:arg	8:obl:dat	_
+7	விரோதம்	விரோதம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obj	8:obj	_
+8	இல்லாமல்	இல்	VERB	Vt-T----N	Polarity=Neg|VerbForm=Part	11	advcl	11:advcl|11:orphan	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	11	punct	11:punct|11:orphan	_
+10	அனைவரும்	அனைவர்	PRON	RpN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3|PronType=Prs	11	nsubj	11:nsubj|11:orphan	SpacesAfter=\n
+11	பாடுபட	பாடுபடு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+12	வேண்டும்	வேண்டு	AUX	VR-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	11	aux	11:aux	SpaceAfter=No
+13	.	.	PUNCT	Z#-------	PunctType=Peri	11	punct	11:punct	_
+
+# sent_id = 2
+# text = அனைத்துத் துறைகளையும் விட, மருத்துவத் துறை தான் மனிதாபிமானத்தோடு உடன்பாடு கொண்ட துறையாகும்.
+1	அனைத்துத்	அனைத்து	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod	_
+2-3	துறைகளையும்	_	_	_	_	_	_	_	_
+2	துறைகளைய்	துறை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	4	obj	4:obj|11:orphan	_
+3	உம்	உம்	PART	Tv-------	_	2	advmod:emph	2:advmod:emph	_
+4	விட	விடம்	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	6	advcl	11:advcl|11:orphan	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	6	punct	11:punct|11:orphan	_
+6	மருத்துவத்	மருத்துவம்	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	12	ccomp	7:nmod	_
+7	துறை	துறை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	11:nsubj|11:orphan	_
+8	தான்	தான்	PART	Tq-------	_	7	advmod:emph	7:advmod:emph	SpacesAfter=\n
+9	மனிதாபிமானத்தோடு	மனிதாபிமானத்தோடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	11:advmod|11:orphan	_
+10	உடன்பாடு	உடன்பாடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	obl	11:obl:nom|11:orphan	_
+11	கொண்ட	கொள்	ADP	PP-------	AdpType=Post	10	case	0:root	_
+12	துறையாகும்	துறையாகு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	11:aux	SpaceAfter=No
+13	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	11:punct	_
+
+# sent_id = 3
+# text = ஆகவே, அனைவரும் மனிதாபிமானத்தோடு, மனித நேயத்தோடு மருத்துவத் துறைப் பணியை ஆற்ற வேண்டும் என்று கேட்டுக் கொள்கிறேன் என முதல்வர் கருணாநிதி பேசினார்.
+1	ஆகவே	ஆகவே	ADV	AA-------	_	8	advmod	19:advmod|19:orphan	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	8	punct	19:punct|19:orphan	_
+3	அனைவரும்	அனைவர்	PRON	RpN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3|PronType=Prs	8	nsubj	11:nsubj	_
+4	மனிதாபிமானத்தோடு	மனிதாபிமானத்தோடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	11:obl:com	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	8	punct	11:punct	SpacesAfter=\n
+6	மனித	மனிதன்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	7	nmod	7:amod|19:orphan	_
+7	நேயத்தோடு	நேயத்தோடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obj	11:obl:arg:dat	_
+8	மருத்துவத்	மருத்துவம்	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	11	advcl	9:nmod	_
+9	துறைப்	துறு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom|19:orphan	_
+10	பணியை	பணி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	11	obj	11:obj	_
+11	ஆற்ற	ஆற்று	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	14	ccomp	14:ccomp|19:orphan	_
+12	வேண்டும்	வேண்டு	AUX	VR-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	11	aux	11:aux	_
+13	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	11	mark	11:mark	_
+14	கேட்டுக்	கேள்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	19	ccomp	19:ccomp|19:orphan	_
+15	கொள்கிறேன்	கொள்	AUX	Vr-P1SAAA	Animacy=Anim|Gender=Com|Mood=Ind|Number=Sing|Person=1|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	14	aux	14:aux	SpacesAfter=\n
+16	என	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	14	mark	14:mark	_
+17	முதல்வர்	முதல்வர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	18	nmod	18:nmod:nom	_
+18	கருணாநிதி	கருணாநிதி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	19	nsubj	19:nsubj|19:orphan	_
+19	பேசினார்	பேசு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+20	.	.	PUNCT	Z#-------	PunctType=Peri	19	punct	19:punct	_
+
+# sent_id = 4
+# text = இந்த நிகழ்ச்சியில், மத்திய சென்னை மக்களவைத் தொகுதி எம்.பி.யும், மத்திய அமைச்சருமான தயாநிதி மாறன், மாநில அமைச்சர்கள் உள்ளிட்ட பலரும் கலந்து கொண்டனர்.
+1	இந்த	இந்த	DET	DD-------	_	2	det	2:det	_
+2	நிகழ்ச்சியில்	நிகழ்ச்சி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	22	obl	22:obl:loc|22:orphan	SpaceAfter=No
+3	,	,	PUNCT	Z:-------	PunctType=Comm	22	punct	22:punct|22:orphan	_
+4	மத்திய	மத்திய	ADJ	JJ-------	_	6	amod	6:amod|22:orphan	_
+5	சென்னை	சென்னை	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:nom|22:orphan	_
+6	மக்களவைத்	மக்களவை	NOUN	NNA-3PA--	Animacy=Anim|Case=Acc|Gender=Com|Number=Plur|Person=3	8	obj	8:nmod:nom	SpacesAfter=\n
+7	தொகுதி	தொகுதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom	_
+8	எம்.பி.யும்	எம்.பி.	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	22	advcl	22:nsubj|22:orphan	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	22	punct	20:punct|22:orphan	_
+10	மத்திய	மத்திய	ADJ	JJ-------	_	11	amod	11:amod	_
+11-13	அமைச்சருமான	_	_	_	_	_	_	_	_
+11	அமைச்சர்	அமைச்சர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	13	nmod	13:nmod:nom|22:orphan	_
+12	உம்	உம்	PART	Tv-------	_	11	advmod:emph	11:advmod:emph	_
+13	ஆன	ஆன	PART	Tg-------	_	15	nmod	15:nmod	_
+14	தயாநிதி	தயாநிதி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	nmod	15:nmod:nom	_
+15	மாறன்	மாறன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	20	nmod	19:nmod:nom|22:orphan	SpaceAfter=No
+16	,	,	PUNCT	Z:-------	PunctType=Comm	18	punct	18:punct|22:orphan	_
+17	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	18	nmod	18:nmod|22:orphan	_
+18	அமைச்சர்கள்	அமைச்சர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	15	conj	15:conj|19:nmod:nom	_
+19	உள்ளிட்ட	உள்ளிடு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	20	amod	20:amod|22:orphan	SpacesAfter=\n
+20-21	பலரும்	_	_	_	_	_	_	_	_
+20	பலர்	பலர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	22	nsubj	8:conj|22:nsubj	_
+21	உம்	உம்	PART	Tv-------	_	20	advmod:emph	20:cc	_
+22	கலந்து	கல	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+23	கொண்டனர்	கொணு	AUX	VR-D3PHAA	Gender=Com|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	22	aux	22:aux	SpaceAfter=No
+24	.	.	PUNCT	Z#-------	PunctType=Peri	22	punct	22:punct	_
+
+# sent_id = 5
+# text = தனக்கு உடல் நிலை இடம் தரா விட்டாலும், அரசு நிகழ்ச்சியில் பங்கேற்க வந்துள்ளதாக முதல்வர் கருணாநிதி தெரிவித்தார்.
+1	தனக்கு	தன	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	5:nsubj	_
+2	உடல்	உடல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	3:amod|17:orphan	_
+3	நிலை	நிலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	obl	5:obl:ஆகு:nom	_
+4	இடம்	இடம்	ADP	PP-------	AdpType=Post	3	case	3:case|17:orphan	_
+5	தரா	தரா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	17:ccomp|17:orphan	_
+6-7	விட்டாலும்	_	_	_	_	_	_	_	_
+6	விட்டால்	விடு	AUX	VW-T---PA	Mood=Cnd|Polarity=Pos|VerbForm=Fin|Voice=Pass	12	advcl	5:aux	_
+7	உம்	உம்	PART	Tv-------	_	6	advmod:emph	5:advmod:emph	_
+8	,	,	PUNCT	Z:-------	PunctType=Comm	12	punct	17:punct|17:orphan	_
+9	அரசு	அரசு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom|17:orphan	_
+10	நிகழ்ச்சியில்	நிகழ்ச்சி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	11	obl	11:obl:loc	SpacesAfter=\n
+11	பங்கேற்க	பங்கேல்	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	12	advcl	17:ccomp|17:orphan	_
+12-14	வந்துள்ளதாக	_	_	_	_	_	_	_	_
+12	வந்த்	வா	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	17	ccomp	11:aux	_
+13	உள்ளத்	உள்	AUX	VZNT3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|VerbForm=Ger|Voice=Act	12	aux	11:aux	_
+14	ஆக	ஆக	PART	Tg-------	_	12	mark	11:mark	_
+15	முதல்வர்	முதல்வர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	16	nmod	16:nmod:nom	_
+16	கருணாநிதி	கருணாநிதி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	17	nsubj	17:nsubj|17:orphan	_
+17	தெரிவித்தார்	தெரிவி	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+18	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	_
+
+# sent_id = 6
+# text = சென்னையில் வியாழக்கிழமை நடைபெற்ற கஸ்தூரிபா காந்தி தாய்சேய் நல மருத்துவமனையின் 125-ம் ஆண்டு விழாவில் பேசும் போது அவர் இதைக் கூறினார்.
+1	சென்னையில்	சென்னை	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	3	obl	3:obl:loc	_
+2	வியாழக்கிழமை	வியாழக்கிழமை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	3:obl:nom	SpacesAfter=\n
+3	நடைபெற்ற	நடைபெறு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	8	amod	11:amod|16:orphan	_
+4	கஸ்தூரிபா	கஸ்தூரிபா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	8:nmod:nom	_
+5	காந்தி	காந்தி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	8	nmod	8:nmod:nom	_
+6	தாய்சேய்	தாய்சேய்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom	_
+7	நல	நலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod	_
+8	மருத்துவமனையின்	மருத்துவமனை	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	12	nmod	10:nmod:gen|16:orphan	_
+9	125-ம்	125	ADJ	Uy-------	NumType=Ord	10	amod	10:amod	_
+10	ஆண்டு	ஆண்டு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:nom|16:orphan	_
+11	விழாவில்	விழா	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	12:obl:loc|16:orphan	SpacesAfter=\n
+12	பேசும்	பேசு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	16	amod	16:amod|16:orphan	_
+13	போது	போது	PART	Tn-------	_	12	mark	12:mark	_
+14	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	16	nsubj	16:nsubj|16:orphan	_
+15	இதைக்	இது	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	16	obj	16:obj|16:orphan	_
+16	கூறினார்	கூறு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+17	.	.	PUNCT	Z#-------	PunctType=Peri	16	punct	16:punct	_
+
+# sent_id = 7
+# text = அவர் பேசியதாவது:.
+1	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	2	nsubj	2:nsubj|2:orphan	_
+2-3	பேசியதாவது	_	_	_	_	_	_	_	_
+2	பேசியத்	பேசு	VERB	VzND3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Ger|Voice=Act	0	root	0:root	_
+3	ஆவது	ஆவது	PART	Tl-------	_	2	advmod:emph	2:advmod:emph	_
+4	:	:	PUNCT	Z:-------	PunctType=Comm	2	punct	2:punct	SpaceAfter=No
+5	.	.	PUNCT	Z#-------	PunctType=Peri	2	punct	2:punct	_
+
+# sent_id = 8
+# text = மருத்துவமனைக்கு வருகை தந்ததும், அதற்கேற்ப உடல்நிலையும் சரியில்லை.
+1	மருத்துவமனைக்கு	மருத்துவமனை	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	2	nmod	3:obl:arg:dat|3:orphan	_
+2	வருகை	வருகை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	obl	3:obj|3:orphan	SpacesAfter=\n
+3	தந்ததும்	தந்ததும்	ADP	PP-------	AdpType=Post	2	case	0:root	SpaceAfter=No
+4	,	,	PUNCT	Z:-------	PunctType=Comm	6	punct	6:punct	_
+5	அதற்கேற்ப	அதற்கேற்பம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	6	nmod	6:amod	_
+6	உடல்நிலையும்	உடல்நிலையு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	3:conj|3:orphan	_
+7	சரியில்லை	சரிய்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	6	aux	6:aux	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	6	punct	6:punct	_
+
+# sent_id = 9
+# text = உடல் நிலை சரியில்லாத காரணத்தால், மருத்துவமனை விழாவுக்கு வரவில்லை.
+1	உடல்	உடல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom	_
+2	நிலை	நிலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:obl:இலிருந்து:loc|8:orphan	_
+3	சரியில்லாத	சரியில்	ADJ	Jd-T----N	Polarity=Neg|VerbForm=Part	4	amod	2:case	_
+4	காரணத்தால்	காரணம்	NOUN	NNI-3SN--	Case=Ins|Gender=Neut|Number=Sing|Person=3	8	obl	8:advcl|8:orphan	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	8	punct	8:punct|8:orphan	SpacesAfter=\n
+6	மருத்துவமனை	மருத்துவமனை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod:nom	_
+7	விழாவுக்கு	விழாவு	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	8	obl:arg	8:obl:arg:dat|8:orphan	_
+8-9	வரவில்லை	_	_	_	_	_	_	_	_
+8	வரவ்	வரு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+9	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	8	aux	8:aux	_
+10	.	.	PUNCT	Z#-------	PunctType=Peri	8	punct	8:punct	_
+
+# sent_id = 10
+# text = பிறருடைய உடல்நிலை சரியாக இருக்க வேண்டுமென்ற காரணத்துக்காக அமைக்கப்பட்டிருக்கிற மருத்துவமனையின் திறப்பு விழா என்பதால் கலந்து கொண்டுள்ளேன்.
+1	பிறருடைய	பிறருடைய	PRON	RiG-3SA--	Animacy=Anim|Case=Gen|Gender=Com|Number=Sing|Person=3|PronType=Int	4	nsubj	2:amod|13:orphan	_
+2	உடல்நிலை	உடல்நிலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	4:nsubj	_
+3	சரியாக	சரி	ADV	AA-------	_	4	advmod	4:advmod	_
+4	இருக்க	இரு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	5	advcl	5:advcl|13:orphan	_
+5	வேண்டுமென்ற	வேண்டுமெல்	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	6	amod	6:amod	SpacesAfter=\n
+6-7	காரணத்துக்காக	_	_	_	_	_	_	_	_
+6	காரணத்துக்க்	காரணம்	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	7	obl	8:obl:ஆகு:dat|13:orphan	_
+7	ஆக	ஆக	ADV	AA-------	_	8	advmod	6:case	_
+8	அமைக்கப்பட்டிருக்கிற	அமைக்கப்பட்டிரு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	13	advcl	9:amod|13:orphan	_
+9	மருத்துவமனையின்	மருத்துவமனை	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	10	nmod	11:nmod:gen	_
+10	திறப்பு	திறப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:amod	_
+11	விழா	விழா	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	obl	13:obl:இலிருந்து:nom|13:orphan	_
+12	என்பதால்	என்	PART	TzIF3SN-A	Case=Ins|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger	11	case	11:mark	_
+13	கலந்து	கல	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	SpacesAfter=\n
+14-15	கொண்டுள்ளேன்	_	_	_	_	_	_	_	_
+14	கொண்ட்	கொள்	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	13	aux	13:aux	_
+15	உள்ளேன்	உள்	AUX	VR-T1SAAA	Animacy=Anim|Gender=Com|Mood=Ind|Number=Sing|Person=1|Polarity=Pos|VerbForm=Fin|Voice=Act	13	aux	13:aux	_
+16	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	13:punct	_
+
+# sent_id = 11
+# text = மேலும், இந்தத் தொகுதியின் (சேப்பாக்கம்) சட்டப் பேரவை உறுப்பினர் என்ற முறையில் நிகழ்ச்சியில் கலந்து கொள்வது எனது கடமை.
+1	மேலும்	மேலும்	ADV	AA-------	_	17	advmod	17:advmod|17:orphan	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	17	punct	17:punct|17:orphan	_
+3	இந்தத்	இந்த	DET	DD-------	_	4	det	4:det	_
+4	தொகுதியின்	தொகுதி	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	14	obl	13:nmod:nom|17:orphan	_
+5	(	(	PUNCT	Z:-------	PunctType=Comm	14	punct	6:punct|17:orphan	SpaceAfter=No
+6	சேப்பாக்கம்	சேப்பாக்கம்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	4:conj|10:amod	SpaceAfter=No
+7	)	)	PUNCT	Z:-------	PunctType=Comm	9	punct	6:aux	_
+8	சட்டப்	சட்டம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	9	nmod	9:nmod|17:orphan	_
+9	பேரவை	பேரவை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom	_
+10	உறுப்பினர்	உறுப்பினர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	11	nmod	12:nmod:என்:nom|17:orphan	SpacesAfter=\n
+11	என்ற	என்	PART	Td-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	12	nmod	10:mark	_
+12	முறையில்	முறை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	14	obl	13:nmod:nom	_
+13	நிகழ்ச்சியில்	நிகழ்ச்சி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	14	obl	14:obl:loc|17:orphan	_
+14	கலந்து	கல	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	17	advcl	17:csubj|17:orphan	_
+15	கொள்வது	கொள்	AUX	VZNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	14	aux	14:aux	_
+16	எனது	என்	PRON	RpG-1SA--	Animacy=Anim|Case=Gen|Gender=Com|Number=Sing|Person=1|PronType=Prs	17	nmod	17:nmod:gen|17:orphan	_
+17	கடமை	கடமை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	0	root	0:root	SpaceAfter=No
+18	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	_
+
+# sent_id = 12
+# text = சட்டப் பேரவை உறுப்பினர் என்ற முறையில் முதல்வர் என்கிற நிலையில் அந்தக் கடமையை நிறைவேற்ற உடல்நிலை இடம் தரா விட்டாலும், இங்கே வந்திருக்கிறேன் என்று முதல்வர் கருணாநிதி தெரிவித்தார்.
+1	சட்டப்	சட்டம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod	_
+2	பேரவை	பேரவை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod:nom|23:orphan	_
+3	உறுப்பினர்	உறுப்பினர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	4	obl	4:obl:nom|23:orphan	SpacesAfter=\n
+4	என்ற	என்	PART	Td-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	5	nmod	5:nmod|23:orphan	_
+5	முறையில்	முறை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	7	obl	11:obl:loc|23:orphan	_
+6	முதல்வர்	முதல்வர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	7	nmod	7:obl:nom	_
+7	என்கிற	என்	ADJ	Jd-P----A	Polarity=Pos|Tense=Pres|VerbForm=Part	8	amod	8:amod|23:orphan	_
+8	நிலையில்	நிலை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	11	obl	11:obl:loc|23:orphan	_
+9	அந்தக்	அந்த	DET	DD-------	_	10	det	10:det	_
+10	கடமையை	கடமை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	11	obj	11:obj|23:orphan	_
+11	நிறைவேற்ற	நிறைவேற்று	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	13	advcl	14:advcl	_
+12	உடல்நிலை	உடல்நிலை	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	11	aux	14:obl:ஆகு:nom	_
+13	இடம்	இடம்	ADP	PP-------	AdpType=Post	19	obl	12:case|23:orphan	_
+14	தரா	தரா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	nmod	19:obl:nom|23:orphan	SpacesAfter=\n
+15-16	விட்டாலும்	_	_	_	_	_	_	_	_
+15	விட்டால்	விடு	AUX	VW-T---PA	Mood=Cnd|Polarity=Pos|VerbForm=Fin|Voice=Pass	13	aux	14:aux	_
+16	உம்	உம்	PART	Tv-------	_	13	advmod:emph	14:advmod:emph	_
+17	,	,	PUNCT	Z:-------	PunctType=Comm	19	punct	19:punct	_
+18	இங்கே	இங்கு	ADV	AA-------	_	19	advmod	19:advmod	_
+19	வந்திருக்கிறேன்	வந்திரு	VERB	Vr-P1SAAA	Animacy=Anim|Gender=Com|Mood=Ind|Number=Sing|Person=1|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	23	ccomp	23:ccomp|23:orphan	_
+20	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	19	mark	19:mark	_
+21	முதல்வர்	முதல்வர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	22	nmod	22:nmod:nom	_
+22	கருணாநிதி	கருணாநிதி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	23	nsubj	23:nsubj|23:orphan	_
+23	தெரிவித்தார்	தெரிவி	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+24	.	.	PUNCT	Z#-------	PunctType=Peri	23	punct	23:punct	SpacesAfter=\n
+
+# sent_id = 13
+# text = விஜயதசமியை முன்னிட்டு தமிழக மக்களுக்கு அதிமுக பொதுச்செயலர் ஜெயலலிதா வாழ்த்து தெரிவித்துள்ளார்.
+1	விஜயதசமியை	விஜயதசமி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	2	obj	2:obj|9:orphan	_
+2	முன்னிட்டு	முன்னிட்டு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	9	advcl	4:advcl	_
+3	தமிழக	தமிழகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod	_
+4	மக்களுக்கு	மக்கள்	NOUN	NND-3PA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Plur|Person=3	9	obl:arg	9:obj|9:orphan	_
+5	அதிமுக	அதிமுக	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod:nom	_
+6	பொதுச்செயலர்	பொதுச்செயலர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	7	nmod	7:nmod:nom	_
+7	ஜெயலலிதா	ஜெயலலிதா	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	9	nsubj	9:nsubj|9:orphan	_
+8	வாழ்த்து	வாழ்த்து	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obj	9:obj|9:orphan	SpacesAfter=\n
+9-10	தெரிவித்துள்ளார்	_	_	_	_	_	_	_	_
+9	தெரிவித்த்	தெரிவி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+10	உள்ளார்	உள்	AUX	VR-T3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|VerbForm=Fin|Voice=Act	9	aux	9:aux	_
+11	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 14
+# text = நவராத்திரி விழாவும், அதற்கு சிகரம் வைத்தாற் போல விஜயதசமி விழாவும் தமிழ்நாடு முழுவதும் கோலாகலமாகக் கொண்டாடப் படுகிறது.
+1	நவராத்திரி	நவராத்திரி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom	_
+2	விழாவும்	விழா	ADV	AA-------	_	14	advmod	14:nsubj|14:orphan	SpaceAfter=No
+3	,	,	PUNCT	Z:-------	PunctType=Comm	14	punct	14:punct|14:orphan	_
+4	அதற்கு	அது	PRON	RpD-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3|PronType=Prs	9	obl	6:obl:dat	_
+5	சிகரம்	சிகரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:obj	_
+6	வைத்தாற்	வைத்தாற்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obl	7:advcl|14:orphan	_
+7	போல	போல்	ADP	PP-------	AdpType=Post	6	case	14:advmod|14:orphan	_
+8	விஜயதசமி	விஜயதசமி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obj	9:nmod:nom	SpacesAfter=\n
+9	விழாவும்	விழாவு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	10	amod	14:obj|14:orphan	_
+10	தமிழ்நாடு	தமிழ்நாடு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nsubj	14:obl:இடம்:nom|14:orphan	_
+11	முழுவதும்	முழுவதும்	ADJ	JJ-------	_	12	amod	10:case	_
+12-13	கோலாகலமாகக்	_	_	_	_	_	_	_	_
+12	கோலாகலம்	கோலாகலம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	obl	13:obl:nom	_
+13	ஆகக்	ஆகு	ADV	AA-------	_	14	advmod	14:advmod|14:orphan	_
+14	கொண்டாடப்	கொண்டாடு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+15	படுகிறது	படு	AUX	VR-P3SNPA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Pass	14	aux	14:aux	SpaceAfter=No
+16	.	.	PUNCT	Z#-------	PunctType=Peri	14	punct	14:punct	_
+
+# sent_id = 15
+# text = நவம் என்றால் ஒன்பது.
+1	நவம்	நவம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	obj	2:obj|2:orphan	_
+2	என்றால்	எனு	VERB	Vw-T---AA	Mood=Cnd|Polarity=Pos|VerbForm=Fin|Voice=Act	0	root	0:root	SpacesAfter=\n
+3	ஒன்பது	ஒன்	PART	TzNF3SN-A	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger	2	mark	2:aux	SpaceAfter=No
+4	.	.	PUNCT	Z#-------	PunctType=Peri	2	punct	2:punct	_
+
+# sent_id = 16
+# text = நவராத்திரி நாட்களில் முதல் மூன்று நாட்கள் வெற்றி வேண்டி துர்கா தேவியையும், அடுத்த மூன்று நாட்கள் செல்வம் வேண்டி மகாலட்சுமியையும், கடைசி மூன்று நாட்கள் கல்வி வேண்டி சரஸ்வதி தேவியையும் மக்கள் வழிபடுகிறார்கள்.
+1	நவராத்திரி	நவராத்திரி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom|29:orphan	_
+2	நாட்களில்	நாட்	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	7	obl	6:obl:loc	_
+3	முதல்	முதல்	ADJ	Uy-------	NumType=Ord	5	amod	5:amod|29:orphan	_
+4	மூன்று	மூன்று	NUM	Ux-------	NumType=Card	5	nummod	5:nummod|29:orphan	_
+5	நாட்கள்	நாள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	7	nsubj	6:nmod:nom	_
+6	வெற்றி	வெற்றி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	obj	29:ccomp|29:orphan	_
+7	வேண்டி	வேண்டி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	17	advcl	6:aux	_
+8	துர்கா	துர்கா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	9:nmod:nom	SpacesAfter=\n
+9-10	தேவியையும்	_	_	_	_	_	_	_	_
+9	தேவியைய்	தேவி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	7	conj	29:nsubj|29:orphan	_
+10	உம்	உம்	PART	Tv-------	_	9	advmod:emph	9:advmod:emph	_
+11	,	,	PUNCT	Z:-------	PunctType=Comm	17	punct	29:punct|29:orphan	_
+12	அடுத்த	அடுத்த	ADJ	JJ-------	_	14	amod	14:amod	_
+13	மூன்று	மூன்று	NUM	Ux-------	NumType=Card	14	nummod	14:nummod	_
+14	நாட்கள்	நாள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	17	nsubj	15:nmod:nom|29:orphan	_
+15	செல்வம்	செல்வ	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	16:obl:nom|29:orphan	_
+16	வேண்டி	வேண்டி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	17:amod|29:advcl	_
+17-18	மகாலட்சுமியையும்	_	_	_	_	_	_	_	_
+17	மகாலட்சுமியைய்	மகாலட்சுமி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	0	root	29:obj|29:orphan	_
+18	உம்	உம்	PART	Tv-------	_	17	advmod:emph	17:advmod:emph	_
+19	,	,	PUNCT	Z:-------	PunctType=Comm	29	punct	26:punct|29:orphan	_
+20	கடைசி	கடைசி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	22	nmod	22:nmod:nom	_
+21	மூன்று	மூன்று	NUM	Ux-------	NumType=Card	22	nummod	22:nummod	SpacesAfter=\n
+22	நாட்கள்	நாள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	29	obl	23:nmod:nom|29:orphan	_
+23	கல்வி	கல்வி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	24	nmod	24:obj|29:orphan	_
+24	வேண்டி	வேண்டி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	26	nmod	26:amod|29:orphan	_
+25	சரஸ்வதி	சரஸ்வதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	26	nmod	26:nmod:nom|29:orphan	_
+26-27	தேவியையும்	_	_	_	_	_	_	_	_
+26	தேவியைய்	தேவி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	29	obj	17:conj|29:ccomp	_
+27	உம்	உம்	PART	Tv-------	_	26	advmod:emph	26:cc	_
+28	மக்கள்	மக்கள்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	29	nsubj	29:nsubj|29:orphan	_
+29	வழிபடுகிறார்கள்	வழிபடுகிறார்	AUX	VR-T3PHAA	Gender=Com|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Polite=Form|VerbForm=Fin|Voice=Act	17	conj	0:root	SpaceAfter=No
+30	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	29:punct	_
+
+# sent_id = 17
+# text = மகிஷாசுரனை தேவியானவள் ஒன்பது நாட்கள் போரிட்டு வெற்றி வாகை சூடிய நாளே விஜயதசமி.
+1	மகிஷாசுரனை	மகிஷாசுரனை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	2:nmod:nom|9:orphan	SpacesAfter=\n
+2	தேவியானவள்	தேவியானவள்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	6:obl:nom	_
+3	ஒன்பது	ஒன்	PART	TzNF3SN-A	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger	4	nmod	4:amod|9:orphan	_
+4	நாட்கள்	நாள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	10	nsubj	6:obl:nom	_
+5	போரிட்டு	போரிடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	6:advmod	_
+6	வெற்றி	வெற்றி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	8:advcl|9:orphan	_
+7	வாகை	வாகை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obj	8:obj	_
+8	சூடிய	சூடு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	9	amod	9:amod|9:orphan	_
+9	நாளே	நாள்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	obj	0:root	_
+10	விஜயதசமி	விஜயதசமு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	9:nsubj	SpaceAfter=No
+11	.	.	PUNCT	Z#-------	PunctType=Peri	10	punct	9:punct	_
+
+# sent_id = 18
+# text = கைவினை கலைஞர்களுக்கு பெருமை சேர்க்கும் விதமாகௌம், உழைப்பிற்கும், தொழிலுக்கும் மதிப்பளிக்கும் விதமாகௌம் இந்த நாட்கள் அமைந்து இருக்கின்றன.
+1	கைவினை	கைவின்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom|15:orphan	SpacesAfter=\n
+2	கலைஞர்களுக்கு	கலைஞர்களு	NOUN	NND-3PA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Plur|Person=3	4	obl:arg	4:obl:dat	_
+3	பெருமை	பெரும்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	obj	4:obj	_
+4	சேர்க்கும்	சேர்	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	5	amod	7:obl:nom|15:ccomp|15:orphan	_
+5	விதமாகௌம்	விதமாகௌம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	nsubj	4:advmod:emph	SpaceAfter=No
+6	,	,	PUNCT	Z:-------	PunctType=Comm	7	punct	7:punct	_
+7-8	உழைப்பிற்கும்	_	_	_	_	_	_	_	_
+7	உழைப்பிற்க்	உழைப்பிு	PRON	RpD-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3|PronType=Prs	5	conj	15:obj|15:orphan	_
+8	உம்	உம்	PART	Tv-------	_	7	advmod:emph	7:advmod:emph	_
+9	,	,	PUNCT	Z:-------	PunctType=Comm	15	punct	11:punct|15:orphan	_
+10	தொழிலுக்கும்	தொழில்	PRON	RBD-3SA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Sing|Person=3|PronType=Ind	11	nmod	11:obj|15:orphan	SpacesAfter=\n
+11	மதிப்பளிக்கும்	மதிப்பளி	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	12	amod	4:conj|15:ccomp	_
+12	விதமாகௌம்	விதமாகௌம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	obl	11:cc	_
+13	இந்த	இந்த	DET	DD-------	_	14	det	14:det	_
+14	நாட்கள்	நாள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	15	nsubj	15:nsubj|15:orphan	_
+15	அமைந்து	அமை	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+16	இருக்கின்றன	இருக்	AUX	VR-P3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	15	aux	15:aux	SpaceAfter=No
+17	.	.	PUNCT	Z#-------	PunctType=Peri	15	punct	15:punct	_
+
+# sent_id = 19
+# text = வெற்றித் திருநாளாம் விஜயதசமி அன்று தொடங்கும் அனைத்து நற்காரியங்களும் வெற்றியில் முடிவடையும் என்பது அனைவரது நம்பிக்கை.
+1	வெற்றித்	வெற்றி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	10:amod	_
+2	திருநாளாம்	திருநாளாம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	5:nmod:nom	SpacesAfter=\n
+3	விஜயதசமி	விஜயதசமி	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	10	obl	5:obl:இலிருந்து:nom	_
+4	அன்று	அன்று	ADP	PP-------	AdpType=Post	3	case	3:case|13:orphan	_
+5	தொடங்கும்	தொடங்கு	ADV	AA-------	_	10	advmod	7:amod|13:orphan	_
+6	அனைத்து	அனைத்து	ADJ	JJ-------	_	7	amod	7:amod|13:orphan	_
+7-8	நற்காரியங்களும்	_	_	_	_	_	_	_	_
+7	நற்காரியங்கள்	நற்காரியங்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	10	nsubj	10:nsubj	_
+8	உம்	உம்	PART	Tv-------	_	7	advmod:emph	7:advmod:emph|13:orphan	_
+9	வெற்றியில்	வெற்றி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	10:obl:loc	_
+10	முடிவடையும்	முடிவடை	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	13	ccomp	13:ccomp|13:orphan	_
+11	என்பது	என்	PART	TzNF3SN-A	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger	10	mark	10:mark	SpacesAfter=\n
+12	அனைவரது	அனைவர்	PRON	RpG-3SH--	Case=Gen|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	13	nsubj	13:nmod:gen|13:orphan	_
+13	நம்பிக்கை	நம்பிக்கை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	0	root	0:root	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	13:punct	_
+
+# sent_id = 20
+# text = இந்த நன்னாளில், அனைவரும் எல்லா நலன்களையும், வளங்களையும் பெற்று அமைதியுடன் வாழ்வதற்கு ஏற்ற வகையில் தமிழகத்தில் விரைவில் நல்லாட்சி மலர மக்கள் உறுதி எடுத்துக் கொள்ள வேண்டும் என்று தெரிவித்து, தமிழக மக்கள் அனைவருக்கும் மனமார்ந்த விஜயதசமி நல்வாழ்த்துகளை தெரிவித்துக் கொள்வதாக ஜெயலலிதா தனது அறிக்கையில் குறிப்பிட்டுள்ளார்.
+1	இந்த	இந்த	DET	DD-------	_	2	det	2:det|41:orphan	_
+2	நன்னாளில்	நன்னாளு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	24	obl	27:obl:loc	SpaceAfter=No
+3	,	,	PUNCT	Z:-------	PunctType=Comm	24	punct	27:punct	_
+4	அனைவரும்	அனைவர்	PRON	RpN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3|PronType=Prs	24	nsubj	6:nsubj|9:nsubj|27:nsubj	_
+5	எல்லா	எல்லா	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	6	nmod	6:nmod	_
+6-7	நலன்களையும்	_	_	_	_	_	_	_	_
+6	நலன்களைய்	நலன்	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	24	obj	11:obj|41:orphan	_
+7	உம்	உம்	PART	Tv-------	_	6	advmod:emph	6:advmod:emph	_
+8	,	,	PUNCT	Z:-------	PunctType=Comm	24	punct	9:punct|41:orphan	_
+9-10	வளங்களையும்	_	_	_	_	_	_	_	_
+9	வளங்களைய்	வளங்	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	11	obj	6:conj|11:obj	_
+10	உம்	உம்	PART	Tv-------	_	9	advmod:emph	9:cc	_
+11	பெற்று	பெறு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	24	advcl	27:advcl	_
+12-13	அமைதியுடன்	_	_	_	_	_	_	_	_
+12	அமைதிய்	அமைதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	obl	14:obl:உடன்|41:orphan	_
+13	உடன்	உடன்	ADP	PP-------	AdpType=Post	12	case	12:case	_
+14	வாழ்வதற்கு	வாழ்	VERB	VzDF3SNAA	Case=Dat|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	15	advcl	15:advcl|41:orphan	_
+15	ஏற்ற	ஏற்ற	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	16	amod	16:amod|41:orphan	_
+16	வகையில்	வகை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	24	obl	27:obl:loc	_
+17	தமிழகத்தில்	தமிழகம்	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	24	obl	22:obl:loc	_
+18	விரைவில்	விரைவு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	23	obl	22:advmod	_
+19	நல்லாட்சி	நல்லாட்சி	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	21	nmod	21:nmod:nom|41:orphan	_
+20	மலர	மலரம்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	21	nmod	21:nmod|41:orphan	SpacesAfter=\n
+21	மக்கள்	மக்கள்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	23	nsubj	22:nsubj	_
+22	உறுதி	உறுதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	23	obj	27:ccomp|41:orphan	_
+23	எடுத்துக்	எடு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	24	advcl	22:aux	_
+24	கொள்ள	கொள்	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	27	ccomp	22:aux	_
+25	வேண்டும்	வேண்டு	AUX	VR-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	24	aux	22:aux	_
+26	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	24	mark	22:mark	_
+27	தெரிவித்து	தெரிவி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	36	advcl	41:advcl|41:orphan	SpaceAfter=No
+28	,	,	PUNCT	Z:-------	PunctType=Comm	36	punct	35:punct	_
+29	தமிழக	தமிழகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	30	nmod	30:nmod|41:orphan	_
+30	மக்கள்	மக்கள்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	35	nsubj	35:nsubj	SpacesAfter=\n
+31	அனைவருக்கும்	அனைவர்	PRON	RBD-3SA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Sing|Person=3|PronType=Ind	34	nmod	35:obl	_
+32	மனமார்ந்த	மனமார்	ADJ	JJ-------	_	33	amod	34:amod|41:orphan	_
+33	விஜயதசமி	விஜயதசமி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	34	nmod	34:nmod:nom|41:orphan	_
+34	நல்வாழ்த்துகளை	நல்வாழ்த்து	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	35	obj	35:obj	_
+35	தெரிவித்துக்	தெரிவி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	36	advcl	41:ccomp|41:orphan	_
+36-37	கொள்வதாக	_	_	_	_	_	_	_	_
+36	கொள்வத்	கொள்	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	41	ccomp	35:aux	_
+37	ஆக	ஆக	PART	Tg-------	_	36	mark	35:mark	_
+38	ஜெயலலிதா	ஜெயலலிதா	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	41	nsubj	41:nsubj|41:orphan	SpacesAfter=\n
+39	தனது	தன்	PRON	RhG-3SA--	Animacy=Anim|Case=Gen|Gender=Com|Number=Sing|Person=3|PronType=Prs|Reflex=Yes	40	nmod	40:nmod:gen	_
+40	அறிக்கையில்	அறிக்கை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	41	obl	41:obl:loc|41:orphan	_
+41-42	குறிப்பிட்டுள்ளார்	_	_	_	_	_	_	_	_
+41	குறிப்பிட்ட்	குறிப்பிடு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+42	உள்ளார்	உள்	AUX	VR-T3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|VerbForm=Fin|Voice=Act	41	aux	41:aux	_
+43	.	.	PUNCT	Z#-------	PunctType=Peri	41	punct	41:punct	_
+
+# sent_id = 21
+# text = தி.மு.க. அரசின் தொழிலாளர் விரோத நடவடிக்கைகளைக் கண்டித்து இடதுசாரிக் கட்சிகள் சார்பில் சென்னையில் அக்டோபர் 21-ம் தேதி ஆர்ப்பாட்டம் நடைபெறும் என அக்கட்சிகள் வெளியிட்டுள்ள கூட்டறிக்கையில் தெரிவிக்கப்பட்டுள்ளது.
+1	தி.மு.க.	தி.மு.க.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom	_
+2	அரசின்	அரசு	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod:gen|21:orphan	_
+3	தொழிலாளர்	தொழிலாளர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	5	nmod	6:nsubj|21:orphan	_
+4	விரோத	விரோத	ADJ	JJ-------	_	5	amod	5:amod	SpacesAfter=\n
+5	நடவடிக்கைகளைக்	நடவடிக்கை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	6	obj	6:obj|21:orphan	_
+6	கண்டித்து	கண்டி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	7	advcl	15:advcl	_
+7	இடதுசாரிக்	இடதுசாரிக்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	15	advcl	8:nmod:nom	_
+8	கட்சிகள்	கட்சி	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	15	obl	10:nmod:அற்ற:nom|21:orphan	_
+9	சார்பில்	சார்பு	ADP	PP-------	AdpType=Post	8	case	8:case	_
+10	சென்னையில்	சென்னை	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	15	obl	15:obl:loc	_
+11	அக்டோபர்	அக்டோபர்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	nmod	13:nmod:nom|21:orphan	_
+12	21-ம்	21	ADJ	Uy-------	NumType=Ord	13	amod	13:amod|21:orphan	SpacesAfter=\n
+13	தேதி	தேதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	obl	15:nsubj	_
+14	ஆர்ப்பாட்டம்	ஆர்ப்பாட்டம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	obj	15:obj	_
+15	நடைபெறும்	நடைபெறு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	21	ccomp	21:ccomp|21:orphan	_
+16	என	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	15	mark	15:mark	_
+17	அக்கட்சிகள்	அக்கட்சி	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	21	nsubj	18:nsubj	_
+18-19	வெளியிட்டுள்ள	_	_	_	_	_	_	_	_
+18	வெளியிட்ட்	வெளியிடு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	19	advcl	19:advcl|21:orphan	_
+19	உள்ள	உள்	ADJ	Jd-T----A	Polarity=Pos|VerbForm=Part	20	amod	20:amod|21:orphan	_
+20	கூட்டறிக்கையில்	கூட்டறிக்கை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	21	obl	21:obl:loc|21:orphan	SpacesAfter=\n
+21-23	தெரிவிக்கப்பட்டுள்ளது	_	_	_	_	_	_	_	_
+21	தெரிவிக்கப்	தெரிவி	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+22	பட்ட்	படு	AUX	VT-T---PA	Polarity=Pos|VerbForm=Part|Voice=Pass	21	aux	21:aux	_
+23	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	21	aux	21:aux	_
+24	.	.	PUNCT	Z#-------	PunctType=Peri	21	punct	21:punct	_
+
+# sent_id = 22
+# text = இந்திய கம்யூனிஸ்ட் மற்றும் மார்க்சிஸ்ட் கட்சியின் மாநில நிர்வாகிகள் கூட்டம் சென்னையில் வியாழக்கிழமை நடைபெற்றது.
+1	இந்திய	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod	_
+2	கம்யூனிஸ்ட்	கம்யூனிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	11:obj|11:orphan	_
+3	மற்றும்	மற்றும்	CCONJ	CC-------	_	5	cc	5:cc|11:orphan	_
+4	மார்க்சிஸ்ட்	மார்க்சிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom|11:orphan	_
+5	கட்சியின்	கட்சி	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	2	conj	2:conj|11:obj	_
+6	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod	SpacesAfter=\n
+7	நிர்வாகிகள்	நிர்வாகி	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	11	nsubj	11:nsubj|11:orphan	_
+8	கூட்டம்	கூட்டம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	11:nsubj|11:orphan	_
+9	சென்னையில்	சென்னை	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	11	obl	11:obl:loc|11:orphan	_
+10	வியாழக்கிழமை	வியாழக்கிழமை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	obj	11:obj|11:orphan	_
+11	நடைபெற்றது	நடைபெறு	VERB	Vr-D3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+12	.	.	PUNCT	Z#-------	PunctType=Peri	11	punct	11:punct	_
+
+# sent_id = 23
+# text = இக்கூட்டத்தில் மார்க்சிஸ்ட் கட்சி மத்தியக் குழு உறுப்பினர் என். வரதராஜன், மாநில செயற்குழு உறுப்பினர்கள் கே.
+1	இக்கூட்டத்தில்	இக்கூட்டம்	ADV	AA-------	_	8	advmod	8:obl:loc|8:orphan	SpacesAfter=\n
+2	மார்க்சிஸ்ட்	மார்க்சிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	3:nmod:nom	_
+3	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:obl:loc|8:orphan	_
+4	மத்தியக்	மத்திய	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	8	nmod	5:amod	_
+5	குழு	குழு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	6:nmod:nom|8:orphan	_
+6	உறுப்பினர்	உறுப்பினர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	8	nmod	8:nmod:nom|8:orphan	_
+7	என்.	என்.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom|8:orphan	_
+8	வரதராஜன்	வரதராஜன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	0	root	0:root	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	13	punct	12:punct	_
+10	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod	_
+11	செயற்குழு	செயற்குழு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod:nom	SpacesAfter=\n
+12	உறுப்பினர்கள்	உறுப்பினர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	13	nmod	8:conj|8:orphan	_
+13	கே.	கே.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	conj	12:punct	_
+
+# sent_id = 24
+# text = பாலகிருஷ்ணன், ப. செல்வசிங், இந்திய கம்யூனிஸட் கட்சி தேசிய கட்டுப்பாட்டுக் குழுத் தலைவர் ஆர். நல்லகண்ணு, மாநில துணைச் செயலாளர் சி. மகேந்திரன், மாநில செயற்குழு உறுப்பினர்கள் ஏ.எம். கோபு, எஸ்.எஸ்.
+1	பாலகிருஷ்ணன்	பாலகிருஷ்ணன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	20	nmod	0:root	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	4	punct	1:orphan|4:punct	_
+3	ப.	ப.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	1:orphan|4:nmod:nom	_
+4	செல்வசிங்	செல்வசிங்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	1	conj	1:conj|26:nmod:nom	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	14	punct	26:punct	_
+6	இந்திய	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	7:nmod	_
+7	கம்யூனிஸட்	கம்யூனிஸட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	1:orphan|8:nmod:nom	_
+8	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	26:obl:loc	_
+9	தேசிய	தேசியம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod	SpacesAfter=\n
+10	கட்டுப்பாட்டுக்	கட்டுப்பாட்டு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod	_
+11	குழுத்	குழு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod:nom	_
+12	தலைவர்	தலைவர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	14	nmod	1:orphan|14:nmod:nom	_
+13	ஆர்.	ஆர்.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	1:orphan|14:nmod:nom	_
+14	நல்லகண்ணு	நல்லகண்ணு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	26:punct	SpaceAfter=No
+15	,	,	PUNCT	Z:-------	PunctType=Comm	20	punct	28:punct	_
+16	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	18	nmod	18:nmod	_
+17	துணைச்	துணை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	18	nmod	18:nmod:nom	_
+18	செயலாளர்	செயலாளர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	20	nmod	1:orphan|20:nmod:nom	_
+19	சி.	சி.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	20	nmod	1:orphan|20:nmod:nom	SpacesAfter=\n
+20	மகேந்திரன்	மகேந்திரன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	0	root	26:nmod:nom	SpaceAfter=No
+21	,	,	PUNCT	Z:-------	PunctType=Comm	26	punct	1:orphan|24:punct	_
+22	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	24	nmod	23:amod	_
+23	செயற்குழு	செயற்குழு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	24	nmod	1:orphan|24:nmod:nom	_
+24	உறுப்பினர்கள்	உறுப்பினர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	26	nmod	20:conj|26:nmod:nom	_
+25	ஏ.எம்.	ஏ.எம்.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	26	nmod	26:nmod:nom	_
+26	கோபு	கோபு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	20	conj	1:conj|1:orphan	SpaceAfter=No
+27	,	,	PUNCT	Z:-------	PunctType=Comm	28	punct	1:orphan|28:punct	_
+28	எஸ்.எஸ்.	எஸ்.எஸ்.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	20	conj	8:conj|26:conj	_
+
+# sent_id = 25
+# text = தியாகராஜன், கே. சுப்பராயன் ஆகியோர் கலந்து கொண்டனர்.
+1	தியாகராஜன்	தியாகராஜன்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	5	punct	4:punct	_
+3	கே.	கே.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	4:nmod:nom	SpacesAfter=\n
+4	சுப்பராயன்	சுப்பராயன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	5	nmod	1:conj|5:nmod:nom|6:orphan	_
+5	ஆகியோர்	ஆகியோர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	6	nsubj	6:nsubj|6:orphan	_
+6	கலந்து	கல	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+7	கொண்டனர்	கொணு	AUX	VR-D3PHAA	Gender=Com|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	6	aux	6:aux	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	6	punct	6:punct	_
+
+# sent_id = 26
+# text = என்.எல்.சி. நிறுவன ஒப்பந்தத் தொழிலாளர்களும், ஸ்ரீபெரும்புதூர் ஃபாக்ஸ்கான் நிறுவன தொழிலாளர்களும் தங்கள் கோரிக்கைகளுக்காக வேலைநிறுத்தத்தில் ஈடுபட்டுள்ளனர்.
+1	என்.எல்.சி.	என்.எல்.சி.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom	_
+2	நிறுவன	நிறுவனம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod	_
+3	ஒப்பந்தத்	ஒப்பந்தம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod	_
+4-5	தொழிலாளர்களும்	_	_	_	_	_	_	_	_
+4	தொழிலாளர்கள்	தொழிலாளர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	16	nsubj	16:nsubj|16:orphan	_
+5	உம்	உம்	PART	Tv-------	_	4	advmod:emph	4:advmod:emph	_
+6	,	,	PUNCT	Z:-------	PunctType=Comm	10	punct	16:punct|16:orphan	SpacesAfter=\n
+7	ஸ்ரீபெரும்புதூர்	ஸ்ரீபெரும்புதூர்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	10:nmod:nom	_
+8	ஃபாக்ஸ்கான்	ஃபாக்ஸ்கான்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	10	nmod	10:nmod:nom	_
+9	நிறுவன	நிறுவனம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod	_
+10-11	தொழிலாளர்களும்	_	_	_	_	_	_	_	_
+10	தொழிலாளர்கள்	தொழிலாளர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	4	conj	16:nsubj|16:orphan	_
+11	உம்	உம்	PART	Tv-------	_	10	cc	10:advmod:emph	_
+12	தங்கள்	தன்	PRON	RpG-3PA--	Animacy=Anim|Case=Gen|Gender=Com|Number=Plur|Person=3|PronType=Prs	13	nmod	13:nmod:gen	_
+13-14	கோரிக்கைகளுக்காக	_	_	_	_	_	_	_	_
+13	கோரிக்கைகளுக்க்	கோரிக்கை	NOUN	NND-3PN--	Case=Dat|Gender=Neut|Number=Plur|Person=3	16	obl	16:nmod:என்:nom|16:orphan	_
+14	ஆக	ஆகு	ADP	PP-------	AdpType=Post	13	case	13:case	_
+15	வேலைநிறுத்தத்தில்	வேலைநிறுத்தம்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	16	obl	16:obl:loc|16:orphan	_
+16-18	ஈடுபட்டுள்ளனர்	_	_	_	_	_	_	_	_
+16	ஈடு	ஈடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	0	root	0:root	_
+17	பட்ட்	படு	AUX	VT-T---PA	Polarity=Pos|VerbForm=Part|Voice=Pass	16	aux	16:aux	_
+18	உள்ளனர்	உள்	AUX	VR-T3PAAA	Animacy=Anim|Gender=Com|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	16	aux	16:aux	_
+19	.	.	PUNCT	Z#-------	PunctType=Peri	16	punct	16:punct	_
+
+# sent_id = 27
+# text = தொழிலாளர்களுடன் பேச்சுவார்த்தை நடத்தி, சுமூக தீர்வு காணப்படவில்லை.
+1-2	தொழிலாளர்களுடன்	_	_	_	_	_	_	_	_
+1	தொழிலாளர்கள்	தொழிலாளர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	4	obl	4:obl:மூலம்:nom	_
+2	உடன்	உடன்	ADP	PP-------	AdpType=Post	1	case	1:case|8:orphan	_
+3	பேச்சுவார்த்தை	பேச்சுவார்ம்	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	4	obj	4:obj	_
+4	நடத்தி	நடத்து	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	8	advcl	8:advcl|8:orphan	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	8	punct	8:punct|8:orphan	_
+6	சுமூக	சுமூகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod	SpacesAfter=\n
+7	தீர்வு	தீர்வு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obj	8:nsubj|8:orphan	_
+8-9	காணப்படவில்லை	_	_	_	_	_	_	_	_
+8	காணப்படவ்	காணு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+9	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	8	aux	8:aux	_
+10	.	.	PUNCT	Z#-------	PunctType=Peri	8	punct	8:punct	_
+
+# sent_id = 28
+# text = இப்பிரச்னையில் தி.மு.க. சார்பிலான தொ.மு.ச. தொழிற்சங்கத்துடன் சேர்ந்து, ஆலை நிர்வாகங்கள் தொழிலாளர்ளுக்கு எதிராக செயல்படுகின்றன.
+1	இப்பிரச்னையில்	இப்பிரச்னை	ADV	AA-------	_	7	advmod	7:obl:loc	_
+2	தி.மு.க.	தி.மு.க.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:dat|13:orphan	_
+3-4	சார்பிலான	_	_	_	_	_	_	_	_
+3	சார்பில்	சார்பு	ADP	PP-------	AdpType=Post	2	case	2:case	_
+4	ஆன	ஆன	PART	Tg-------	_	6	nmod	6:nmod	_
+5	தொ.மு.ச.	தொ.மு.ச.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:nom	SpacesAfter=\n
+6	தொழிற்சங்கத்துடன்	தொழிற்சங்கம்	NOUN	NNS-3SN--	Case=Com|Gender=Neut|Number=Sing|Person=3	7	obl	7:obj|13:orphan	_
+7	சேர்ந்து	சேர்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	13	advcl	13:advcl|13:orphan	SpaceAfter=No
+8	,	,	PUNCT	Z:-------	PunctType=Comm	13	punct	13:punct|13:orphan	_
+9	ஆலை	ஆலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom	_
+10	நிர்வாகங்கள்	நிர்வாகங்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	11	nmod	13:nsubj|13:orphan	_
+11	தொழிலாளர்ளுக்கு	தொழிலாளர்ளு	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	13	obl:arg	13:obl:arg:dat|13:orphan	_
+12	எதிராக	எதிராக	ADV	AA-------	_	13	advmod	13:advmod|13:orphan	SpacesAfter=\n
+13	செயல்படுகின்றன	செயல்படு	VERB	Vr-P3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	13:punct	_
+
+# sent_id = 29
+# text = பிரச்னைக்கு தீர்வு காண தி.மு.க. அரசு எந்த நடவடிக்கையும் எடுக்கவில்லை.
+1	பிரச்னைக்கு	பிரச்னை	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	2	nmod	3:obl:arg:dat	_
+2	தீர்வு	தீர்வு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	3:obj	_
+3	காண	காணம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:amod|9:orphan	_
+4	தி.மு.க.	தி.மு.க.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom	_
+5	அரசு	அரசு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nsubj	9:nsubj|9:orphan	_
+6	எந்த	எந்த	DET	DD-------	_	7	det	7:det	_
+7-8	நடவடிக்கையும்	_	_	_	_	_	_	_	_
+7	நடவடிக்கைய்	நடவடிக்கை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obj	9:nsubj|9:orphan	_
+8	உம்	உம்	PART	Tv-------	_	7	advmod:emph	7:advmod:emph	_
+9-10	எடுக்கவில்லை	_	_	_	_	_	_	_	_
+9	எடுக்கவ்	எடு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+10	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	9	aux	9:aux	_
+11	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 30
+# text = பன்னாட்டு தொழில் நிறுவனங்களில் தொழிற்சங்க உரிமைகள் மறுக்கப் படுகின்றன.
+1	பன்னாட்டு	பன்னாடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	2:nmod	_
+2	தொழில்	தொழில்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod:nom|6:orphan	_
+3	நிறுவனங்களில்	நிறுவனம்	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	6	obl	6:obl:loc|6:orphan	_
+4	தொழிற்சங்க	தொழிற்சங்கம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod	_
+5	உரிமைகள்	உரிமை	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	6	nsubj	6:nsubj|6:orphan	_
+6	மறுக்கப்	மறுக்கு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	SpacesAfter=\n
+7	படுகின்றன	படு	AUX	VR-P3PNPA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Pass	6	aux	6:aux	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	6	punct	6:punct	_
+
+# sent_id = 31
+# text = தொழிலாளர்கள் பழிவாங்கப் படுகின்றனர்.
+1	தொழிலாளர்கள்	தொழிலாளர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	2	nsubj	2:nsubj|2:orphan	_
+2	பழிவாங்கப்	பழிவாங்கு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+3	படுகின்றனர்	படு	AUX	VR-P3PHPA	Gender=Com|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Polite=Form|Tense=Pres|VerbForm=Fin|Voice=Pass	2	aux	2:aux	SpaceAfter=No
+4	.	.	PUNCT	Z#-------	PunctType=Peri	2	punct	2:punct	_
+
+# sent_id = 32
+# text = இதற்கு தமிழக அரசும் உடந்தையாக உள்ளது.
+1	இதற்கு	இது	PRON	RpD-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3|PronType=Prs	3	nmod	5:obl:ins|5:orphan	_
+2	தமிழக	தமிழகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod	_
+3-4	அரசும்	_	_	_	_	_	_	_	_
+3	அரச்	அரசு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nsubj	5:nsubj|5:orphan	_
+4	உம்	உம்	PART	Tv-------	_	3	advmod:emph	3:advmod:emph	_
+5	உடந்தையாக	உடந்தை	ADV	AA-------	_	6	advmod	0:root	SpacesAfter=\n
+6	உள்ளது	உள்	VERB	Vr-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	0	root	5:aux	SpaceAfter=No
+7	.	.	PUNCT	Z#-------	PunctType=Peri	6	punct	5:punct	_
+
+# sent_id = 33
+# text = மேலும், டாஸ்மாக் பணியாளர்கள், சத்துணவு ஊழியர்கள் போராடியபோது அவர்களை ஒடுக்க தமிழக அரசு காவல் துறையை ஏவியது.
+1	மேலும்	மேலும்	ADV	AA-------	_	15	advmod	15:advmod|15:orphan	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	15	punct	15:punct|15:orphan	_
+3	டாஸ்மாக்	டாஸ்மாக்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom	_
+4	பணியாளர்கள்	பணியாளர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	15	nsubj	10:obj|15:orphan	SpaceAfter=No
+5	,	,	PUNCT	Z:-------	PunctType=Comm	15	punct	7:punct|15:orphan	_
+6	சத்துணவு	சத்துணவு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod:nom|15:orphan	_
+7	ஊழியர்கள்	ஊழியர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	9	nmod	4:conj|10:obl:போது:gen	_
+8	போராடியபோது	போராடியபோது	PART	Tn-------	_	7	advmod:emph	7:mark	_
+9	அவர்களை	அவர்	PRON	RpA-3PA--	Animacy=Anim|Case=Acc|Gender=Com|Number=Plur|Person=3|PronType=Prs	15	nsubj	10:obj	SpacesAfter=\n
+10	ஒடுக்க	ஒடுக்கா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	15:advcl|15:orphan	_
+11	தமிழக	தமிழகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod	_
+12	அரசு	அரசு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	nsubj	15:nsubj|15:orphan	_
+13	காவல்	காவல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	14:nmod:nom	_
+14	துறையை	துறை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	15	obj	15:obj|15:orphan	_
+15	ஏவியது	ஏவு	VERB	Vr-D3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+16	.	.	PUNCT	Z#-------	PunctType=Peri	15	punct	15:punct	_
+
+# sent_id = 34
+# text = எனவே, தமிழக அரசின் இத்தகைய நடவடிக்கைகளைக் கண்டித்து சென்னையில் அக்டோபர் 21-ம் தேதி இரு கம்யூனிஸ்ட் கட்சிகள் சார்பில் ஆர்ப்பாட்டம் நடைபெறும்.
+1	எனவே	எனவே	ADV	AA-------	_	17	advmod	17:advmod|17:orphan	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	17	punct	17:punct|17:orphan	_
+3	தமிழக	தமிழகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod|17:orphan	_
+4	அரசின்	அரசு	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:gen	_
+5	இத்தகைய	இத்தகைய	ADJ	JJ-------	_	6	amod	6:nmod	_
+6	நடவடிக்கைகளைக்	நடவடிக்கை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	7	obj	7:obj|17:orphan	SpacesAfter=\n
+7	கண்டித்து	கண்டி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	17	advcl	17:advcl|17:orphan	_
+8	சென்னையில்	சென்னை	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	17	obl	17:obl:loc|17:orphan	_
+9	அக்டோபர்	அக்டோபர்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:nom|17:orphan	_
+10	21-ம்	21	ADJ	Uy-------	NumType=Ord	11	amod	11:amod|17:orphan	_
+11	தேதி	தேதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	14:nmod:nom	_
+12	இரு	இரு	NUM	Ux-------	NumType=Card	14	nummod	14:nummod	_
+13	கம்யூனிஸ்ட்	கம்யூனிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	14:nmod:nom	_
+14	கட்சிகள்	கட்சி	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	17	obl	17:obl:சார்பு:nom|17:orphan	_
+15	சார்பில்	சார்பு	ADP	PP-------	AdpType=Post	14	case	14:case	SpacesAfter=\n
+16	ஆர்ப்பாட்டம்	ஆர்ப்பாட்டம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	17:obj|17:orphan	_
+17	நடைபெறும்	நடைபெறு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+18	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	_
+
+# sent_id = 35
+# text = இந்திய கம்யூனிஸ்ட் மாநிலச் செயலாளர் தா. பாண்டியன், மார்க்சிஸ்ட் கட்சி மாநிலச் செயலாளர் ஜி.
+1	இந்திய	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod	_
+2	கம்யூனிஸ்ட்	கம்யூனிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom	_
+3	மாநிலச்	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod	_
+4	செயலாளர்	செயலாளர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	6	nmod	6:nmod:nom|11:orphan	_
+5	தா.	தா.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:nom|11:orphan	_
+6	பாண்டியன்	பாண்டியன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	0	root	0:root	SpaceAfter=No
+7	,	,	PUNCT	Z:-------	PunctType=Comm	12	punct	11:punct|11:orphan	SpacesAfter=\n
+8	மார்க்சிஸ்ட்	மார்க்சிஸ்ட்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:nom|11:orphan	_
+9	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:nom|11:orphan	_
+10	மாநிலச்	மாநில	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod|11:orphan	_
+11	செயலாளர்	செயலாளர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	12	nmod	0:root|6:conj|6:nmod:சேர்:acc	_
+12	ஜி.	ஜி.	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	conj	11:punct|11:orphan	_
+
+# sent_id = 36
+# text = ராமகிருஷ்ணன் ஆகியோர் தலைமையில் இந்த ஆர்ப்பாட்டம் நடைபெறும் என்று அந்த அறிக்கையில் தெரிவிக்கப்பட்டுள்ளது.
+1	ராமகிருஷ்ணன்	ராமகிருஷ்ணன்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	2	nmod	2:nmod:nom	_
+2	ஆகியோர்	ஆகியோர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	6	nsubj	3:obl:nom|10:orphan	_
+3	தலைமையில்	தலைமை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	6	obl	6:obl:loc	_
+4	இந்த	இந்த	DET	DD-------	_	5	det	5:det|10:orphan	SpacesAfter=\n
+5	ஆர்ப்பாட்டம்	ஆர்ப்பாட்டம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	obj	6:obj	_
+6	நடைபெறும்	நடைபெறு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	10	ccomp	10:ccomp|10:orphan	_
+7	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	6	mark	6:mark	_
+8	அந்த	அந்த	DET	DD-------	_	9	det	9:det	_
+9	அறிக்கையில்	அறிக்கை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	10:obl:loc|10:orphan	_
+10-12	தெரிவிக்கப்பட்டுள்ளது	_	_	_	_	_	_	_	_
+10	தெரிவிக்கப்	தெரிவி	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+11	பட்ட்	படு	AUX	VT-T---PA	Polarity=Pos|VerbForm=Part|Voice=Pass	10	aux	10:aux	_
+12	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	10	aux	10:aux	_
+13	.	.	PUNCT	Z#-------	PunctType=Peri	10	punct	10:punct	_
+
+# sent_id = 37
+# text = அமெரிக்க அதிபர் ஒபாமாவின் இந்தியப் பயணம் மிகுந்த எதிர்பார்ப்பை ஏற்படுத்தியுள்ளது.
+1	அமெரிக்க	அமெரிக்கா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	2	nmod	3:nmod	SpacesAfter=\n
+2	அதிபர்	அதிபர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	8	nsubj	3:nmod:nom	_
+3	ஒபாமாவின்	ஒபாமா	PROPN	NEG-3SH--	Case=Gen|Gender=Com|Number=Sing|Person=3|Polite=Form	5	nmod	5:nmod:gen|8:orphan	_
+4	இந்தியப்	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod	_
+5	பயணம்	பயணம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nsubj	8:nsubj|8:orphan	_
+6	மிகுந்த	மிகு	ADJ	JJ-------	_	7	amod	7:amod	_
+7	எதிர்பார்ப்பை	எதிர்பார்ப்பு	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	8	obj	8:obj|8:orphan	_
+8-9	ஏற்படுத்தியுள்ளது	_	_	_	_	_	_	_	_
+8	ஏற்படுத்திய்	ஏற்படுத்து	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+9	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	8	aux	8:aux	_
+10	.	.	PUNCT	Z#-------	PunctType=Peri	8	punct	8:punct	_
+
+# sent_id = 38
+# text = இரு நாடுகள் இடையிலான உறவில் ஒபாமாவின் பயணம் புதிய அத்தியாயமாக இருக்கும் என்று அமெரிக்காவுக்கான இந்திய தூதர் மீரா சங்கர் தெரிவித்தார்.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod	SpacesAfter=\n
+2	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	3	nmod	4:nmod:nom|18:orphan	_
+3-4	இடையிலான	_	_	_	_	_	_	_	_
+3	இடையில்	இடை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	2:case	_
+4	ஆன	ஆன	PART	Tg-------	_	5	nmod	5:amod|18:orphan	_
+5	உறவில்	உறவு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	10:obl:loc	_
+6	ஒபாமாவின்	ஒபாமா	NOUN	NNG-3SH--	Case=Gen|Gender=Com|Number=Sing|Person=3|Polite=Form	7	nmod	7:nmod:gen|18:orphan	_
+7	பயணம்	பயணம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nsubj	10:nsubj	_
+8	புதிய	புதிய	ADJ	JJ-------	_	9	amod	9:amod|18:orphan	_
+9	அத்தியாயமாக	அத்தியாயம்	ADV	AA-------	_	10	advmod	10:advmod	_
+10	இருக்கும்	இரு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	18	ccomp	18:ccomp|18:orphan	_
+11	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	10	mark	10:mark	SpacesAfter=\n
+12-13	அமெரிக்காவுக்கான	_	_	_	_	_	_	_	_
+12	அமெரிக்காவுக்க்	அமெரிக்காவு	PROPN	NED-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	13	nmod	13:nmod:dat|18:orphan	_
+13	ஆன	ஆன	PART	Tg-------	_	15	nmod	15:nmod	_
+14	இந்திய	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	15	nmod	15:nmod	_
+15	தூதர்	தூதர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	17	nmod	17:nmod:nom|18:orphan	_
+16	மீரா	மீரா	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	17	nmod	17:nmod:nom	_
+17	சங்கர்	சங்கர்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	18	nsubj	18:nsubj|18:orphan	_
+18	தெரிவித்தார்	தெரிவி	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+19	.	.	PUNCT	Z#-------	PunctType=Peri	18	punct	18:punct	_
+
+# sent_id = 39
+# text = ஜார்ஜ் வாஷிங்டன் பல்கலைக் கழக மாணவர்களிடம் பேசிய அவர், ஒபாமாவின் இந்தியப் பயணம் இரு நாடுகள் இடையிலான உறவை மேலும் வலுப்படுத்துவதோடு, அனைத்துத் துறைகளிலும் இணைந்து செயல்படுவதற்கான வாய்ப்புகளைப் பிரகாசப்படுத்தியுள்ளது.
+1	ஜார்ஜ்	ஜார்ஜ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	5:nmod:nom	_
+2	வாஷிங்டன்	வாஷிங்டன்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	5:nmod:nom	SpacesAfter=\n
+3	பல்கலைக்	பல்கலை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	6	obj	5:nmod:nom	_
+4	கழக	கழகம்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod	_
+5	மாணவர்களிடம்	மாணவர்	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	6	obl	6:obl:loc|27:orphan	_
+6	பேசிய	பேசு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	7	amod	7:amod|27:orphan	_
+7	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	27	nsubj	27:nsubj|27:orphan	SpaceAfter=No
+8	,	,	PUNCT	Z:-------	PunctType=Comm	27	punct	27:punct|27:orphan	_
+9	ஒபாமாவின்	ஒபாமா	PROPN	NEG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	11	nmod	16:nmod:gen	_
+10	இந்தியப்	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod|27:orphan	_
+11	பயணம்	பயணம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	13:nmod:nom	_
+12	இரு	இரு	NUM	Ux-------	NumType=Card	13	nummod	13:nummod	_
+13	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	14	nmod	15:nmod:dat|27:orphan	SpacesAfter=\n
+14-15	இடையிலான	_	_	_	_	_	_	_	_
+14	இடையில்	இடை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	24	obl	13:case	_
+15	ஆன	ஆன	PART	Tg-------	_	16	nmod	16:nmod	_
+16	உறவை	உறவு	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	24	obj	18:nsubj|27:orphan	_
+17	மேலும்	மேலும்	ADV	AA-------	_	24	advmod	18:advmod	_
+18	வலுப்படுத்துவதோடு	வலுப்படுத்துவதோடு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	21	nmod	27:advcl|27:orphan	SpaceAfter=No
+19	,	,	PUNCT	Z:-------	PunctType=Comm	21	punct	27:punct|27:orphan	_
+20	அனைத்துத்	அனைத்து	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	21	nmod	21:det	_
+21-22	துறைகளிலும்	_	_	_	_	_	_	_	_
+21	துறைகளில்	துறை	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	24	obl	24:obl:arg:குறி:nom|27:orphan	_
+22	உம்	உம்	PART	Tv-------	_	21	advmod:emph	21:advmod:emph	_
+23	இணைந்து	இணை	ADV	AA-------	_	24	advmod	21:case	SpacesAfter=\n
+24-25	செயல்படுவதற்கான	_	_	_	_	_	_	_	_
+24	செயல்படுவதற்க்	செயல்படு	VERB	VzDF3SNAA	Case=Dat|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	25	advcl	25:advcl|27:orphan	_
+25	ஆன	ஆன	PART	Tg-------	_	26	nmod	26:nmod|27:orphan	_
+26	வாய்ப்புகளைப்	வாய்ப்பு	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	27	obj	27:obj|27:orphan	_
+27-28	பிரகாசப்படுத்தியுள்ளது	_	_	_	_	_	_	_	_
+27	பிரகாசப்படுத்திய்	பிரகாசப்படுத்து	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+28	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	27	aux	27:aux	_
+29	.	.	PUNCT	Z#-------	PunctType=Peri	27	punct	27:punct	_
+
+# sent_id = 40
+# text = இரு நாடுகளின் நலன் மட்டுமின்றி சர்வதேச அளவில் பயன்பெறும் வகையில் ஒபாமாவின் இந்தியப் பயணம் அமையும்.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod|12:orphan	_
+2	நாடுகளின்	நாடு	NOUN	NNG-3PN--	Case=Gen|Gender=Neut|Number=Plur|Person=3	3	nmod	3:nmod:gen	_
+3	நலன்	நலன்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	obl	12:obl:மூலம்:gen|12:orphan	SpacesAfter=\n
+4	மட்டுமின்றி	மட்டுமின்றி	ADV	AA-------	_	12	advmod	3:case	_
+5	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	6	amod	6:amod	_
+6	அளவில்	அளவு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	7	obl	7:obl:loc|12:orphan	_
+7	பயன்பெறும்	பயன்பெறு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	8	amod	8:amod|12:orphan	_
+8	வகையில்	வகை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	12:obl:loc|12:orphan	_
+9	ஒபாமாவின்	ஒபாமா	PROPN	NEG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:gen	_
+10	இந்தியப்	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod	_
+11	பயணம்	பயணம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:obj|12:orphan	_
+12	அமையும்	அமை	PRON	RBA-3SA--	Animacy=Anim|Case=Acc|Gender=Com|Number=Sing|Person=3|PronType=Ind	0	root	0:root	SpaceAfter=No
+13	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	12:punct	SpacesAfter=\n
+
+# sent_id = 41
+# text = இரு நாடுகளில் நிலவும் உறுதியான அரசியல் சூழல் இதற்கு உறுதுணையாக உள்ளது.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod	_
+2	நாடுகளில்	நாடு	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	9	obl	3:obl:loc|9:orphan	_
+3	நிலவும்	நிலவும்	DET	QQ-------	NumType=Card	4	det	4:advcl|9:orphan	_
+4	உறுதியான	உறுதி	ADJ	JJ-------	_	5	amod	6:amod	_
+5	அரசியல்	அரசியல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obj	6:nmod:nom	_
+6	சூழல்	சூழல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	9:nsubj|9:orphan	_
+7	இதற்கு	இது	PRON	RpD-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3|PronType=Prs	9	obj	9:obl:arg:dat|9:orphan	_
+8	உறுதுணையாக	உறுதுணை	ADV	AA-------	_	9	advmod	9:advmod|9:orphan	_
+9	உள்ளது	உள்	VERB	Vr-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+10	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 42
+# text = பொதுவாக இரு நாடுகளும் பயனடையும் விஷயங்களில் கவனம் செலுத்துவதோடு, புதிதாக உருவெடுக்கும் சர்வதேச அச்சுறுத்தல் மற்றும் சவால்களை சேர்ந்து சமாளிப்பது குறித்தும் உத்திகள் வகுக்கப்படும்.
+1	பொதுவாக	பொதுவு	ADV	AA-------	_	21	advmod	5:advmod	SpacesAfter=\n
+2	இரு	இரு	NUM	Ux-------	NumType=Card	3	nummod	3:nummod	_
+3-4	நாடுகளும்	_	_	_	_	_	_	_	_
+3	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	6	nmod	5:nsubj|21:orphan	_
+4	உம்	உம்	PART	Tv-------	_	3	advmod:emph	3:advmod:emph	_
+5	பயனடையும்	பயனடையு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	6	amod	6:amod|21:orphan	_
+6	விஷயங்களில்	விஷயங்	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	21	obl	8:obl:loc	_
+7	கவனம்	கவனம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom	_
+8	செலுத்துவதோடு	செலுத்துவதோடு	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	20	nmod	21:advcl|21:orphan	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	16	punct	21:punct|21:orphan	_
+10	புதிதாக	புதிது	ADV	AA-------	_	16	advmod	11:advmod|21:orphan	_
+11	உருவெடுக்கும்	உருவெடு	PRON	RBD-3SA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Sing|Person=3|PronType=Ind	13	nmod	13:nmod:gen|15:amod|21:advcl	SpacesAfter=\n
+12	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	13	amod	13:amod	_
+13	அச்சுறுத்தல்	அச்சுறுத்தல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	16	obj	17:nmod:nom|21:orphan	_
+14	மற்றும்	மற்றும்	CCONJ	CC-------	_	15	cc	15:cc|21:orphan	_
+15	சவால்களை	சவால்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	conj	13:conj|16:obj	_
+16	சேர்ந்து	சேர்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	8	conj	21:advcl|21:orphan	_
+17	சமாளிப்பது	சமாளி	AUX	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	16	aux	21:obl:arg:குறி:nom|21:orphan	_
+18-19	குறித்தும்	_	_	_	_	_	_	_	_
+18	குறித்த்	குறி	ADP	PP-------	AdpType=Post	16	mark	17:mark	_
+19	உம்	உம்	PART	Tv-------	_	16	cc	17:advmod:emph	_
+20	உத்திகள்	உத்தி	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	21	nsubj	21:nsubj|21:orphan	SpacesAfter=\n
+21-22	வகுக்கப்படும்	_	_	_	_	_	_	_	_
+21	வகுக்க	வகு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+22	ப்படும்	படு	AUX	VR-F3SNPA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Pass	21	aux	21:aux	_
+23	.	.	PUNCT	Z#-------	PunctType=Peri	21	punct	21:punct	_
+
+# sent_id = 43
+# text = எதிர்காலத்தில் சேர்ந்து செயல்படும் துறைகளைக் கண்டறிந்து அதற்குரிய உத்திகளை வகுக்கவும் இந்தப் பயணம் உதவிகரமாக அமையும்.
+1	எதிர்காலத்தில்	எதிர்காலத்து	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	2	obl	2:obl:loc	_
+2	சேர்ந்து	சேர்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	3	advcl	3:advcl|13:orphan	_
+3	செயல்படும்	செயல்படு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	4	amod	4:amod|13:orphan	_
+4	துறைகளைக்	துறை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	obj	5:obj|13:orphan	_
+5	கண்டறிந்து	கண்டறி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	8	advcl	13:advcl|13:orphan	_
+6	அதற்குரிய	அதற்குரிய	ADJ	JJ-------	_	7	amod	7:amod|13:orphan	SpacesAfter=\n
+7	உத்திகளை	உத்தி	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	8	obj	8:obj	_
+8-9	வகுக்கவும்	_	_	_	_	_	_	_	_
+8	வகுக்கவ்	வகு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	13	advcl	13:ccomp|13:orphan	_
+9	உம்	உம்	PART	Tv-------	_	8	advmod:emph	8:advmod:emph	_
+10	இந்தப்	இந்த	DET	DD-------	_	11	det	11:det	_
+11	பயணம்	பயணம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	nsubj	13:nsubj|13:orphan	_
+12	உதவிகரமாக	உதவிகரம்	ADV	AA-------	_	13	advmod	13:advmod|13:orphan	_
+13	அமையும்	அமை	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	13:punct	_
+
+# sent_id = 44
+# text = ஆப்கானிஸ்தான் மற்றும் பாகிஸ்தான் குறித்து அமெரிக்காவும் இந்தியாவும் தொடர்ந்து கருத்துகளைப் பரிமாறிக் கொண்டு வருகிறது.
+1	ஆப்கானிஸ்தான்	ஆப்கானிஸ்தான்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	9:obl:படி:gen|9:orphan	_
+2	மற்றும்	மற்றும்	CCONJ	CC-------	_	3	cc	3:cc|9:orphan	SpacesAfter=\n
+3	பாகிஸ்தான்	பாகிஸ்தான்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj	_
+4	குறித்து	குறி	ADP	PP-------	AdpType=Post	1	case	1:case	_
+5	அமெரிக்காவும்	அமெரிக்கா	PRON	RBN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3|PronType=Ind	6	nmod	9:punct|9:orphan	_
+6	இந்தியாவும்	இந்தியா	PRON	RBN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3|PronType=Ind	9	nsubj	9:nsubj|9:orphan	_
+7	தொடர்ந்து	தொடர்	ADV	AA-------	_	9	advmod	9:advmod|9:orphan	_
+8	கருத்துகளைப்	கருத்து	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	9	obj	9:obj|9:orphan	_
+9	பரிமாறிக்	பரிமாறு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	SpacesAfter=\n
+10	கொண்டு	கொள்	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	9	aux	3:aux	_
+11	வருகிறது	வரு	AUX	VR-P3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	9	aux	3:aux	SpaceAfter=No
+12	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	3:punct	_
+
+# sent_id = 45
+# text = இது தவிர, தெற்காசிய பிராந்தியத்தில் ஏற்படும் நிகழ்வுகள் குறித்த பரிமாற்றமும் அவ்வப்போது மேற்கொள்ளப் படுகிறது.
+1	இது	இது	PRON	RpN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3|PronType=Prs	12	obl	12:obl:குறி:nom|12:orphan	_
+2	தவிர	தவிர	ADP	PP-------	AdpType=Post	1	case	1:case	SpaceAfter=No
+3	,	,	PUNCT	Z:-------	PunctType=Comm	12	punct	12:punct|12:orphan	_
+4	தெற்காசிய	தெற்காசியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod	_
+5	பிராந்தியத்தில்	பிராந்தியம்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	6:obl:loc|12:orphan	_
+6	ஏற்படும்	ஏற்படு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	7	amod	7:amod	_
+7	நிகழ்வுகள்	நிகழ்வு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	12	obl	9:nmod:இரு:loc|12:orphan	_
+8	குறித்த	குறி	ADP	PP-------	AdpType=Post	7	case	7:case	SpacesAfter=\n
+9-10	பரிமாற்றமும்	_	_	_	_	_	_	_	_
+9	பரிமாற்றம்	பரிமாற்றம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nsubj	12:nsubj|12:orphan	_
+10	உம்	உம்	PART	Tv-------	_	9	advmod:emph	9:advmod:emph	_
+11	அவ்வப்போது	அவ்வப்போது	ADV	AA-------	_	12	advmod	12:advmod|12:orphan	_
+12	மேற்கொள்ளப்	மேற்கொள்ளு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+13	படுகிறது	படு	AUX	VR-P3SNPA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Pass	12	aux	12:aux	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	12:punct	_
+
+# sent_id = 46
+# text = கிழக்கு ஆசியா குறித்த பேச்சுவார்த்தை நடத்த முடிவு செய்யப்பட்டுள்ளது.
+1	கிழக்கு	கிழக்கு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom	_
+2	ஆசியா	ஆசியா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	5:obl:ஆகு:dat|6:orphan	_
+3	குறித்த	குறி	ADP	PP-------	AdpType=Post	2	case	2:case	SpacesAfter=\n
+4	பேச்சுவார்த்தை	பேச்சுவார்ம்	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	obj	5:obj	_
+5	நடத்த	நடத்து	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	7	advcl	6:advcl|6:orphan	_
+6	முடிவு	முடிவு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nsubj	0:root	_
+7-9	செய்யப்பட்டுள்ளது	_	_	_	_	_	_	_	_
+7	செய்யப்	செய்	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	6:acl	_
+8	பட்ட்	படு	AUX	VT-T---PA	Polarity=Pos|VerbForm=Part|Voice=Pass	7	aux	6:aux	_
+9	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	7	aux	6:aux	_
+10	.	.	PUNCT	Z#-------	PunctType=Peri	7	punct	6:punct	_
+
+# sent_id = 47
+# text = இதன் மூலம் ஆசியான் நாடுகள் இடையே பொருளாதாரம் மற்றும் பாதுகாப்பு கட்டமைப்புகள் குறித்து தகவல் பரிமாறவும், அதை வலுப்படுத்துவது Kஉறித்தும் ஆராயப்படும்.
+1	இதன்	இது	PRON	RpG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3|PronType=Prs	15	obl	12:nmod:nom	_
+2	மூலம்	மூலம்	ADP	PP-------	AdpType=Post	1	case	1:case|18:orphan	_
+3	ஆசியான்	ஆசியான்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom|18:orphan	_
+4	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	15	obl	12:nmod:nom	_
+5	இடையே	இடையே	ADP	PP-------	AdpType=Post	4	case	4:case|18:orphan	SpacesAfter=\n
+6	பொருளாதாரம்	பொருளாதாரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	9:nmod:nom|18:orphan	_
+7	மற்றும்	மற்றும்	CCONJ	CC-------	_	8	cc	8:cc|18:orphan	_
+8	பாதுகாப்பு	பாதுகாப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	conj	6:conj|9:nmod:nom	_
+9	கட்டமைப்புகள்	கட்டமைப்பு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	15	obl	12:obl:மூலம்:nom	_
+10	குறித்து	குறி	ADP	PP-------	AdpType=Post	9	case	9:case|18:orphan	_
+11	தகவல்	தகவல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	15	nmod	12:nmod:nom	_
+12	பரிமாறவும்	பரிமாறவு	ADJ	JJ-------	_	15	amod	18:advcl|18:orphan	SpaceAfter=No
+13	,	,	PUNCT	Z:-------	PunctType=Comm	15	punct	18:punct|18:orphan	_
+14	அதை	அது	PRON	RpA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3|PronType=Prs	15	obj	15:obj	SpacesAfter=\n
+15	வலுப்படுத்துவது	வலுப்படுத்து	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	18	ccomp	18:ccomp|18:orphan	_
+16-17	Kஉறித்தும்	_	_	_	_	_	_	_	_
+16	Kஉறித்த்	Kஉறி	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	15	aux	15:mark	_
+17	உம்	உம்	PART	Tv-------	_	15	mark	15:advmod:emph	_
+18	ஆராயப்படும்	ஆராயப்படு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+19	.	.	PUNCT	Z#-------	PunctType=Peri	18	punct	18:punct	_
+
+# sent_id = 48
+# text = இரு நாடுஉம் இணைந்து ஆப்பிரிக்காவை மேம்படுத்துவது Kஉறித்தும் விரிவாக பேசப்படும்.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod|9:orphan	_
+2	நாடுஉம்	நாடுஉம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	obl	5:obl:மூலம்:nom	_
+3	இணைந்து	இணை	ADP	PP-------	AdpType=Post	2	case	2:case|9:orphan	_
+4	ஆப்பிரிக்காவை	ஆப்பிரிக்கா	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	5	obj	5:obj	SpacesAfter=\n
+5	மேம்படுத்துவது	மேம்படுத்து	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	9	ccomp	9:nsubj|9:orphan	_
+6-7	Kஉறித்தும்	_	_	_	_	_	_	_	_
+6	Kஉறித்த்	Kஉறி	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	5	aux	5:mark	_
+7	உம்	உம்	PART	Tv-------	_	5	mark	5:advmod:emph	_
+8	விரிவாக	விரிவு	ADV	AA-------	_	9	advmod	9:advmod|9:orphan	_
+9	பேசப்படும்	பேசப்படு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+10	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 49
+# text = இரு நாடுகள் மட்டுமே சார்ந்த விஷயங்கள் அல்லாது சர்வதேச சமூகத்தை காக்கும் பணிகளில் இணைந்து செயல்படுவது குறித்து ஆராயப்படும்.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod	_
+2	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	12	nsubj	14:ccomp|14:orphan	_
+3	மட்டுமே	மட்டும்	PART	Tm-------	_	2	advmod:emph	2:advmod:emph	_
+4	சார்ந்த	சார்	ADJ	JJ-------	_	5	amod	2:case	SpacesAfter=\n
+5	விஷயங்கள்	விஷயங்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	12	obj	6:obj	_
+6	அல்லாது	அல்லாது	ADV	AA-------	_	12	advmod	12:advcl|14:orphan	_
+7	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	8	amod	8:amod	_
+8	சமூகத்தை	சமூகம்	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	9	obj	9:obj|14:orphan	_
+9	காக்கும்	கா	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	10	amod	10:amod|14:orphan	_
+10	பணிகளில்	பணி	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	12	obl	11:obl:loc|14:orphan	_
+11	இணைந்து	இணை	ADV	AA-------	_	12	advmod	12:advmod|14:orphan	_
+12	செயல்படுவது	செயல்படு	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	14	ccomp	2:conj|14:obl:இலிருந்து:nom	SpacesAfter=\n
+13	குறித்து	குறி	ADP	PP-------	AdpType=Post	12	mark	12:case	_
+14	ஆராயப்படும்	ஆராயப்படு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+15	.	.	PUNCT	Z#-------	PunctType=Peri	14	punct	14:punct	_
+
+# sent_id = 50
+# text = குறிப்பாக கடல் பாதுகாப்பு, அதிகரித்து வரும் இணையதள மோசடி, குற்றங்களை தடுப்பது Kஉறித்தும் இரு நாடுகளும் விவாதிக்கும்.
+1	குறிப்பாக	குறிப்பு	ADV	AA-------	_	5	advmod	17:advmod|17:orphan	_
+2	கடல்	கடல்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	3	nmod	3:nmod:nom	_
+3	பாதுகாப்பு	பாதுகாப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	obj	17:nsubj|17:orphan	SpaceAfter=No
+4	,	,	PUNCT	Z:-------	PunctType=Comm	5	punct	17:punct|17:orphan	_
+5	அதிகரித்து	அதிகரி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	6	advcl	6:advcl|17:orphan	_
+6	வரும்	வரு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	7	amod	8:amod|17:advcl	_
+7	இணையதள	இணையதளம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	8	obj	8:nmod	_
+8	மோசடி	மோசடி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	11	advcl	17:nsubj|17:orphan	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	11	punct	17:punct|17:orphan	SpacesAfter=\n
+10	குற்றங்களை	குற்றம்	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	11	obj	11:obj	_
+11	தடுப்பது	தடு	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	17	ccomp	15:nmod:இரு:loc|17:orphan	_
+12-13	Kஉறித்தும்	_	_	_	_	_	_	_	_
+12	Kஉறித்த்	Kஉறு	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	11	aux	11:mark	_
+13	உம்	உம்	PART	Tv-------	_	11	mark	11:advmod:emph	_
+14	இரு	இரு	NUM	Ux-------	NumType=Card	15	nummod	15:nummod	_
+15-16	நாடுகளும்	_	_	_	_	_	_	_	_
+15	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	17	nsubj	17:obj|17:orphan	_
+16	உம்	உம்	PART	Tv-------	_	15	advmod:emph	15:advmod:emph	_
+17	விவாதிக்கும்	விவாதி	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+18	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	_
+
+# sent_id = 51
+# text = இந்தியா, அமெரிக்கா இடையிலான உறவின் புதிய பரிமாணமாக ஆக்க பணிகளில் அணு சக்தியை பயன்படுத்துவதற்கான ஒப்பந்தம் கையெழுத்தாகியுள்ளது.
+1	இந்தியா	இந்தியா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	3	punct	3:punct|16:orphan	_
+3	அமெரிக்கா	அமெரிக்கா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|4:nmod:nom	SpacesAfter=\n
+4-5	இடையிலான	_	_	_	_	_	_	_	_
+4	இடையில்	இடை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	5	nmod	5:obl:loc|16:orphan	_
+5	ஆன	ஆன	PART	Tg-------	_	6	nmod	6:nmod|16:orphan	_
+6	உறவின்	உறவு	NOUN	NNG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	16	nsubj	9:obl:dat	_
+7	புதிய	புதிய	ADJ	JJ-------	_	8	amod	8:amod|16:orphan	_
+8	பரிமாணமாக	பரிமாணம்	ADV	AA-------	_	16	advmod	9:advmod	_
+9	ஆக்க	ஆக்கா	ADJ	JJ-------	_	10	amod	10:amod|16:orphan	_
+10	பணிகளில்	பணி	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	13	obl	13:obl:loc	_
+11	அணு	அணு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod:nom|16:orphan	_
+12	சக்தியை	சக்தி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	13	obj	13:obj	_
+13-14	பயன்படுத்துவதற்கான	_	_	_	_	_	_	_	_
+13	பயன்படுத்துவதற்க்	பயன்படுத்து	VERB	VzDF3SNAA	Case=Dat|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	14	advcl	14:advcl|16:orphan	_
+14	ஆன	ஆன	PART	Tg-------	_	15	nmod	15:nmod|16:orphan	_
+15	ஒப்பந்தம்	ஒப்பந்தம்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	16	nsubj	16:nsubj|16:orphan	_
+16-17	கையெழுத்தாகியுள்ளது	_	_	_	_	_	_	_	_
+16	கையெழுத்தாகிய்	கையெழுத்தாகு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+17	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	16	aux	16:aux	_
+18	.	.	PUNCT	Z#-------	PunctType=Peri	16	punct	16:punct	_
+
+# sent_id = 52
+# text = இரு நாடுகள் இடையிலான கூட்டு முயற்சியில் இதுவரை அணுசக்தித் துறையிலான ஒத்துழைப்பு இல்லாமல் இருந்தது.
+1	இரு	இரு	NUM	Ux-------	NumType=Card	2	nummod	2:nummod	_
+2	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	3	nmod	4:nmod:nom|12:orphan	_
+3-4	இடையிலான	_	_	_	_	_	_	_	_
+3	இடையில்	இடை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	2:case	_
+4	ஆன	ஆன	PART	Tg-------	_	5	nmod	6:amod|12:orphan	_
+5	கூட்டு	கூட்டு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	4:aux	_
+6	முயற்சியில்	முயற்சி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	12:obl:loc|12:orphan	_
+7	இதுவரை	இதுவரை	ADV	AA-------	_	12	advmod	12:advmod|12:orphan	SpacesAfter=\n
+8	அணுசக்தித்	அணுசக்திது	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	9:nmod:nom	_
+9-10	துறையிலான	_	_	_	_	_	_	_	_
+9	துறையில்	துறை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	10:obl:loc|12:orphan	_
+10	ஆன	ஆன	PART	Tg-------	_	11	nmod	11:nmod|12:orphan	_
+11	ஒத்துழைப்பு	ஒத்துழைப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	obj	12:obj|12:orphan	_
+12	இல்லாமல்	இல்	VERB	Vt-T----N	Polarity=Neg|VerbForm=Part	0	root	0:root	_
+13	இருந்தது	இரு	AUX	VR-D3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Fin|Voice=Act	12	aux	12:aux	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	12:punct	_
+
+# sent_id = 53
+# text = அணுசக்தி ஒப்பந்தம் கையெழுத்தானதால் அத்துறையிலும் இனி இரு நாடுகளும் கூட்டாக ஈடுபடும் வாய்ப்பு பிரகாசமடைந்துள்ளது.
+1	அணுசக்தி	அணுசக்தி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod:nom	_
+2	ஒப்பந்தம்	ஒப்பந்தம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	3:nsubj|14:orphan	SpacesAfter=\n
+3	கையெழுத்தானதால்	கையெழுத்தானதால்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:amod|14:orphan	_
+4-5	அத்துறையிலும்	_	_	_	_	_	_	_	_
+4	அத்துறையில்	அத்துறை	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	12:obl:loc	_
+5	உம்	உம்	PART	Tv-------	_	4	advmod:emph	4:advmod:emph|14:orphan	_
+6	இனி	இனி	ADV	AA-------	_	10	advmod	8:amod	_
+7	இரு	இரு	NUM	Ux-------	NumType=Card	8	nummod	8:nummod	_
+8-9	நாடுகளும்	_	_	_	_	_	_	_	_
+8	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	10	nsubj	12:nsubj|14:orphan	_
+9	உம்	உம்	PART	Tv-------	_	8	advmod:emph	8:cc	_
+10-11	கூட்டாக	_	_	_	_	_	_	_	_
+10	கூட்ட்	கூட்டு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	14	ccomp	12:obl:வரை:nom	_
+11	ஆக	ஆகு	PART	Tg-------	_	10	mark	10:case|14:orphan	_
+12	ஈடுபடும்	ஈடுபடு	ADJ	JJ-------	_	13	amod	13:amod|14:orphan	_
+13	வாய்ப்பு	வாய்ப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nsubj	14:obj|14:orphan	SpacesAfter=\n
+14-15	பிரகாசமடைந்துள்ளது	_	_	_	_	_	_	_	_
+14	பிரகாசமடைந்த்	பிரகாசமடை	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+15	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	14	aux	14:aux	_
+16	.	.	PUNCT	Z#-------	PunctType=Peri	14	punct	14:punct	_
+
+# sent_id = 54
+# text = அமெரிக்க நிறுவனங்களுடன் இணைந்து அணு மின் நிலையங்களுக்குத் தேவையான அணு உலைகளைத் தயாரிப்பதற்கான வர்த்தக ரீதியிலான பேச்சுவார்த்தை விரைவில் தொடங்கும்.
+1	அமெரிக்க	அமெரிக்கா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	2	nmod	2:nmod	_
+2-3	நிறுவனங்களுடன்	_	_	_	_	_	_	_	_
+2	நிறுவனங்கள்	நிறுவனம்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	18	obl	4:obl:இலிருந்து:loc|18:orphan	_
+3	உடன்	உடன்	ADP	PP-------	AdpType=Post	2	case	2:case	_
+4	இணைந்து	இணை	ADV	AA-------	_	18	advmod	18:advcl|18:orphan	_
+5	அணு	அணு	ADJ	JJ-------	_	6	amod	7:nmod:nom	_
+6	மின்	மின்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod:nom	_
+7	நிலையங்களுக்குத்	நிலையங்கள்	PROPN	NED-3PA--	Animacy=Anim|Case=Dat|Gender=Com|Number=Plur|Person=3	18	nsubj	8:obl:dat|18:orphan	SpacesAfter=\n
+8	தேவையான	தேவை	ADJ	JJ-------	_	9	amod	10:amod	_
+9	அணு	அணு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom	_
+10	உலைகளைத்	உலை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	11	obj	11:obj|18:orphan	_
+11-12	தயாரிப்பதற்கான	_	_	_	_	_	_	_	_
+11	தயாரிப்பதற்க்	தயாரி	VERB	VzDF3SNAA	Case=Dat|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	12	advcl	12:advcl|18:orphan	_
+12	ஆன	ஆன	PART	Tg-------	_	14	nmod	14:nmod	_
+13	வர்த்தக	வர்த்தகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	14	nmod	14:nmod	_
+14-15	ரீதியிலான	_	_	_	_	_	_	_	_
+14	ரீதியில்	ரீதி	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	18	obl	15:obl:loc|18:orphan	_
+15	ஆன	ஆன	PART	Tg-------	_	14	advmod:emph	16:nmod|18:orphan	_
+16	பேச்சுவார்த்தை	பேச்சுவார்ம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	18:obj|18:orphan	_
+17	விரைவில்	விரைவு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	18	obl	18:obl:loc|18:orphan	SpacesAfter=\n
+18	தொடங்கும்	தொடங்கு	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+19	.	.	PUNCT	Z#-------	PunctType=Peri	18	punct	18:punct	_
+
+# sent_id = 55
+# text = இதேபோல இந்திய விண்வெளி ஆய்வில் அமெரிக்காவுடனான கூட்டு புதிய அத்தியாயத்தை ஏற்படுத்த உதவும்.
+1	இதேபோல	இதேபோலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	9:advmod	_
+2	இந்திய	இந்தியா	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	3:nmod	_
+3	விண்வெளி	விண்வெளி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom|10:orphan	_
+4	ஆய்வில்	ஆய்வு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	9	obl	5:obl:loc|10:orphan	_
+5	அமெரிக்காவுடனான	அமெரிக்காவுடனு	ADP	PP-------	AdpType=Post	4	case	9:csubj	_
+6	கூட்டு	கூட்டு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	5:aux|10:orphan	_
+7	புதிய	புதிய	ADJ	JJ-------	_	8	amod	8:amod|10:orphan	SpacesAfter=\n
+8	அத்தியாயத்தை	அத்தியாயம்	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	9	obj	9:obj	_
+9	ஏற்படுத்த	ஏற்படுத்து	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	10:advcl|10:orphan	_
+10-11	உதவும்	_	_	_	_	_	_	_	_
+10	உதவ்	உத்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	9	mark	0:root	_
+11	உம்	உம்	PART	Tv-------	_	9	advmod:emph	10:advmod:emph	_
+12	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	10:punct	_
+
+# sent_id = 56
+# text = நீராதாரம், பருவ நிலை நிலவரம், வானியல் ஆய்வு, விமான சேவை உள்ளிட்டவற்றில் இணைந்து செயல்படுவதற்கான வாய்ப்பு அதிகரித்துள்ளது.
+1	நீராதாரம்	நீராதாரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod:nom	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	5	punct	5:punct|17:orphan	_
+3	பருவ	பருவம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	4:nmod	_
+4	நிலை	நிலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom|17:orphan	_
+5	நிலவரம்	நிலவரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|12:nmod:nom	SpaceAfter=No
+6	,	,	PUNCT	Z:-------	PunctType=Comm	8	punct	8:punct|17:orphan	_
+7	வானியல்	வானியல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom|17:orphan	_
+8	ஆய்வு	ஆய்வு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|12:nmod:nom	SpaceAfter=No
+9	,	,	PUNCT	Z:-------	PunctType=Comm	12	punct	11:punct|17:orphan	SpacesAfter=\n
+10	விமான	விமானம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	12	nmod	11:nmod|17:orphan	_
+11	சேவை	சேவை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	1:conj|12:nmod:nom	_
+12	உள்ளிட்டவற்றில்	உள்ளிட்டவறு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	13	obl	13:obl:loc|17:orphan	_
+13	இணைந்து	இணை	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	14	advcl	14:nmod:dat|17:orphan	_
+14-15	செயல்படுவதற்கான	_	_	_	_	_	_	_	_
+14	செயல்படுவதற்க்	செயல்படு	VERB	VzDF3SNAA	Case=Dat|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	15	advcl	15:advcl|17:orphan	_
+15	ஆன	ஆன	PART	Tg-------	_	16	nmod	16:nmod|17:orphan	_
+16	வாய்ப்பு	வாய்ப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	obj	17:obj|17:orphan	_
+17-18	அதிகரித்துள்ளது	_	_	_	_	_	_	_	_
+17	அதிகரித்த்	அதிகரி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+18	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	17	aux	17:aux	_
+19	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	SpacesAfter=\n
+
+# sent_id = 57
+# text = மேலும் ஐக்கிய நாடுகள் பாதுகாப்புக் கவுன்சிலில் நிரந்தர உறுப்பினர் இடத்தைப் பிடிக்க இந்தியாவுக்கு அமெரிக்கா உதவும்.
+1	மேலும்	மேலும்	ADV	AA-------	_	12	advmod	12:advmod|12:orphan	_
+2	ஐக்கிய	ஐக்கிய	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	5	nmod	5:obl	_
+3	நாடுகள்	நாடு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	5	nmod	5:nmod:nom	_
+4	பாதுகாப்புக்	பாதுகாப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom	_
+5	கவுன்சிலில்	கவுன்சில்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	9	obl	9:obl:loc|12:orphan	_
+6	நிரந்தர	நிரந்தரம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	7	nmod	8:amod	_
+7	உறுப்பினர்	உறுப்பினர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	8	nmod	8:nmod:nom	_
+8	இடத்தைப்	இடம்	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	9	obj	9:obj|12:orphan	SpacesAfter=\n
+9	பிடிக்க	பிடிக்கம்	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	12	advcl	12:advcl|12:orphan	_
+10	இந்தியாவுக்கு	இந்தியா	PROPN	NED-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	12	obl:arg	12:obl:arg:dat|12:orphan	_
+11	அமெரிக்கா	அமெரிக்கா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	obj	12:nsubj|12:orphan	_
+12-13	உதவும்	_	_	_	_	_	_	_	_
+12	உதவ்	உது	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+13	உம்	உம்	PART	Tv-------	_	12	advmod:emph	12:advmod:emph	_
+14	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	12:punct	_
+
+# sent_id = 58
+# text = இதற்காக பாதுகாப்புக் கவுன்சில் விரிவாக்க நடவடிக்கையை அமெரிக்கா ஏற்கும் என நம்புவதாக மீரா சங்கர் கூறினார்.
+1	இதற்காக	இது	ADV	AA-------	_	10	advmod	7:advmod	_
+2	பாதுகாப்புக்	பாதுகாப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod:nom|14:orphan	_
+3	கவுன்சில்	கவுன்சில்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	10	obl	7:obl:loc	_
+4	விரிவாக்க	விரிவாக்கம்	ADJ	JJ-------	_	5	amod	5:amod|14:orphan	SpacesAfter=\n
+5	நடவடிக்கையை	நடவடிக்கையை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	10	obj	7:obj	_
+6	அமெரிக்கா	அமெரிக்கா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nsubj	_
+7-8	ஏற்கும்	_	_	_	_	_	_	_	_
+7	ஏற்க்	ஏு	PRON	RpD-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3|PronType=Prs	10	obj	10:ccomp|14:orphan	_
+8	உம்	உம்	PART	Tv-------	_	7	advmod:emph	7:advmod:emph	_
+9	என	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	7	advmod:emph	7:mark	_
+10-11	நம்புவதாக	_	_	_	_	_	_	_	_
+10	நம்புவத்	நம்பு	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	14	ccomp	14:ccomp|14:orphan	_
+11	ஆக	ஆக	PART	Tg-------	_	10	mark	10:mark	_
+12	மீரா	மீரா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	nmod	13:nmod:nom	_
+13	சங்கர்	சங்கர்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	14	nsubj	14:nsubj|14:orphan	_
+14	கூறினார்	கூறு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+15	.	.	PUNCT	Z#-------	PunctType=Peri	14	punct	14:punct	_
+
+# sent_id = 59
+# text = 2008-ம் ஆண்டு ஏற்பட்ட சர்வதேச பொருளாதார நெருக்கடியைத் தொடர்ந்து சர்வதேச நிதி அமைப்புகளான உலக வங்கி மற்றும் அன்னியச் செலாவணி நிதியம் (ஐஎமெப்) உள்ளிட்டவற்றில் நிதிச் சீர்திருத்தம் செய்ய வேண்டும் என்ற இந்தியாவின் கோரிக்கை ஏற்கப்பட்டுள்ளது.
+1	2008-ம்	2008	ADJ	Uy-------	NumType=Ord	2	amod	2:amod	_
+2	ஆண்டு	ஆண்டு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	obl	3:nmod:dat|29:orphan	SpacesAfter=\n
+3	ஏற்பட்ட	ஏற்படு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	6	amod	6:amod|29:orphan	_
+4	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	5	amod	6:amod|29:orphan	_
+5	பொருளாதார	பொருளாதாரம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod|29:orphan	_
+6	நெருக்கடியைத்	நெருக்கடியு	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	7	obj	24:obl:இரு:loc	_
+7	தொடர்ந்து	தொடர்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	11	advcl	6:case|29:orphan	_
+8	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	10	amod	10:amod	_
+9	நிதி	நிதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod:nom	_
+10-11	அமைப்புகளான	_	_	_	_	_	_	_	_
+10	அமைப்புகள்	அமைப்பு	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	11	nmod	11:nmod:nom|29:orphan	_
+11	ஆன	ஆன	PART	Tg-------	_	13	nmod	13:nmod|29:orphan	_
+12	உலக	உலகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	13	nmod	13:nmod|29:orphan	SpacesAfter=\n
+13	வங்கி	வங்கி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	23	nmod	24:nsubj	_
+14	மற்றும்	மற்றும்	CCONJ	CC-------	_	17	cc	21:cc|29:orphan	_
+15	அன்னியச்	அன்னிய	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	17:nmod:nom	_
+16	செலாவணி	செலாவணி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	nmod	17:nmod:nom	_
+17	நிதியம்	நிதியம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	conj	21:nmod:nom|29:orphan	_
+18	(	(	PUNCT	Z:-------	PunctType=Comm	19	punct	17:punct	SpaceAfter=No
+19	ஐஎமெப்	ஐஎமெு	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	13	conj	17:amod	SpaceAfter=No
+20	)	)	PUNCT	Z:-------	PunctType=Comm	23	punct	17:punct	_
+21	உள்ளிட்டவற்றில்	உள்ளிட்டவறு	NUM	U=L-3SN-A	Case=Loc|Gender=Neut|Number=Sing|NumForm=Digit|Person=3|Polarity=Pos	23	nummod	13:conj|24:obl:மீது:nom	_
+22	நிதிச்	நிதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	23	nmod	23:nmod:nom|29:orphan	SpacesAfter=\n
+23	சீர்திருத்தம்	சீர்திருத்தம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	29	obl	24:obj	_
+24	செய்ய	செய்	AUX	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	23	aux	29:ccomp|29:orphan	_
+25	வேண்டும்	வேண்டு	AUX	VR-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	23	aux	24:aux	_
+26	என்ற	என்	PART	Td-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	23	mark	24:mark	_
+27	இந்தியாவின்	இந்தியா	PROPN	NEG-3SN--	Case=Gen|Gender=Neut|Number=Sing|Person=3	28	nmod	28:nmod:gen	_
+28	கோரிக்கை	கோரிக்கை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	29	nsubj	29:nsubj|29:orphan	_
+29-31	ஏற்கப்பட்டுள்ளது	_	_	_	_	_	_	_	_
+29	ஏற்கப்	ஏற்கு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+30	பட்ட்	படு	AUX	VT-T---PA	Polarity=Pos|VerbForm=Part|Voice=Pass	29	aux	29:aux	_
+31	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	29	aux	29:aux	_
+32	.	.	PUNCT	Z#-------	PunctType=Peri	29	punct	29:punct	_
+
+# sent_id = 60
+# text = இது தொடர்பான ஆலோசனைகளையும் இந்தியா வழங்கி வருகிறது.
+1	இது	இது	PRON	RpN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3|PronType=Prs	3	nsubj	3:nummod	SpacesAfter=\n
+2	தொடர்பான	தொடர்பு	ADJ	JJ-------	_	3	amod	1:case|6:orphan	_
+3-4	ஆலோசனைகளையும்	_	_	_	_	_	_	_	_
+3	ஆலோசனைகளைய்	ஆலோசனை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	6	obj	6:ccomp|6:orphan	_
+4	உம்	உம்	PART	Tv-------	_	3	advmod:emph	3:advmod:emph	_
+5	இந்தியா	இந்தியா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nsubj	6:nsubj|6:orphan	_
+6	வழங்கி	வழங்கு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+7	வருகிறது	வரு	AUX	VR-P3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	6	aux	6:aux	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	6	punct	6:punct	_
+
+# sent_id = 61
+# text = 100 கோடிக்கும் அதிகமான மக்கள் தொகை கொண்ட இந்தியாவில் பொருளாதார வளர்ச்சி ஏற்பட்டுள்ளது.
+1	100	100	NUM	U=-------	NumForm=Digit	2	nummod	2:nummod	_
+2-3	கோடிக்கும்	_	_	_	_	_	_	_	_
+2	கோடிக்க்	கோடி	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	11	obl	11:nsubj|11:orphan	_
+3	உம்	உம்	PART	Tv-------	_	2	advmod:emph	2:advmod:emph	_
+4	அதிகமான	அதிகம்	ADJ	JJ-------	_	5	amod	5:nmod|11:orphan	_
+5	மக்கள்	மக்கள்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	6	nmod	6:nmod:nom	SpacesAfter=\n
+6	தொகை	தொகை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	obl	8:nmod:என்:nom|11:orphan	_
+7	கொண்ட	கொள்	ADP	PP-------	AdpType=Post	6	case	6:case	_
+8	இந்தியாவில்	இந்தியா	PROPN	NEL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	11	obl	11:obl:loc|11:orphan	_
+9	பொருளாதார	பொருளாதாரம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	10	nmod	10:nmod	_
+10	வளர்ச்சி	வளர்ச்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	obj	11:obj|11:orphan	_
+11-12	ஏற்பட்டுள்ளது	_	_	_	_	_	_	_	_
+11	ஏற்பட்ட்	ஏற்படு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	0:root	_
+12	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	11	aux	11:aux	_
+13	.	.	PUNCT	Z#-------	PunctType=Peri	11	punct	11:punct	_
+
+# sent_id = 62
+# text = சர்வதேச அளவில் தமக்குள்ள பொறுப்பை செயல்படுத்துவதில் அமெரிக்காவுடன் இணைந்து பணியாற்ற இந்தியா ஆர்வமாக உள்ளது என்றார் மீரா சங்கர்.
+1	சர்வதேச	சர்வதேசம்	ADJ	JJ-------	_	2	amod	2:amod|13:orphan	_
+2	அளவில்	அளவு	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	5:obl:loc	SpacesAfter=\n
+3	தமக்குள்ள	தமக்குள்ளம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	4:amod|13:orphan	_
+4	பொறுப்பை	பொறுப்பு	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	nmod	5:obj	_
+5	செயல்படுத்துவதில்	செயல்படுத்துவது	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	12	obl	12:ccomp|13:orphan	_
+6-7	அமெரிக்காவுடன்	_	_	_	_	_	_	_	_
+6	அமெரிக்காவ்	அமெரிக்கா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obl	9:nmod:nom|13:orphan	_
+7	உடன்	உடன்	ADP	PP-------	AdpType=Post	6	case	6:case	_
+8	இணைந்து	இணை	ADV	AA-------	_	9	advmod	5:case	_
+9	பணியாற்ற	பணியாறு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	10	amod	10:amod|13:orphan	_
+10	இந்தியா	இந்தியா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nsubj	12:nsubj	SpacesAfter=\n
+11	ஆர்வமாக	ஆர்வம்	ADV	AA-------	_	12	advmod	12:advmod	_
+12	உள்ளது	உள்	VERB	Vr-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	13	advcl	13:advcl|13:orphan	_
+13	என்றார்	என்	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	14	advcl	0:root	_
+14	மீரா	மீரா	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	15	nmod	13:orphan|15:nmod:nom	_
+15	சங்கர்	சங்கர்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	0	root	13:nsubj	SpaceAfter=No
+16	.	.	PUNCT	Z#-------	PunctType=Peri	15	punct	13:punct	_
+
+# sent_id = 63
+# text = பாஜகவுடன் கூட்டணி வைத்துக் கொண்டு மதச்சார்பின்மை குறித்து பிகார் முதல்வர் நிதீஷ் குமார் எப்படி பேச முடியும் என்று கேள்வி எழுப்பி உள்ளார் காங்கிரஸ் பொதுச் செயலாளர் ராகுல் காந்தி.
+1-2	பாஜகவுடன்	_	_	_	_	_	_	_	_
+1	பாஜகவ்	பாஜக	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	4	obl	4:obl:சார்பு:nom|23:orphan	_
+2	உடன்	உடன்	ADP	PP-------	AdpType=Post	1	case	1:case	_
+3	கூட்டணி	கூட்டணி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	obj	4:obj|23:orphan	_
+4	வைத்துக்	வை	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	17	advcl	13:advcl	_
+5	கொண்டு	கொள்	AUX	VT-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	4	aux	4:aux|23:orphan	SpacesAfter=\n
+6	மதச்சார்பின்மை	மதச்சார்பின்மை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	obl	13:obl:com	_
+7	குறித்து	குறி	ADP	PP-------	AdpType=Post	6	case	6:case|23:orphan	_
+8	பிகார்	பிகார்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	11:nmod:nom|23:orphan	_
+9	முதல்வர்	முதல்வர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	11	nmod	11:nmod:nom|23:orphan	_
+10	நிதீஷ்	நிதீஷ்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	11	nmod	11:nmod:nom|23:orphan	_
+11	குமார்	குமார்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	17	nsubj	13:nsubj	_
+12	எப்படி	எப்படி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	obl	13:advmod	_
+13	பேச	பேசம்	ADJ	JJ-------	_	16	amod	17:ccomp|23:orphan	_
+14	முடியும்	முடி	AUX	VR-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	13	aux	13:aux	_
+15	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	13	mark	13:mark	SpacesAfter=\n
+16	கேள்வி	கேள்வி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	17	obj	17:obj	_
+17	எழுப்பி	எழுப்பு	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	23:ccomp|23:orphan	_
+18	உள்ளார்	உள்	AUX	VR-T3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|VerbForm=Fin|Voice=Act	17	aux	17:aux	_
+19	காங்கிரஸ்	காங்கிரஸ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	21	nmod	21:nmod:nom	_
+20	பொதுச்	பொது	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	21	nmod	21:nmod:nom	_
+21	செயலாளர்	செயலாளர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	22	nmod	23:nmod:nom|23:orphan	_
+22	ராகுல்	ராகுல்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	23	nmod	23:nmod:nom|23:orphan	_
+23	காந்தி	காந்தி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	24	nsubj	0:root	SpaceAfter=No
+24	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	23:punct	_
+
+# sent_id = 64
+# text = அவரது மதச்சார்பின்மை நம்பகத்தன்மைக்கு உகந்ததாக இல்லை என்றும் அவர் கூறினார்.
+1	அவரது	அவர்	PRON	RpG-3SH--	Case=Gen|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	4	nsubj	2:nmod:gen|10:orphan	SpacesAfter=\n
+2	மதச்சார்பின்மை	மதச்சார்பின்மை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	nmod	6:obj	_
+3	நம்பகத்தன்மைக்கு	நம்பகத்தன்மை	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	4	obl	6:obl:arg:dat	_
+4-5	உகந்ததாக	_	_	_	_	_	_	_	_
+4	உகந்தத்	உக	VERB	VzND3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Ger|Voice=Act	10	ccomp	5:obl:nom|10:orphan	_
+5	ஆக	ஆக	PART	Tg-------	_	4	mark	6:advmod	_
+6	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	4	aux	10:ccomp|10:orphan	_
+7-8	என்றும்	_	_	_	_	_	_	_	_
+7	என்ற்	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	4	mark	6:mark	_
+8	உம்	உம்	PART	Tv-------	_	4	advmod:emph	6:advmod:emph	_
+9	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	10	nsubj	10:nsubj|10:orphan	_
+10	கூறினார்	கூறு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+11	.	.	PUNCT	Z#-------	PunctType=Peri	10	punct	10:punct	_
+
+# sent_id = 65
+# text = பிகார் சட்டப்பேரவைத் தேர்தலையொட்டி கோதா மற்றும் சிக்தி ஆகிய இடங்களில் வியாழக்கிழமை நடைபெற்ற தேர்தல் பிரசாரத்தில் பேசும் போது அவர் இவ்வாறு கூறினார்.
+1	பிகார்	பிகார்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	2	nmod	3:nmod:nom	SpacesAfter=\n
+2	சட்டப்பேரவைத்	சட்டப்பேரவை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	3	obj	3:nmod:nom	_
+3	தேர்தலையொட்டி	தேர்தலையொட்டி	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	10	advcl	17:advmod|17:orphan	_
+4	கோதா	கோதா	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nmod	7:nmod:nom	_
+5	மற்றும்	மற்றும்	CCONJ	CC-------	_	6	cc	6:cc|17:orphan	_
+6	சிக்தி	சிக்தி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	conj	4:conj|7:nmod:nom	_
+7	ஆகிய	ஆகு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	8	amod	8:amod|17:orphan	_
+8	இடங்களில்	இடம்	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	10	obl	10:obl:loc	_
+9	வியாழக்கிழமை	வியாழக்கிழமை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	10	obl	10:obl:nom	SpacesAfter=\n
+10	நடைபெற்ற	நடைபெறு	ADJ	Jd-D----A	Polarity=Pos|Tense=Past|VerbForm=Part	12	amod	12:amod|17:orphan	_
+11	தேர்தல்	தேர்தல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	12:nmod:nom	_
+12	பிரசாரத்தில்	பிரசாரம்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	13	obl	13:obl:loc|17:orphan	_
+13	பேசும்	பேசு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	17	amod	17:amod|17:orphan	_
+14	போது	போது	PART	Tn-------	_	13	mark	13:mark	_
+15	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	17	nsubj	17:nsubj|17:orphan	_
+16	இவ்வாறு	இவ்வாறு	ADV	AA-------	_	17	advmod	17:advmod|17:orphan	_
+17	கூறினார்	கூறு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+18	.	.	PUNCT	Z#-------	PunctType=Peri	17	punct	17:punct	_
+
+# sent_id = 66
+# text = பாஜகவுடன் கூட்டணி வைத்திருக்கிறீர்கள்.
+1-2	பாஜகவுடன்	_	_	_	_	_	_	_	_
+1	பாஜகவ்	பாஜக	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	4	obl	4:obl:மீது:nom|4:orphan	_
+2	உடன்	உடன்	ADP	PP-------	AdpType=Post	1	case	1:case	_
+3	கூட்டணி	கூட்டணி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:obj|4:orphan	_
+4	வைத்திருக்கிறீர்கள்	வைத்திருக்கிறீர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	0	root	0:root	SpaceAfter=No
+5	.	.	PUNCT	Z#-------	PunctType=Peri	4	punct	4:punct	_
+
+# sent_id = 67
+# text = ஒரு தலைவர் (மோடி) இங்கு வந்து பிரசாரம் செய்து விடக் கூடாது என்று அஞ்சுகிறீர்கள்.
+1	ஒரு	ஒரு	ADJ	JJ-------	_	2	amod	2:amod	_
+2	தலைவர்	தலைவர்	NOUN	NNN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	7	nsubj	13:ccomp|13:orphan	_
+3	(	(	PUNCT	Z:-------	PunctType=Comm	4	punct	4:punct|13:orphan	SpaceAfter=No
+4	மோடி	மோடி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	2	conj	2:conj|13:ccomp	SpaceAfter=No
+5	)	)	PUNCT	Z:-------	PunctType=Comm	7	punct	4:punct	_
+6	இங்கு	இங்கு	ADV	AA-------	_	7	advmod	7:advmod	_
+7	வந்து	வா	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	13	ccomp	13:advmod|13:orphan	_
+8	பிரசாரம்	பிரசாரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	obl	13:ccomp|13:orphan	_
+9	செய்து	செய்	AUX	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	8	aux	8:acl	_
+10	விடக்	விடு	AUX	VU-T---PA	Polarity=Pos|VerbForm=Inf|Voice=Pass	8	aux	8:aux	SpacesAfter=\n
+11	கூடாது	கூடு	AUX	VR-T3SN-N	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Neg|VerbForm=Fin	7	aux	8:aux	_
+12	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	7	mark	8:mark	_
+13	அஞ்சுகிறீர்கள்	அஞ்சுகிறீர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	0	root	0:root	SpaceAfter=No
+14	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	13:punct	_
+
+# sent_id = 68
+# text = பின்னர் எப்படி உங்கள் மதச்சார்பின்மையை நம்புவது என்று அவர் கேள்வி எழுப்பினார்.
+1	பின்னர்	பின்னர்	ADV	AA-------	_	5	advmod	5:advmod	_
+2	எப்படி	எப்படி	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	3	nmod	5:advmod	_
+3	உங்கள்	உங்கள்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	5	nsubj	4:nmod:gen|9:orphan	_
+4	மதச்சார்பின்மையை	மதச்சார்பின்மை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	obj	5:obj	_
+5	நம்புவது	நம்பு	VERB	VzNF3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Ger|Voice=Act	9	ccomp	9:ccomp|9:orphan	SpacesAfter=\n
+6	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	5	mark	5:mark	_
+7	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	9	nsubj	9:nsubj|9:orphan	_
+8	கேள்வி	கேள்வி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	obj	9:obj|9:orphan	_
+9	எழுப்பினார்	எழுப்பு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+10	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 69
+# text = பிகாரில் வகுப்புவாத அரசியலுக்கு முற்றுப்புள்ளி வைக்க காங்கிரஸ் விரும்புகிறது.
+1	பிகாரில்	பிகார்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	7	obl	5:obl:loc	_
+2	வகுப்புவாத	வகுப்புவு	ADJ	Jd-T----N	Polarity=Neg|VerbForm=Part	3	amod	3:nmod|7:orphan	_
+3	அரசியலுக்கு	அரசியல்	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	5	obl	5:obl:arg:dat	_
+4	முற்றுப்புள்ளி	முற்றுப்புள்ளி	ADV	AA-------	_	5	advmod	5:obj	SpacesAfter=\n
+5	வைக்க	வை	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	7	advcl	7:advcl|7:orphan	_
+6	காங்கிரஸ்	காங்கிரஸ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	nsubj	7:nsubj|7:orphan	_
+7	விரும்புகிறது	விரும்பு	VERB	Vr-P3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	7	punct	7:punct	_
+
+# sent_id = 70
+# text = ஆளும் ஐக்கிய ஜனதாதளம் - பாஜக கூட்டணியானாலும் சரி அல்லது ராஷ்ட்ரீய ஜனதாதளம் - லோக் ஜனசக்தி கூட்டணியானாலும் சரி இவை இரண்டுமே மத, ஜாதி அரசியலை முன்னிறுத்தி அரசியல் லாபம் அடைய முயல்கின்றன.
+1	ஆளும்	ஆளும்	ADV	AA-------	_	27	advmod	3:amod	_
+2	ஐக்கிய	ஐக்கிய	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	3	nmod	3:nmod	_
+3	ஜனதாதளம்	ஜனதாதளம்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	27	nsubj	27:nsubj|27:orphan	_
+4	-	-	PUNCT	Z:-------	PunctType=Comm	5	punct	27:punct|27:orphan	_
+5	பாஜக	பாஜக	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	27	obl	6:nmod:nom	_
+6-7	கூட்டணியானாலும்	_	_	_	_	_	_	_	_
+6	கூட்டணியானால்	கூட்டணியானால்	ADP	PP-------	AdpType=Post	5	case	17:nmod:nom|27:orphan	_
+7	உம்	உம்	PART	Tv-------	_	5	advmod:emph	6:advmod:emph	_
+8	சரி	சரி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	12:nmod:nom	SpacesAfter=\n
+9	அல்லது	அல்லது	CCONJ	CC-------	_	11	cc	11:cc	_
+10	ராஷ்ட்ரீய	ராஷ்ட்ரீயம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod	_
+11	ஜனதாதளம்	ஜனதாதளம்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	conj	8:conj|12:nmod:nom|27:orphan	_
+12	-	-	PUNCT	Z:-------	PunctType=Comm	14	punct	15:nsubj|27:orphan	_
+13	லோக்	லோக்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	14	nmod	14:nmod:nom	_
+14	ஜனசக்தி	ஜனசக்தி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	18	nmod	15:nmod:nom|27:orphan	_
+15-16	கூட்டணியானாலும்	_	_	_	_	_	_	_	_
+15	கூட்டணியானால்	கூட்டணியானால்	ADP	PP-------	AdpType=Post	14	case	6:conj|17:nmod:loc	_
+16	உம்	உம்	PART	Tv-------	_	14	advmod:emph	15:cc	_
+17	சரி	சரி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	18	nmod	24:obj	_
+18	இவை	இவை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	27	obj	24:obl:இடம்:nom	_
+19	இரண்டுமே	இரண்டும்	PART	Tm-------	_	18	advmod:emph	18:case|27:orphan	_
+20	மத	மத	DET	DD-------	_	27	obl	18:advmod:emph|27:orphan	SpaceAfter=No
+21	,	,	PUNCT	Z:-------	PunctType=Comm	27	punct	24:punct	SpacesAfter=\n
+22	ஜாதி	ஜாதி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	23	nmod	23:nmod:nom|27:orphan	_
+23	அரசியலை	அரசியல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	27	obl	24:obj	_
+24	முன்னிறுத்தி	முன்னிறுத்தி	ADP	PP-------	AdpType=Post	23	case	27:advcl|27:orphan	_
+25	அரசியல்	அரசியல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	26	nmod	26:nmod:nom	_
+26	லாபம்	லாபம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	27	obj	27:obj|27:orphan	_
+27	அடைய	அடை	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+28	முயல்கின்றன	முயல்	AUX	VR-P3PNPA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Pass	27	aux	27:aux	SpaceAfter=No
+29	.	.	PUNCT	Z#-------	PunctType=Peri	27	punct	27:punct	_
+
+# sent_id = 71
+# text = ஆனால் நாங்கள் (காங்கிரஸ்) மத, ஜாதி அரசியலை கடுமையாக எதிர்க்கிறோம்.
+1	ஆனால்	ஆனால்	ADV	AA-------	_	11	advmod	11:advmod|11:orphan	_
+2	நாங்கள்	நாங்கள்	PRON	RpN-1PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=1|PronType=Prs	11	nmod	11:nsubj|11:orphan	SpacesAfter=\n
+3	(	(	PUNCT	Z:-------	PunctType=Comm	11	punct	4:punct|11:orphan	SpaceAfter=No
+4	காங்கிரஸ்	காங்கிரஸ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	2:conj|6:obl:nom	SpaceAfter=No
+5	)	)	PUNCT	Z:-------	PunctType=Comm	11	punct	4:punct	_
+6	மத	மத	ADJ	JJ-------	_	11	amod	11:obl|11:orphan	SpaceAfter=No
+7	,	,	PUNCT	Z:-------	PunctType=Comm	11	punct	11:punct|11:orphan	_
+8	ஜாதி	ஜாதி	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	9	nmod	9:nmod:nom	_
+9	அரசியலை	அரசியல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nsubj	11:nsubj|11:orphan	_
+10	கடுமையாக	கடுமை	ADV	AA-------	_	11	advmod	11:advmod|11:orphan	_
+11	எதிர்க்கிறோம்	எதிர்க்	VERB	Vr-P1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+12	.	.	PUNCT	Z#-------	PunctType=Peri	11	punct	11:punct	_
+
+# sent_id = 72
+# text = நாங்கள் சமூக நீதியையும் சமதர்மத்தையும் சமமான வளர்ச்சியையும் முன்னிறுத்தி பிரசாரம் செய்கிறோம்.
+1	நாங்கள்	நாங்கள்	PRON	RpN-1PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=1|PronType=Prs	3	nmod	11:obj|11:orphan	_
+2	சமூக	சமூகம்	ADV	AA-------	_	3	advmod	3:nmod	_
+3-4	நீதியையும்	_	_	_	_	_	_	_	_
+3	நீதியைய்	நீதி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	11	obj	9:nsubj|11:orphan	_
+4	உம்	உம்	PART	Tv-------	_	3	advmod:emph	3:advmod:emph	_
+5	சமதர்மத்தையும்	சமதர்மத்தையும்	PROPN	NEA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	7	nmod	7:punct|11:orphan	_
+6	சமமான	சமம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	7	nmod	7:amod|11:orphan	_
+7-8	வளர்ச்சியையும்	_	_	_	_	_	_	_	_
+7	வளர்ச்சியைய்	வளர்ச்சியை	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	11	obj	3:conj|9:obj	_
+8	உம்	உம்	PART	Tv-------	_	7	advmod:emph	7:cc	_
+9	முன்னிறுத்தி	முன்னிறுத்தி	ADV	AA-------	_	11	advmod	11:advcl|11:orphan	_
+10	பிரசாரம்	பிரசாரம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nsubj	11:obj|11:orphan	_
+11	செய்கிறோம்	செய்	VERB	Vr-P1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+12	.	.	PUNCT	Z#-------	PunctType=Peri	11	punct	11:punct	_
+
+# sent_id = 73
+# text = ஏழை, பணக்காரர், ஹிந்து, முஸ்லிம், சீக்கியர், கிறிஸ்தவர் என எல்லோருக்காகவும் பாடுபடும் கட்சி காங்கிரஸ்.
+1	ஏழை	ஏழை	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	12	nmod	18:nmod:nom|18:orphan	SpaceAfter=No
+2	,	,	PUNCT	Z:-------	PunctType=Comm	3	punct	3:punct|18:orphan	SpacesAfter=\n
+3	பணக்காரர்	பணக்காரர்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|18:obj	SpaceAfter=No
+4	,	,	PUNCT	Z:-------	PunctType=Comm	5	punct	5:punct|18:orphan	_
+5	ஹிந்து	ஹிந்து	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|18:obl:ஆக:dat	SpaceAfter=No
+6	,	,	PUNCT	Z:-------	PunctType=Comm	7	punct	7:punct|18:orphan	_
+7	முஸ்லிம்	முஸ்லிம்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|18:nmod:nom	SpaceAfter=No
+8	,	,	PUNCT	Z:-------	PunctType=Comm	9	punct	9:punct|18:orphan	_
+9	சீக்கியர்	சீக்கியர்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	1:conj|18:nmod:nom	SpaceAfter=No
+10	,	,	PUNCT	Z:-------	PunctType=Comm	11	punct	11:punct|18:orphan	_
+11	கிறிஸ்தவர்	கிறிஸ்தவர்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	1	conj	3:conj|18:ccomp	_
+12	என	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	13	nmod	11:mark	_
+13-15	எல்லோருக்காகவும்	_	_	_	_	_	_	_	_
+13	எல்லோருக்க்	எல்லோரு	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	18	obl	14:obl:nom	_
+14	ஆகவ்	ஆகு	PART	Tg-------	_	13	advmod:emph	16:obl:loc|18:orphan	_
+15	உம்	உம்	PART	Tv-------	_	13	advmod:emph	14:advmod:emph	_
+16	பாடுபடும்	பாடுபடு	ADJ	JJ-------	_	17	amod	17:amod|18:orphan	SpacesAfter=\n
+17	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	18	nmod	18:nsubj|18:orphan	_
+18	காங்கிரஸ்	காங்கிரஸ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	0	root	0:root	SpaceAfter=No
+19	.	.	PUNCT	Z#-------	PunctType=Peri	18	punct	18:punct	_
+
+# sent_id = 74
+# text = இவர்களுக்கான கட்சி என்று காங்கிரசுக்கு முத்திரை குத்த முடியாது என்றார் ராகுல்.
+1-2	இவர்களுக்கான	_	_	_	_	_	_	_	_
+1	இவர்களுக்க்	இவர்களு	NOUN	NND-3PN--	Case=Dat|Gender=Neut|Number=Plur|Person=3	2	nmod	2:nmod:dat	_
+2	ஆன	ஆன	PART	Tg-------	_	3	nmod	3:nmod|9:orphan	_
+3	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	obj	7:obj	_
+4	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	3	mark	3:mark|9:orphan	_
+5	காங்கிரசுக்கு	காங்கிரச்	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	7	obl	7:obl:arg:dat	_
+6	முத்திரை	முத்திர்	ADP	PP-------	AdpType=Post	5	case	7:obj	_
+7	குத்த	குத்து	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	9	advcl	9:advcl|9:orphan	_
+8	முடியாது	முடி	AUX	VR-T3SN-N	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Neg|VerbForm=Fin	7	aux	7:aux	SpacesAfter=\n
+9	என்றார்	என்	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	10	advcl	0:root	_
+10	ராகுல்	ராகுல்	PROPN	NEN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form	0	root	9:nsubj	SpaceAfter=No
+11	.	.	PUNCT	Z#-------	PunctType=Peri	10	punct	9:punct	_
+
+# sent_id = 75
+# text = அதனால் தான் பிகாரில் அனைத்துத் தொகுதிகளிலும் தனித்துப் போட்டியிடுகிறோம்.
+1	அதனால்	அதனால்	ADV	AA-------	_	8	advmod	8:advmod|8:orphan	_
+2	தான்	தான்	PART	Tq-------	_	3	nmod	8:nsubj|8:orphan	_
+3	பிகாரில்	பிகார்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	8	obl	8:obl:loc|8:orphan	_
+4	அனைத்துத்	அனை	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	8	advcl	5:amod	_
+5-6	தொகுதிகளிலும்	_	_	_	_	_	_	_	_
+5	தொகுதிகளில்	தொகுதி	NOUN	NNL-3PN--	Case=Loc|Gender=Neut|Number=Plur|Person=3	8	obl	8:obl:loc|8:orphan	_
+6	உம்	உம்	PART	Tv-------	_	5	advmod:emph	5:advmod:emph	_
+7	தனித்துப்	தனித்து	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obj	8:advcl|8:orphan	SpacesAfter=\n
+8	போட்டியிடுகிறோம்	போட்டியிடுகிறோம்	VERB	Vr-P1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+9	.	.	PUNCT	Z#-------	PunctType=Peri	8	punct	8:punct	_
+
+# sent_id = 76
+# text = தனித்துப் போட்டியிடுவது தொடக்கத்தில் சிரமமானது என்று எனக்குத் தெரியும்.
+1	தனித்துப்	தனித்து	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nsubj	2:obj	_
+2	போட்டியிடுவது	போட்டியிடு	ADJ	Uy-------	NumType=Ord	3	amod	3:amod|7:orphan	_
+3	தொடக்கத்தில்	தொடக்கம்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	4	obl	4:obl:loc	_
+4	சிரமமானது	சிரமமாகு	VERB	VzND3SNAA	Case=Nom|Gender=Neut|Number=Sing|Person=3|Polarity=Pos|Tense=Past|VerbForm=Ger|Voice=Act	7	ccomp	7:ccomp|7:orphan	_
+5	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	4	mark	4:mark	_
+6	எனக்குத்	எனக்கு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	7	obj	7:obj|7:orphan	SpacesAfter=\n
+7	தெரியும்	தெரி	VERB	Vr-F3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+8	.	.	PUNCT	Z#-------	PunctType=Peri	7	punct	7:punct	_
+
+# sent_id = 77
+# text = ஆனால் தொடர்ந்து போராடுவோம்.
+1	ஆனால்	ஆனால்	ADV	AA-------	_	3	advmod	3:advmod|3:orphan	_
+2	தொடர்ந்து	தொடர்	ADV	AA-------	_	3	advmod	3:advmod|3:orphan	_
+3	போராடுவோம்	போராடு	VERB	Vr-F1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+4	.	.	PUNCT	Z#-------	PunctType=Peri	3	punct	3:punct	_
+
+# sent_id = 78
+# text = வளர்ச்சிக்காக போராடுவோம்.
+1-2	வளர்ச்சிக்காக	_	_	_	_	_	_	_	_
+1	வளர்ச்சிக்க்	வளர்ச்சி	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	2	obl	0:root	_
+2	ஆக	ஆகு	ADV	AA-------	_	3	advmod	1:case|1:orphan	_
+3	போராடுவோம்	போராடு	VERB	Vr-F1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	0	root	1:advmod:emph|1:orphan	SpaceAfter=No
+4	.	.	PUNCT	Z#-------	PunctType=Peri	3	punct	1:punct|1:orphan	_
+
+# sent_id = 79
+# text = இளைஞர்கள் பங்கு பெறும் அரசை அமைக்க தொடர்ந்து போராடுவோம் என்றார் அவர்.
+1	இளைஞர்கள்	இளைஞர்	NOUN	NNN-3PA--	Animacy=Anim|Case=Nom|Gender=Com|Number=Plur|Person=3	2	nmod	2:nmod:nom	_
+2	பங்கு	பங்கு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	3	obj	3:advcl|8:orphan	SpacesAfter=\n
+3	பெறும்	பெறு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	4	amod	4:amod|8:orphan	_
+4	அரசை	அரசு	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	obj	5:obj|8:orphan	_
+5	அமைக்க	அமை	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	7	advcl	7:advcl	_
+6	தொடர்ந்து	தொடர்	ADV	AA-------	_	7	advmod	7:advmod	_
+7	போராடுவோம்	போராடுவோம்	VERB	Vr-F1P-AA	Mood=Ind|Number=Plur|Person=1|Polarity=Pos|Tense=Fut|VerbForm=Fin|Voice=Act	8	advcl	8:ccomp|8:orphan	_
+8	என்றார்	என்	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	_
+9	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	8	nsubj	0:root	SpaceAfter=No
+10	.	.	PUNCT	Z#-------	PunctType=Peri	8	punct	8:orphan|9:punct	_
+
+# sent_id = 80
+# text = தேசிய ஊரக வேலை வாய்ப்பு உறுதித் திட்டம் போன்ற சிறந்த மத்திய திட்டங்கள் பிகாரில் ஊழல் காரணமாக சிறப்பாக அமல்படுத்தப் படவில்லை என்று அவர் குற்றம்சாட்டினார்.
+1	தேசிய	தேசியம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	6	nmod	4:nmod	_
+2	ஊரக	ஊரகம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	6	nmod	3:det|20:orphan	_
+3	வேலை	வேலை	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	4:nmod:nom	_
+4	வாய்ப்பு	வாய்ப்பு	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:gen|20:orphan	SpacesAfter=\n
+5	உறுதித்	உறுதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	6	nmod	6:nmod:nom|20:orphan	_
+6	திட்டம்	திட்டம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	obl	15:obl:படி:nom	_
+7	போன்ற	போல்	ADP	PP-------	AdpType=Post	6	case	6:case|20:orphan	_
+8	சிறந்த	சிறந்த	ADJ	JJ-------	_	10	amod	10:amod|20:orphan	_
+9	மத்திய	மத்திய	ADJ	JJ-------	_	10	amod	10:amod|20:orphan	_
+10	திட்டங்கள்	திட்டம்	NOUN	NNN-3PN--	Case=Nom|Gender=Neut|Number=Plur|Person=3	15	nsubj	15:nsubj	_
+11	பிகாரில்	பிகார்	NOUN	NNL-3SN--	Case=Loc|Gender=Neut|Number=Sing|Person=3	15	obl	15:obl:loc	_
+12	ஊழல்	ஊழல்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	nmod	15:obl:அருகே:nom	_
+13	காரணமாக	காரணம்	ADV	AA-------	_	15	advmod	12:case|20:orphan	_
+14	சிறப்பாக	சிறப்பு	ADV	AA-------	_	15	advmod	15:advmod	SpacesAfter=\n
+15	அமல்படுத்தப்	அமல்படுத்து	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	16	advcl	20:ccomp|20:orphan	_
+16-17	படவில்லை	_	_	_	_	_	_	_	_
+16	படவ்	படு	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	20	ccomp	15:aux	_
+17	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	16	aux	15:aux	_
+18	என்று	என்	PART	Tt-T----A	Polarity=Pos|VerbForm=Inf	16	mark	15:mark	_
+19	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	20	nsubj	20:nsubj|20:orphan	_
+20	குற்றம்சாட்டினார்	குற்றம்சாட்டு	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	0	root	0:root	SpaceAfter=No
+21	.	.	PUNCT	Z#-------	PunctType=Peri	20	punct	20:punct	_
+
+# sent_id = 81
+# text = பல்வேறு மத்திய திட்டங்களுக்காக 1 லட்சம் கோடி பிகாருக்கு அளிக்கப் படுகிறது.
+1	பல்வேறு	பல்வேறு	ADJ	JJ-------	_	3	amod	3:amod	_
+2	மத்திய	மத்திய	ADJ	JJ-------	_	3	amod	3:amod	SpacesAfter=\n
+3-4	திட்டங்களுக்காக	_	_	_	_	_	_	_	_
+3	திட்டங்களுக்க்	திட்டம்	NOUN	NND-3PN--	Case=Dat|Gender=Neut|Number=Plur|Person=3	9	obl	9:obl:ஆகு:dat|9:orphan	_
+4	ஆக	ஆகு	ADP	PP-------	AdpType=Post	3	case	3:case	_
+5	1	1	NUM	U=-------	NumForm=Digit	6	nummod	6:nummod	_
+6	லட்சம்	லட்சம்	NUM	Ux-------	NumType=Card	7	nummod	7:nummod|9:orphan	_
+7	கோடி	கோடி	NUM	Ux-------	NumType=Card	8	nummod	8:nummod|9:orphan	_
+8	பிகாருக்கு	பிகாரு	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	9	obl	9:obl:arg:dat|9:orphan	_
+9	அளிக்கப்	அளி	VERB	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	0	root	0:root	_
+10	படுகிறது	படு	AUX	VR-P3SNPA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Pass	9	aux	9:aux	SpaceAfter=No
+11	.	.	PUNCT	Z#-------	PunctType=Peri	9	punct	9:punct	_
+
+# sent_id = 82
+# text = ஆனால் துரதிருஷ்டவசமாக இந்த நிதி ஏழைகளை, தேவையுள்ளோரை போய் சென்றடையவில்லை என்றார் அவர்.
+1	ஆனால்	ஆனால்	ADV	AA-------	_	8	advmod	11:advmod|11:orphan	SpacesAfter=\n
+2	துரதிருஷ்டவசமாக	துரதிருஷ்டவசம்	ADV	AA-------	_	8	advmod	11:advmod|11:orphan	_
+3	இந்த	இந்த	DET	DD-------	_	5	det	4:det	_
+4	நிதி	நிதி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	nmod	5:nmod:nom|11:orphan	_
+5	ஏழைகளை	ஏழை	NOUN	NNA-3PN--	Case=Acc|Gender=Neut|Number=Plur|Person=3	8	obj	11:obj|11:orphan	SpaceAfter=No
+6	,	,	PUNCT	Z:-------	PunctType=Comm	7	punct	11:punct|11:orphan	_
+7	தேவையுள்ளோரை	தேவையுள்ளோர்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	5	conj	8:nmod:acc	_
+8	போய்	போ	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	11	advcl	11:advcl|11:orphan	_
+9-10	சென்றடையவில்லை	_	_	_	_	_	_	_	_
+9	சென்றடையவ்	சென்றடை	AUX	Vu-T---AA	Polarity=Pos|VerbForm=Inf|Voice=Act	8	aux	8:aux	_
+10	இல்லை	இல்	AUX	VR-T3PNAA	Gender=Neut|Mood=Ind|Number=Plur|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	8	aux	8:aux	_
+11	என்றார்	என்	VERB	Vr-D3SHAA	Gender=Com|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Polite=Form|Tense=Past|VerbForm=Fin|Voice=Act	12	compound	0:root	_
+12	அவர்	அவர்	PRON	RpN-3SH--	Case=Nom|Gender=Com|Number=Sing|Person=3|Polite=Form|PronType=Prs	0	root	0:root	SpaceAfter=No
+13	.	.	PUNCT	Z#-------	PunctType=Peri	12	punct	11:orphan|12:punct	SpacesAfter=\n
+
+# sent_id = 83
+# text = தேசிய ஜனநாயகக் கூட்டணி ஆட்சியை ஒப்பிடும் போது காங்கிரஸ் கட்சி பிகார் மாநில வளர்ச்சிக்கு அதிகம் செய்துள்ளது.
+1	தேசிய	தேசியம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	4	nmod	3:nmod	_
+2	ஜனநாயகக்	ஜனநாயகு	ADP	PP-------	AdpType=Post	1	case	3:nmod	_
+3	கூட்டணி	கூட்டணி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	4	nmod	4:nmod:nom|12:orphan	_
+4	ஆட்சியை	ஆட்சி	NOUN	NNA-3SN--	Case=Acc|Gender=Neut|Number=Sing|Person=3	5	obj	5:obj	_
+5	ஒப்பிடும்	ஒப்பிடு	ADJ	Jd-F----A	Polarity=Pos|Tense=Fut|VerbForm=Part	11	amod	12:ccomp|12:orphan	_
+6	போது	போது	PART	Tn-------	_	5	mark	5:mark	_
+7	காங்கிரஸ்	காங்கிரஸ்	PROPN	NEN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	8	nmod	8:nmod:nom	_
+8	கட்சி	கட்சி	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	12:nsubj|12:orphan	_
+9	பிகார்	பிகார்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod:nom	_
+10	மாநில	மாநிலம்	PROPN	NO--3SN--	Gender=Neut|Number=Sing|Person=3	11	nmod	11:nmod	SpacesAfter=\n
+11	வளர்ச்சிக்கு	வளர்ச்சிக்கு	NOUN	NND-3SN--	Case=Dat|Gender=Neut|Number=Sing|Person=3	13	obl:arg	12:nmod:acc|12:orphan	_
+12	அதிகம்	அதிகம்	NOUN	NNN-3SN--	Case=Nom|Gender=Neut|Number=Sing|Person=3	13	obj	0:root	_
+13-14	செய்துள்ளது	_	_	_	_	_	_	_	_
+13	செய்த்	செய்	VERB	Vt-T---AA	Polarity=Pos|VerbForm=Part|Voice=Act	0	root	12:aux	_
+14	உள்ளது	உள்	AUX	VR-T3SNAA	Gender=Neut|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|VerbForm=Fin|Voice=Act	13	aux	12:aux	_
+15	.	.	PUNCT	Z#-------	PunctType=Peri	13	punct	12:punct	SpacesAfter=\s\n
+
