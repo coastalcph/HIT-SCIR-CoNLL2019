@@ -28,7 +28,7 @@ IWPT2020 Shared Task official website: <https://universaldependencies.org/iwpt20
 
 ## Citation
 
-More details are available in the following publication:
+More details are available in [the following publication](https://arxiv.org/abs/2005.12094):
 
     @inproceedings{hershcovich2020koepsala,
         author={Hershcovich, Daniel and de Lhoneux, Miryam and Kulmizev, Artur and Pejhan, Elham and Nivre, Joakim},
